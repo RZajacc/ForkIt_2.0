@@ -1,55 +1,73 @@
 import {
-  createRoutesFromElements,
   createBrowserRouter,
-  Route,
   RouterProvider,
-  Outlet,
 } from "react-router-dom";
 
 import RecipesView from "./views/RecipesView"
 import Contact from "./views/Contact";
-import AppNav from "./components/AppNav";
 import Home from "./views/Home";
 import ErrorPage from "./views/ErrorPage";
-import Footer from "./components/Footer";
 import RecipeDetails from "./views/RecipeDetails";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./views/Dashboard";
 import Account from "./views/Account";
 import FavRecipeDetails from "./views/FavRecipeDetails";
+import Root from "./components/Root";
 
 
 function App() {
 
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<Root />} errorElement={<ErrorPage />} >
-        <Route index element={<Home />} />
-        <Route path="recipes" element={<RecipesView />} />
-        <Route path="recipes/:id" element={
-          <ProtectedRoute>
-            <RecipeDetails />
-          </ProtectedRoute>
-        } />
-        <Route path="dashboard" element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
-        <Route path="dashboard/:id" element={
-          <ProtectedRoute>
-            <FavRecipeDetails />
-          </ProtectedRoute>
-        } />
-
-
-        <Route path="contact" element={<Contact />} />
-        <Route path="account" element={<Account />} />
-      </Route>
-    )
-  );
-
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+      errorElement: <ErrorPage />,
+      children:[
+        {
+          index: true,
+          element: <Home/>
+        },
+        {
+          path: "recipes",
+          element: <RecipesView />
+        },
+        {
+          path: "recipes/:id",
+          element: (
+            <ProtectedRoute>
+              <RecipeDetails/>
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: "dashboard",
+          element: (
+            <ProtectedRoute>
+              <Dashboard/>
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: "dashboard/:id",
+          element: (
+            <ProtectedRoute>
+              <FavRecipeDetails/>
+            </ProtectedRoute>
+          )
+        },
+        {
+          path: "contact",
+          element: <Contact />
+        },
+        {
+          path: "account",
+          element: <Account/>
+        }
+      ]
+    }
+  ]);
+ 
   return (
     <>
       <AuthContextProvider>
@@ -59,13 +77,4 @@ function App() {
   )
 }
 
-const Root = () => {
-  return (
-    <>
-      <AppNav />
-      <Outlet />
-      <Footer />
-    </>
-  )
-}
 export default App
