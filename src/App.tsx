@@ -9,13 +9,13 @@ import Home from "./views/Home";
 import ErrorPage from "./views/ErrorPage";
 import RecipeDetails from "./views/RecipeDetails";
 import { AuthContextProvider } from "./context/AuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/global/ProtectedRoute";
 import Dashboard from "./views/Dashboard";
 import Account from "./views/Account";
 import FavRecipeDetails from "./views/FavRecipeDetails";
-import Root from "./components/Root";
+import Root from "./components/global/Root";
 
-import "./style/Global.scss"
+import "./style/global.scss"
 
 function App() {
 

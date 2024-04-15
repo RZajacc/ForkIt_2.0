@@ -1,6 +1,6 @@
 import { Col, Container, Row } from 'react-bootstrap'
 import Spinner from 'react-bootstrap/Spinner';
-import "../style/Global.css";
+import "../../style/Global.css";
 
 
 function LoadingPage() {

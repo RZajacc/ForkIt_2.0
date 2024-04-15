@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { Container, Navbar, Nav, NavLink, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { AuthContext } from '../context/AuthContext';
-import "../style/Global.css";
+import { AuthContext } from '../../context/AuthContext';
+import "../../style/Global.css";
 
 function AppNav() {
   const { user, logout } = useContext(AuthContext);
