@@ -15,6 +15,7 @@ import Account from "./views/Account";
 import FavRecipeDetails from "./views/FavRecipeDetails";
 import Root from "./components/Root";
 
+import "./style/Global.scss"
 
 function App() {
 
