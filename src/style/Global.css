@@ -1,0 +1,120 @@
+#top-container {
+    background-color: #6FC643;
+    height: 100px;
+    margin-bottom: 25px;
+}
+
+/* *----------NAVBAR--------- */
+.nav-link:hover {
+    background-color: #6dff96;
+    border-radius: 20%;
+    font-weight: bold;
+}
+
+.dropdown-item:hover{
+    background-color: #6dff96;
+    font-weight: bold;
+}
+
+.nav-button-image {
+    width: 20px
+}
+
+
+/* *-------FOOTER------------ */
+#footer {
+    /* margin-top: 50px; */
+    background-color: #f2f2f2;
+    position: fixed;
+    bottom: 0;
+    height: 30px;
+}
+
+/* *------RECIPES LIST--------- */
+#recipes-list-container {
+    margin-bottom: 50px;
+}
+
+
+/* *------HOME PAGE--------- */
+.home-container {
+    margin-top: 3%;
+    font-family: "Garamond, serif";
+    font-size: 1.2rem;
+    padding: 5px;
+}
+
+.home-column {
+    margin-top: 30px;
+}
+
+/* *------CONTACT PAGE--------- */
+.contact-container {
+    margin-top: 3%;
+    font-family: "Garamond, serif";
+    font-size: 1.2rem;
+    margin-bottom: 5%;
+}
+
+.contact-link {
+    text-decoration: none;
+    color: black; 
+    border: 2px solid gray;
+    border-radius: 3%;
+    padding: 5px;
+}
+
+.contact-link:hover {
+    font-weight: bold;
+    border: 1px solid gray;
+}
+
+#adress-map{
+    width: 500px;
+    height: 300px;
+}
+
+/* *------RECIPE PAGINATION--------- */
+.recipe-pagination {
+    margin-bottom: 3%;
+}
+
+.pag-button {
+    width: 100px;
+}
+
+.target-page {
+    color: green;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* *--------LOADING PAGE------------ */
+.loadingContainer {
+    margin-top: 6%;
+}
+
+.spinnerStyle {
+    width: 125px;
+    height: 125px;
+}
+
+
+/* *--------PAGINATION--------------- */
+.current-page-text {
+    padding: 7px;
+}
+
+.current-page-number {
+    padding-right: 7px;
+}
+
+/* *-------ERROR PAGE----------------- */
+#nothing-to-see {
+    width: 650px;
+    object-fit: fill;
+}
+
+#take-me-home-link {
+    margin: 20px;
+}

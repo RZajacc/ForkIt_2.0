@@ -1,0 +1,63 @@
+/* *--------RECIPE CARD------------ */
+.cardTitle {
+    font-size: 1.0rem;
+}
+
+.linkStyle {
+    font-size: 1.0rem;
+    text-decoration: none;
+    color: white;
+    background-color: #6FC643;
+    border-radius: 3%;
+    padding: 5px;
+}
+
+.cardStyle {
+    margin-bottom: 15px;
+}
+
+/* *--------FAV-RECIPE CARD------------ */
+.fav-cardTitle {
+    font-size: 0.8rem;
+}
+
+.fav-linkStyle {
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: white;
+    background-color: #6FC643;
+    border-radius: 3%;
+    padding: 5px;
+}
+
+.fav-cardStyle {
+    margin-bottom: 20px;
+}
+
+
+/* * -------FAVOURITE RECIPE ---------------- */
+ .nutritionStyle {
+    border: 1px solid black;
+    padding: 3px;
+    border-radius: 42%;
+ }
+
+.sectionsStyle {
+    margin-top: 20px;
+}
+
+.containerStyle {
+    margin-bottom: 75px;
+}
+
+.star {
+    width: 25px;
+}
+
+.favsButton {
+    margin-left: 15px;
+}
+
+.recipe-image {
+    width: 450px;
+}
