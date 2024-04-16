@@ -36,26 +36,56 @@ function AppNav() {
         </nav>
       </header>
       <div className={mobileNavState}>
-        <Link to={"recipes"}>Recipes</Link>
-        <Link to={"contact"}>Contact</Link>
-        {/* Here will be some logic for user */}
+        <Link to={"recipes"}>
+          <img
+            src="/recipe-keeper-svgrepo-com_white.svg"
+            alt="opened door"
+            className="mobile-nav-image"
+          />
+          Recipes
+        </Link>
+
+        <Link to={"contact"}>
+          <img
+            src="/contact-form-email-svgrepo-com_white.svg"
+            alt="opened door"
+            className="mobile-nav-image"
+          />
+          Contact
+        </Link>
 
         {user ? (
           <>
-            <Link to={"dashboard"}>Dashboard</Link>
+            <Link to={"dashboard"}>
+              <img
+                src="/dashboard-stats-svgrepo-com_white.svg"
+                alt="opened door"
+                className="mobile-nav-image"
+              />
+              Dashboard
+            </Link>
             <Link to={"account"} onClick={logout}>
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/door-open-white.svg?alt=media&token=02cc62e2-e221-46ba-acfe-9ce5e156a510"
+                alt="opened door"
+                className="mobile-nav-image"
+              />
               Logout
             </Link>
           </>
         ) : (
-          <Link to={"account"}>Account</Link>
+          <Link to={"account"}>
+            {" "}
+            <img
+              src="/account-avatar-man-svgrepo-com_white.svg"
+              alt="opened door"
+              className="mobile-nav-image"
+            />
+            Account
+          </Link>
         )}
       </div>
     </>
-
-    //                 <img src='https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/door-open-white.svg?alt=media&token=02cc62e2-e221-46ba-acfe-9ce5e156a510' alt='opened door' className='nav-button-image' />{' '}
-    //                 Logout
-    //               <img src='https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/account-50-black.png?alt=media&token=07ba0644-e81a-4f25-8166-a4d0d6c7a799' className='nav-button-image' /> Account
   );
 }
 
