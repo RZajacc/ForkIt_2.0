@@ -21,7 +21,13 @@ function AppNav() {
     <>
       <header>
         <nav className="nav-section">
-          <Link to={"/"} className="header-brand">
+          <Link
+            to={"/"}
+            className="header-brand"
+            onClick={() => {
+              setMobileNavState("mobile-nav-items--hidden");
+            }}
+          >
             <img
               src="https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/hungry.svg?alt=media&token=a0bc267d-5ae9-42ba-b93e-9fc4d216eb51"
               alt="forkit-logo"
@@ -36,7 +42,7 @@ function AppNav() {
         </nav>
 
         <div className={mobileNavState}>
-          <Link to={"recipes"}>
+          <Link to={"recipes"} onClick={toggleMobileNavState}>
             <img
               src="/recipe-keeper-svgrepo-com_white.svg"
               alt="opened door"
@@ -45,7 +51,7 @@ function AppNav() {
             Recipes
           </Link>
 
-          <Link to={"contact"}>
+          <Link to={"contact"} onClick={toggleMobileNavState}>
             <img
               src="/contact-form-email-svgrepo-com_white.svg"
               alt="opened door"
@@ -56,7 +62,7 @@ function AppNav() {
 
           {user ? (
             <>
-              <Link to={"dashboard"}>
+              <Link to={"dashboard"} onClick={toggleMobileNavState}>
                 <img
                   src="/dashboard-stats-svgrepo-com_white.svg"
                   alt="opened door"
@@ -74,8 +80,7 @@ function AppNav() {
               </Link>
             </>
           ) : (
-            <Link to={"account"}>
-              {" "}
+            <Link to={"account"} onClick={toggleMobileNavState}>
               <img
                 src="/account-avatar-man-svgrepo-com_white.svg"
                 alt="opened door"
