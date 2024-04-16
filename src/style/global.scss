@@ -4,15 +4,18 @@
 
 html {
   height: 100%;
-  background-color: aqua;
 }
 
 body {
   height: 100%;
+}
+
+#root {
+  height: 100%;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-rows: 74px auto 82px;
+  grid-template-rows: 74px auto 74px;
   grid-template-areas:
     "header"
     "main"
@@ -21,5 +24,4 @@ body {
 
 main {
   grid-area: main;
-  // margin-top: 74px;
 }

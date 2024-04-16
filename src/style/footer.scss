@@ -1,0 +1,27 @@
+.footer {
+  grid-area: footer;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  color: white;
+}
+
+.footer__items {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer__item {
+  margin: 0 1.5rem;
+
+  a {
+    text-decoration: none;
+    color: white;
+    border-radius: 50%;
+  }
+}
