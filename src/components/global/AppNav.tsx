@@ -35,12 +35,12 @@ function AppNav() {
           </button>
         </nav>
 
-        <div className={mobileNavState}>
-          <Link to={"recipes"}>Recipes</Link>
-          <Link to={"contact"}>Contact</Link>
-          {/* Here will be some logic for user */}
-          <Link to={"account"}>Account</Link>
-        </div>
+        {/* <div className={mobileNavState}> */}
+        {/* <Link to={"recipes"}>Recipes</Link> */}
+        {/* <Link to={"contact"}>Contact</Link> */}
+        {/* Here will be some logic for user */}
+        {/* <Link to={"account"}>Account</Link> */}
+        {/* </div> */}
         {/* <ul className="mobile-nav__items">
           <li className="mobile-nav_item">
             <Link to={"recipes"}>Recipes</Link>
@@ -54,6 +54,12 @@ function AppNav() {
           </li>
         </ul> */}
       </header>
+      <div className={mobileNavState}>
+        <Link to={"recipes"}>Recipes</Link>
+        <Link to={"contact"}>Contact</Link>
+        {/* Here will be some logic for user */}
+        <Link to={"account"}>Account</Link>
+      </div>
     </>
 
     // <Navbar expand='sm' className='p-3'>
