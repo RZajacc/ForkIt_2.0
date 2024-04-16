@@ -5,7 +5,6 @@ header {
   left: 0;
   width: 100%;
   z-index: 2;
-  // background-color: #69d969;
   background-color: #9dd89d;
 }
 
@@ -46,14 +45,10 @@ header {
 
 .mobile-nav-items--hidden {
   opacity: 0;
-  margin-top: 48px;
-  background-color: #2c2c2c;
-  transition:
-    opacity 1s ease-out,
-    margin-top 1s ease-out;
+  transition: opacity 3s ease-out;
 
   a {
-    display: hidden;
+    display: none;
     text-decoration: none;
     color: #2c2c2c;
 
@@ -65,12 +60,11 @@ header {
 
 .mobile-nav-items--active {
   opacity: 1;
-  margin-top: 72px;
-  transition:
-    opacity 1s ease-out,
-    margin-top 1s ease-out;
+  display: block;
+  transition: opacity 1500ms ease-in;
   list-style: none;
   background-color: #2c2c2c;
+
   a {
     display: flex;
     text-decoration: none;
