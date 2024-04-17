@@ -4,11 +4,12 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 50;
   background-color: #9dd89d;
 }
 
 .nav-section {
+  z-index: 50;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -61,7 +62,7 @@ header {
 .mobile-nav-items--active {
   opacity: 1;
   display: block;
-  transition: opacity 1500ms ease-in;
+  transition: opacity 1s ease-in;
   list-style: none;
   background-color: #2c2c2c;
 
@@ -80,4 +81,22 @@ header {
 .mobile-nav-image {
   width: 1.3rem;
   margin-right: 0.35rem;
+}
+
+.backdrop {
+  display: none;
+  position: fixed;
+  z-index: 25;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(182, 182, 182);
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+.open {
+  display: block;
+  opacity: 0.4;
 }

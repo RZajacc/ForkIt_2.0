@@ -9,12 +9,15 @@ function AppNav() {
   const [mobileNavState, setMobileNavState] = useState(
     "mobile-nav-items--hidden"
   );
+  const [backdropState, setbackdropState] = useState("backdrop");
 
   const toggleMobileNavState = () => {
     if (mobileNavState === "mobile-nav-items--hidden") {
       setMobileNavState("mobile-nav-items--active");
+      setbackdropState("backdrop open");
     } else {
       setMobileNavState("mobile-nav-items--hidden");
+      setbackdropState("backdrop");
     }
   };
   return (
@@ -91,6 +94,7 @@ function AppNav() {
           )}
         </div>
       </header>
+      <div className={backdropState} onClick={toggleMobileNavState}></div>
     </>
   );
 }
