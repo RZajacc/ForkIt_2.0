@@ -42,8 +42,13 @@ function AppNav() {
             <span></span>
             <span></span>
           </button>
-        </nav>
 
+          {/* DESKTOP NAV */}
+          <ul className="desktop-nav">
+            <li></li>
+          </ul>
+        </nav>
+        {/* MOBILE NAV DIV SECTION */}
         <div className={mobileNavState}>
           <Link to={"recipes"} onClick={toggleMobileNavState}>
             <img
@@ -94,6 +99,7 @@ function AppNav() {
           )}
         </div>
       </header>
+      {/* BACKROP WHEN MOBILE OPTIONS ARE OPENED */}
       <div className={backdropState} onClick={toggleMobileNavState}></div>
     </>
   );
