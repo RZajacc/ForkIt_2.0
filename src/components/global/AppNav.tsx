@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import "../../style/navbar.scss";
+import "../../style/appnav.scss";
 import MobileNav from "./MobileNav";
 import DesktopNav from "./DesktopNav";
 
