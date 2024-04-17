@@ -15,7 +15,6 @@ body {
   margin: 0;
   padding: 0;
   display: grid;
-  // grid-template-rows: 74px auto 74px;
   grid-template-rows: 72px auto 72px;
   grid-template-areas:
     "header"
@@ -25,5 +24,4 @@ body {
 
 main {
   grid-area: main;
-  // margin-top: 72px;
 }

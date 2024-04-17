@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import "../../style/appnav.scss";
-import MobileNav from "./MobileNav";
-import DesktopNav from "./DesktopNav";
+import "./appnav.scss";
+import MobileNav from "./subcomponents/MobileNav";
+import DesktopNav from "./subcomponents/DesktopNav";
 
 function AppNav() {
   const [mobileNavState, setMobileNavState] = useState(
