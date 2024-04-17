@@ -100,3 +100,33 @@ header {
   display: block;
   opacity: 0.4;
 }
+
+// DESKTOP NAV
+.desktop-nav {
+  display: none;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+
+  li {
+    margin: 0 0.5rem;
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+}
+
+.active {
+  font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  .mobile-nav-button {
+    display: none;
+  }
+
+  .desktop-nav {
+    display: flex;
+  }
+}
