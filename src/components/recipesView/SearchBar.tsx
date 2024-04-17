@@ -3,6 +3,8 @@ import availableCuisines from "./searchOptions/availableCouisines.json";
 import availableDishTypes from "./searchOptions/availableDishTypes.json";
 import availableDietTypes from "./searchOptions/availableDietTypes.json";
 
+import "./searchbar.scss";
+
 interface Props {
   setSearchObj: (searchObj: searchObject) => void;
 }
@@ -28,7 +30,7 @@ function SearchBar({ setSearchObj }: Props) {
 
   return (
     <section>
-      <form id="recipe-search" onSubmit={handleSubmit}>
+      <form id="recipe-search-form" onSubmit={handleSubmit}>
         <label htmlFor="recipe-name">Find your recipe by name:</label>
         <input type="text" name="recipe-name" />
         <label htmlFor="meal-type">Select a meal type:</label>
