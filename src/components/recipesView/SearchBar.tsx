@@ -31,7 +31,7 @@ function SearchBar({ setSearchObj }: Props) {
   return (
     <section>
       <form id="recipe-search-form" onSubmit={handleSubmit}>
-        <label htmlFor="recipe-name">Find your recipe by name:</label>
+        <label htmlFor="recipe-name">Recipe by name:</label>
         <input type="text" name="recipe-name" />
         <label htmlFor="meal-type">Select a meal type:</label>
         <select name="meal-type">
