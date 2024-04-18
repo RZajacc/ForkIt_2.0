@@ -39,8 +39,9 @@
 @media (min-width: 480px) {
   #recipe-search-form {
     grid-template-columns: 1fr 1.5fr;
-    margin-top: 1rem;
-
+    margin: 2rem auto;
+    width: 95%;
+    box-shadow: 3px 3px 3px map-get($colors, light-grey);
     button {
       width: 40%;
       grid-column-start: 1;
