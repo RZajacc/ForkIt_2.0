@@ -1,0 +1,19 @@
+.recipes-card-grid {
+  display: grid;
+  padding: 0.3rem;
+  row-gap: 1rem;
+}
+
+@media (min-width: 480px) {
+  .recipes-card-grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .recipes-card-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 1rem;
+  }
+}

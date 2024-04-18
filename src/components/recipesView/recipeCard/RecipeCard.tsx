@@ -13,8 +13,7 @@ function RecipeCard({ recipe, id }: Props) {
       <section className="recipe-card__image-section">
         <img src={recipe.image} alt="recipe-image" />
         <p className="recipe-card__cooking-time">
-          Time:
-          <span>{recipe.readyInMinutes}</span> min.
+          Time: <span>{recipe.readyInMinutes}</span> min.
         </p>
         <p className="recipe-card__nutritional-score">
           Score:

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
 import RecipeCard from "../recipeCard/RecipeCard";
 import { RecipeGeneral, searchObject } from "../../../types/types";
+
+import "./recipeslist.scss";
 
 interface Props {
   searchObj: searchObject;
@@ -89,19 +90,17 @@ function RecipesList({ searchObj, offset, setOffset }: Props) {
 
   return (
     <>
-      <Container id="recipes-list-container">
-        <div className="text-center">
-          <p>
-            Total amount or recipes found: <strong>{totalResults}</strong>
-          </p>
-        </div>
-        <Row xs={1} md={3}>
-          {recipesData &&
-            recipesData.map((recipe) => {
-              return <RecipeCard recipe={recipe} id={recipe.id} />;
-            })}
-        </Row>
-      </Container>
+      <div className="text-center">
+        <p>
+          Total amount or recipes found: <strong>{totalResults}</strong>
+        </p>
+      </div>
+      <div className="recipes-card-grid">
+        {recipesData &&
+          recipesData.map((recipe) => {
+            return <RecipeCard recipe={recipe} id={recipe.id} />;
+          })}
+      </div>
     </>
   );
 }
