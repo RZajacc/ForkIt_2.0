@@ -1,9 +1,35 @@
+@import "../../style/partials/variables";
+
 #recipe-search-form {
   display: grid;
-  row-gap: 0.7rem;
+  row-gap: 0.5rem;
   padding: 1rem;
 
-  select {
+  select,
+  input {
     height: 30px;
+    border-radius: 3px;
+    padding: 0.2rem;
+    border: 1px solid map-get($colors, lighter-black);
+    &:focus-visible {
+      outline-color: map-get($colors, light-green);
+    }
+  }
+
+  button {
+    margin: 0.7rem auto;
+    border: none;
+    background-color: map-get($colors, lighter-black);
+    color: white;
+    width: 50%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid map-get($colors, lighter-black);
+      background-color: map-get($colors, light-grey);
+      color: map-get($colors, lighter-black);
+    }
   }
 }
