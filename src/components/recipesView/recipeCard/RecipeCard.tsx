@@ -1,7 +1,7 @@
 import { Card, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 // import "../style/Recipes.css";
-import { RecipeGeneral } from "../../types/types";
+import { RecipeGeneral } from "../../../types/types";
 
 type Props = {
   recipe: RecipeGeneral;

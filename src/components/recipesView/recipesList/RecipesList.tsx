@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
-import RecipeCard from "../RecipeCard";
+import RecipeCard from "../recipeCard/RecipeCard";
 import { RecipeGeneral, searchObject } from "../../../types/types";
 
 interface Props {

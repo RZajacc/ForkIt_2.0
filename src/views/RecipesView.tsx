@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SearchBar from "../components/recipesView/searchBar/SearchBar";
 import RecipesList from "../components/recipesView/recipesList/RecipesList";
-import Pagination from "../components/recipesView/Pagination";
+import Pagination from "../components/recipesView/recipePagination/Pagination";
 import { searchObject } from "../types/types";
 
 function RecipesView() {
