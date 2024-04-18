@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
-import RecipeCard from "./RecipeCard";
-import { RecipeGeneral, searchObject } from "../../types/types";
+import RecipeCard from "../RecipeCard";
+import { RecipeGeneral, searchObject } from "../../../types/types";
 
 interface Props {
   searchObj: searchObject;
