@@ -1,4 +1,4 @@
-import { searchObject } from "../../types/types";
+import { searchObject } from "../../../types/types";
 import availableCuisines from "./searchOptions/availableCouisines.json";
 import availableDishTypes from "./searchOptions/availableDishTypes.json";
 import availableDietTypes from "./searchOptions/availableDietTypes.json";
