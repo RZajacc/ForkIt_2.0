@@ -95,12 +95,10 @@ function RecipesList({ searchObj, offset, setOffset }: Props) {
             Total amount or recipes found: <strong>{totalResults}</strong>
           </p>
         </div>
-        <Row xs={2} md={3} className="g-4">
+        <Row xs={1} md={3}>
           {recipesData &&
             recipesData.map((recipe) => {
-              return (
-                <RecipeCard recipe={recipe} id={recipe.id} key={recipe.id} />
-              );
+              return <RecipeCard recipe={recipe} id={recipe.id} />;
             })}
         </Row>
       </Container>

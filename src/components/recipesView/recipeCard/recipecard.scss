@@ -1,0 +1,52 @@
+@import "../../../style/partials/variables";
+
+.recipe-card__image-section {
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+}
+
+.recipe-card__cooking-time {
+  display: inline;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-weight: bold;
+  font-size: 1.15rem;
+  font-style: italic;
+  span {
+    color: rgb(141, 44, 251);
+  }
+}
+
+.recipe-card__nutritional-score {
+  display: inline;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-weight: bold;
+  font-size: 1.15rem;
+  font-style: italic;
+  span {
+    color: rgb(251, 44, 120);
+  }
+}
+
+.recipe-card__recipe-title {
+  font-size: 1.1rem;
+  text-align: center;
+}
+.recipe-card__read-more-link {
+  text-align: center;
+  margin: 1rem 0;
+
+  a {
+    text-decoration: none;
+    color: white;
+    background-color: map-get($colors, lighter-black);
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+}
