@@ -3,6 +3,7 @@ import RecipeCard from "../recipeCard/RecipeCard";
 import { RecipeGeneral, searchObject } from "../../../types/types";
 
 import "./recipeslist.scss";
+import { generateFetchUrl } from "../../../utils/Utils";
 
 interface Props {
   searchObj: searchObject;
@@ -50,43 +51,26 @@ function RecipesList({ searchObj, offset, setOffset }: Props) {
   ]);
   const [totalResults, setTotalResults] = useState<number>(0);
 
-  const fetchRecipesList = async () => {
-    // * Prepare custom queries if they are selected
-    const query =
-      searchObj.searchVal != "" ? `&query=${searchObj.searchVal}` : "";
-    const dishType =
-      searchObj.dishType != "" ? `&type=${searchObj.dishType}` : "";
-    const cuisineType =
-      searchObj.cuisine != "" ? `&cuisine=${searchObj.cuisine}` : "";
-    const dietType =
-      searchObj.dietType != "" ? `&diet=${searchObj.dietType}` : "";
-
-    // * Prepare link
-    const apiKey = import.meta.env.VITE_SPOONACULARKEY;
-    const number = 6;
-    const baseUrl = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=${number}&offset=${offset}&addRecipeInformation=true&fillIngredients=true`;
-
-    const url = `${baseUrl}${query}${dishType}${cuisineType}${dietType}`;
-
-    try {
-      // * ----- FETCH ----------------
-      const response = await fetch(url);
-      const data = await response.json();
-      // * ----- ASSIGN VALUES ----------
-      const recipeData = data.results as RecipeGeneral[];
-      const totalResVal = data.totalResults as number;
-      // * ----- SET USESTATES ------------
-      setTotalResults(totalResVal);
-      setOffset(data.offset as number);
-      setRecipesData(recipeData);
-    } catch (error) {
-      console.log("Error --->", error);
-    }
-  };
-
   useEffect(() => {
-    fetchRecipesList();
-  }, [searchObj, offset]);
+    const apiKey = import.meta.env.VITE_SPOONACULARKEY;
+    const recipesAmount = 6;
+    const url = generateFetchUrl(searchObj, apiKey, recipesAmount, offset);
+
+    let ignore = false;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        if (!ignore) {
+          setRecipesData(data.results as RecipeGeneral[]);
+          setTotalResults(data.totalResults as number);
+          setOffset(data.offset as number);
+        }
+        return () => {
+          ignore = true;
+        };
+      });
+  }, [searchObj, offset, setOffset]);
 
   return (
     <>
