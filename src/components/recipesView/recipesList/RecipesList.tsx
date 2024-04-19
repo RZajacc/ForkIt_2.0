@@ -52,6 +52,7 @@ function RecipesList({ searchObj, offset, setOffset }: Props) {
   const [totalResults, setTotalResults] = useState<number>(0);
 
   useEffect(() => {
+    // Prepare data to fetch
     const apiKey = import.meta.env.VITE_SPOONACULARKEY;
     const recipesAmount = 6;
     const url = generateFetchUrl(searchObj, apiKey, recipesAmount, offset);
@@ -82,7 +83,9 @@ function RecipesList({ searchObj, offset, setOffset }: Props) {
       <div className="recipes-card-grid">
         {recipesData &&
           recipesData.map((recipe) => {
-            return <RecipeCard recipe={recipe} id={recipe.id} />;
+            return (
+              <RecipeCard recipe={recipe} id={recipe.id} key={recipe.id} />
+            );
           })}
       </div>
     </>
