@@ -12,45 +12,11 @@ interface Props {
 }
 
 function RecipesList({ searchObj, offset, setOffset }: Props) {
-  // * ------------ DEFINE USESTATES -------------------------------
-  const [recipesData, setRecipesData] = useState<RecipeGeneral[]>([
-    {
-      id: 0,
-      title: "",
-      image: "",
-      sustainable: false,
-      healthScore: 0,
-      readyInMinutes: 0,
-      servings: 0,
-      extendedIngredients: [
-        {
-          original: "",
-          measures: {
-            metric: {
-              amount: 0,
-              unitShort: "",
-            },
-          },
-        },
-      ],
-      analyzedInstructions: [
-        {
-          steps: [
-            {
-              number: 0,
-              step: "",
-              length: {
-                number: 0,
-                unit: "",
-              },
-            },
-          ],
-        },
-      ],
-    },
-  ]);
+  // Prepare data in states
+  const [recipesData, setRecipesData] = useState<RecipeGeneral[]>([]);
   const [totalResults, setTotalResults] = useState<number>(0);
 
+  // Fetch date on page load and when other elements change
   useEffect(() => {
     // Prepare data to fetch
     const apiKey = import.meta.env.VITE_SPOONACULARKEY;
