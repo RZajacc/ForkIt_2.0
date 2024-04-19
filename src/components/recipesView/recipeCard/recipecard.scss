@@ -1,21 +1,23 @@
 @import "../../../style/partials/variables";
 
-.recipe-card__image-section {
-  position: relative;
+.recipe-card {
+  background-color: map-get($colors, lighter-grey);
+  padding: 0.2rem;
+  border-radius: 5px;
+}
 
-  img {
-    width: 100%;
-    border-radius: 5px;
-  }
+.recipe-card__header-section {
+  position: relative;
+  height: 2.5rem;
 }
 
 .recipe-card__cooking-time {
   display: inline;
   position: absolute;
   top: 5px;
-  left: 5px;
+  left: 3%;
   font-weight: bold;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-style: italic;
   span {
     color: rgb(141, 44, 251);
@@ -26,12 +28,21 @@
   display: inline;
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 3%;
   font-weight: bold;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-style: italic;
   span {
     color: rgb(251, 44, 120);
+  }
+}
+
+.recipe-card__image-section {
+  // position: relative;
+  text-align: center;
+  img {
+    width: 95%;
+    border-radius: 5px;
   }
 }
 
