@@ -13,6 +13,11 @@
     color: white;
     padding: 0.2rem 0.7rem;
     border-radius: 5px;
+
+    &:hover {
+      border: 3px solid map-get($colors, lighter-black);
+      font-weight: bold;
+    }
   }
 }
 
