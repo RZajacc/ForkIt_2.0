@@ -15,13 +15,16 @@ export interface RecipeGeneral {
   healthScore: number;
   readyInMinutes: number;
   servings: number;
+  summary: string;
   extendedIngredients: [
     {
+      nameClean: string;
       original: string;
       measures: {
         metric: {
           amount: number;
           unitShort: string;
+          unitLong: string;
         };
       };
     },

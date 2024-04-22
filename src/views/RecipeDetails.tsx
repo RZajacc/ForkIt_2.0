@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom";
-import { Button, Container } from "react-bootstrap";
 import { RecipeGeneral, userFavs } from "../types/types";
 import Comments from "../components/Comments";
 import {
@@ -14,6 +13,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { db } from "../config/firebaseConfig";
+import "../style/recipeDetails.scss";
 
 interface LocationState {
   recipe: RecipeGeneral;
@@ -26,8 +26,7 @@ function RecipeDetails() {
   const [favs, setFavs] = useState<userFavs[] | null>(null);
   const [favID, setFavID] = useState<string | null>(null);
 
-  console.log(recipe.analyzedInstructions);
-  // *Adding recipe to favourites
+  // Adding recipe to favourites
   const handleAddFavourite = async () => {
     const fav = {
       userID: user?.uid,
@@ -63,53 +62,52 @@ function RecipeDetails() {
 
   return (
     <>
-      <Container className="containerStyle">
-        <h2 className="text-center">
-          {recipe.title}
+      <main>
+        <section className="recipe-header-section">
+          <h3>{recipe.title}</h3>
+          {/* FAVS BUTTON DEPENDING ON STATE */}
           {favs?.length != 0 ? (
-            <Button
-              className="favsButton"
-              variant="info"
-              onClick={handleAddFavourite}
-            >
+            <button onClick={handleAddFavourite}>
               <img
                 src="https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/Full_Star.png?alt=media&token=cd7054c0-b436-4a17-a80d-95b0a8b0b951"
                 alt="empty star"
-                className="star"
+                className="add-remove-fav-star"
               />
               Remove from favourites
-            </Button>
+            </button>
           ) : (
-            <Button
-              className="favsButton"
-              variant="info"
-              onClick={handleAddFavourite}
-            >
+            <button onClick={handleAddFavourite}>
               <img
                 src="https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/Empty_Star.png?alt=media&token=297da907-8326-4f14-95a7-ecb42c39853c"
                 alt="empty star"
-                className="star"
+                className="add-remove-fav-star"
               />
               Add to favourites
-            </Button>
+            </button>
           )}
-        </h2>
+        </section>
 
-        <p className="text-center">
-          <b>Health score: </b>
-          <span className="nutritionStyle">{recipe.healthScore}</span>
-          <b> Ready in (minutes): </b>{" "}
-          <span className="nutritionStyle">{recipe.readyInMinutes}</span>
-          <b> Servings: </b>{" "}
-          <span className="nutritionStyle">{recipe.servings}</span>
-          <b> Sustainable: </b>{" "}
-          <span className="nutritionStyle">
+        <section className="recipe-info-section">
+          <p>
+            <strong>Health score: </strong>
+            {recipe.healthScore}
+          </p>
+          <p>
+            <strong>Ready in: </strong>
+            {recipe.readyInMinutes} min.
+          </p>
+          <p>
+            <strong>Servings: </strong>
+            {recipe.servings}
+          </p>
+          <p>
+            <strong>Sustainable: </strong>
             {recipe.sustainable ? "Yes" : "No"}
-          </span>
-        </p>
+          </p>
+        </section>
 
         <div className="text-center">
-          <img src={recipe.image} width={"450px"} />
+          <img src={recipe.image} width={"300px"} />
         </div>
 
         <h4 className="text-center sectionsStyle">Ingredient list:</h4>
@@ -132,7 +130,7 @@ function RecipeDetails() {
         </ol>
 
         <Comments recipeId={recipe.id} />
-      </Container>
+      </main>
     </>
   );
 }
