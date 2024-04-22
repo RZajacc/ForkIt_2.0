@@ -45,8 +45,7 @@ function RecipeDetails() {
     }
   };
 
-  // * Get favourites with live update
-  const getFavouritesLive = () => {
+  useEffect(() => {
     const q = query(
       collection(db, "favourites"),
       where("userID", "==", user?.uid),
@@ -60,11 +59,7 @@ function RecipeDetails() {
       });
       setFavs(favs);
     });
-  };
-
-  useEffect(() => {
-    getFavouritesLive();
-  }, []);
+  }, [recipe.id, user?.uid]);
 
   return (
     <>
