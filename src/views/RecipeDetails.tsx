@@ -13,6 +13,8 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { db } from "../config/firebaseConfig";
+import parse from "html-react-parser";
+
 import "../style/recipeDetails.scss";
 
 interface LocationState {
@@ -104,6 +106,10 @@ function RecipeDetails() {
             <strong>Sustainable: </strong>
             {recipe.sustainable ? "Yes" : "No"}
           </p>
+        </section>
+
+        <section>
+          <p>{parse(recipe.summary)}</p>
         </section>
 
         <div className="text-center">
