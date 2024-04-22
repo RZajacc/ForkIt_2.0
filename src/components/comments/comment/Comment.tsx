@@ -1,4 +1,3 @@
-import { Button, Col, Row } from "react-bootstrap";
 import { commentsType } from "../../../types/types";
 import { formatDate } from "../../../utils/Utils";
 import { MouseEvent, useContext } from "react";
@@ -36,32 +35,29 @@ function Comment({ comment }: Props) {
   };
 
   return (
-    <Row className="rowStyle">
-      <Col xs lg="2">
-        <img src={comment.picUrl} alt="" className="picStyle" />
-      </Col>
-      <Col xs lg="8">
-        <p>
-          <strong>{comment.author}</strong>
-        </p>
-        <p>{comment.message}</p>
-        <p className="dateStyle">{formatDate(comment.date)}</p>
-      </Col>
-      <Col xs lg="2">
+    <div className="comment">
+      <div className="comment__user-img">
+        <img src={comment.picUrl} alt="profile-image" />
+      </div>
+      <div className="comment__body">
+        <div className="comment__body__author">{comment.author}</div>
+        <div className="comment__body__message">{comment.message}</div>
+        <div className="comment__body__date">{formatDate(comment.date)}</div>
+      </div>
+      <div className="comment__delete">
         {comment.authorID === user?.uid ? (
-          <Button
-            variant="danger"
-            className="delete-button"
+          <button
+            className="delete-comment-button"
             value={comment.message}
             onClick={handleDelete}
           >
             Delete
-          </Button>
+          </button>
         ) : (
           ""
         )}
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 }
 
