@@ -24,11 +24,38 @@
   grid-area: comment-body;
 
   display: grid;
-  grid-template-rows: 1fr auto 1fr;
+  grid-template-rows: 1fr minmax(1rem) 1fr;
   grid-template-areas:
     "author"
     "message"
+    "message"
     "date";
+  align-items: center;
+}
+
+.comment__body__author {
+  grid-area: author;
+
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem 0.3rem;
+}
+
+.comment__body__message {
+  grid-area: message;
+  word-wrap: break-word;
+  word-break: break-all;
+
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.comment__body__date {
+  grid-area: date;
+
+  font-size: 0.8rem;
+  font-style: italic;
+  padding: 0.5rem 0.3rem;
 }
 
 .actions {
@@ -39,32 +66,9 @@
 .comment__delete {
   grid-area: delete;
   button {
-    padding: 0.1rem 0.3rem;
+    padding: 0.5rem 0.3rem;
     border: none;
     background-color: transparent;
     color: red;
   }
-}
-
-.comment__body__author {
-  grid-area: author;
-
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0 0.3rem;
-}
-
-.comment__body__message {
-  grid-area: message;
-
-  font-size: 1rem;
-  padding: 0 0.3rem;
-}
-
-.comment__body__date {
-  grid-area: date;
-
-  font-size: 0.8rem;
-  font-style: italic;
-  padding: 0 0.3rem;
 }
