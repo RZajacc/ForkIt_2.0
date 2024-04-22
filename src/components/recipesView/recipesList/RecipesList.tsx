@@ -9,12 +9,20 @@ interface Props {
   searchObj: searchObject;
   offset: number;
   setOffset: (offset: number) => void;
+  totalResults: number;
+  setTotalResults: (totalResults: number) => void;
 }
 
-function RecipesList({ searchObj, offset, setOffset }: Props) {
+function RecipesList({
+  searchObj,
+  offset,
+  setOffset,
+  totalResults,
+  setTotalResults,
+}: Props) {
   // Prepare data in states
   const [recipesData, setRecipesData] = useState<RecipeGeneral[]>([]);
-  const [totalResults, setTotalResults] = useState<number>(0);
+  // const [totalResults, setTotalResults] = useState<number>(0);
 
   // Fetch date on page load and when other elements change
   useEffect(() => {
@@ -37,7 +45,7 @@ function RecipesList({ searchObj, offset, setOffset }: Props) {
           ignore = true;
         };
       });
-  }, [searchObj, offset, setOffset]);
+  }, [searchObj, offset, setOffset, setTotalResults]);
 
   return (
     <>

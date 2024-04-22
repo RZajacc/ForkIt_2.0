@@ -12,6 +12,7 @@ function RecipesView() {
     cuisine: "",
     dietType: "",
   });
+  const [totalResults, setTotalResults] = useState<number>(0);
 
   return (
     <>
@@ -21,8 +22,14 @@ function RecipesView() {
           searchObj={searchObj}
           offset={offset}
           setOffset={setOffset}
+          totalResults={totalResults}
+          setTotalResults={setTotalResults}
         />
-        <Pagination setOffset={setOffset} offset={offset} />
+        <Pagination
+          setOffset={setOffset}
+          offset={offset}
+          totalResults={totalResults}
+        />
       </main>
     </>
   );
