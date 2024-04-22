@@ -1,6 +1,10 @@
 @import "./partials/variables";
 
-.recipe-header-section {
+.recipe-details {
+  max-width: 768px;
+  margin: 0 auto;
+}
+.recipe-details__header-section {
   margin: 1rem 0;
   text-align: center;
 
@@ -18,7 +22,7 @@
   margin-right: 0.3rem;
 }
 
-.recipe-info-section {
+.recipe-details__info-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 90%;
@@ -31,5 +35,31 @@
   p {
     margin: 0;
     padding: 0.2rem;
+  }
+}
+
+.recipe-details__description-section {
+  padding: 0.7rem;
+  text-align: center;
+
+  img {
+    margin: 0.5rem;
+    border-radius: 5px;
+  }
+
+  p {
+    text-align: justify;
+  }
+}
+
+.recipe-details__ingredients-section {
+  h4 {
+    text-align: center;
+  }
+}
+
+.recipe-details__instructions-section {
+  h4 {
+    text-align: center;
   }
 }
