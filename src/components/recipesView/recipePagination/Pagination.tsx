@@ -1,5 +1,5 @@
 import { useState, MouseEvent } from "react";
-// import "../style/Global.css";
+import "./pagination.scss";
 
 type Props = {
   setOffset: (offset: number) => void;
@@ -21,14 +21,14 @@ function Pagination({ setOffset, offset, totalResults }: Props) {
       setOffset(offset + 6);
       setCounter(counter + 1);
     } else if (offset != 0 && offset != 900) {
-      if (buttonValue === "Previous") {
+      if (buttonValue === "Prev.") {
         setOffset(offset - 6);
         setCounter(counter - 1);
       } else {
         setOffset(offset + 6);
         setCounter(counter + 1);
       }
-    } else if (offset === 900 && buttonValue === "Previous") {
+    } else if (offset === 900 && buttonValue === "Prev.") {
       setOffset(offset - 6);
       setCounter(counter - 1);
     }
@@ -41,9 +41,9 @@ function Pagination({ setOffset, offset, totalResults }: Props) {
         className="pagination-button"
         onClick={moveToPage}
       >
-        Previous
+        Prev.
       </button>
-      <span>
+      <span className="recipe-pagination-section__pages-span">
         <strong>
           Page: {counter}/{pagesAmount}
         </strong>

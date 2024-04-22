@@ -29,9 +29,7 @@
     cursor: pointer;
 
     &:hover {
-      border: 1px solid map-get($colors, lighter-black);
-      background-color: map-get($colors, lighter-grey);
-      color: map-get($colors, lighter-black);
+      @include button-hover;
     }
   }
 }

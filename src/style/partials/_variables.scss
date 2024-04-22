@@ -4,3 +4,9 @@ $colors: (
   light-grey: #ccc,
   lighter-grey: #ddd,
 );
+
+@mixin button-hover() {
+  background-color: #3232c8;
+  color: white;
+  font-weight: bold;
+}

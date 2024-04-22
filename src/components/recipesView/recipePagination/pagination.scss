@@ -1,0 +1,41 @@
+@import "../../../style/partials/variables";
+
+.recipe-pagination-section {
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    padding: 0.2rem 0.7rem;
+    border-radius: 5px;
+    background-color: rgb(50, 50, 200);
+    color: white;
+
+    &:disabled {
+      background-color: gray;
+    }
+
+    &:hover {
+      border: 1px solid map-get($colors, lighter-grey);
+      background-color: map-get($colors, lighter-black);
+      color: white;
+    }
+  }
+}
+
+.recipe-pagination-section__pages-span {
+  padding: 0.2rem 1rem;
+}
+
+@media (min-width: 480px) {
+  .recipe-pagination-section {
+    margin: 2rem 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .recipe-pagination-section {
+    margin: 2.5rem 0;
+  }
+}
