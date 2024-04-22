@@ -29,7 +29,7 @@ export const generateFetchUrl = (
   // * Prepare link
   //   const apiKey = import.meta.env.VITE_SPOONACULARKEY;
   //   const number = 6;
-  const baseUrl = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=${recAmout}&offset=${offset}&addRecipeInformation=true&fillIngredients=true`;
+  const baseUrl = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=${recAmout}&offset=${offset}&addRecipeInformation=true&fillIngredients=true&instructionsRequired=true`;
 
   const url = `${baseUrl}${query}${dishType}${cuisineType}${dietType}`;
 
