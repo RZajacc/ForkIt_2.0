@@ -10,7 +10,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import Comments from "../components/Comments";
+import Comments from "../components/comments/Comments";
 import { AuthContext } from "../context/AuthContext";
 import parse from "html-react-parser";
 import { RecipeGeneral, userFavs } from "../types/types";

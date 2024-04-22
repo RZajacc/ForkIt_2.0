@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { Button, Container } from "react-bootstrap";
 import { RecipeGeneral, userFavs } from "../types/types";
-import Comments from "../components/Comments";
+import Comments from "../components/comments/Comments";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import {
