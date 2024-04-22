@@ -5,12 +5,14 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
+import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { db } from "../../config/firebaseConfig";
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import Comment from "./comment/Comment";
 import { commentsType } from "../../types/types";
 import { AuthContext } from "../../context/AuthContext";
+
+import "./comments.scss";
 
 type Props = {
   recipeId: number;
@@ -69,8 +71,8 @@ function Comments({ recipeId }: Props) {
 
   return (
     <>
-      <Container className="commentsContainer">
-        <h5>Comments:</h5>
+      <h4 className="text-center">Comments:</h4>
+      <div className="comments-grid">
         {comments &&
           comments.map((comment, idx) => {
             return <Comment key={idx} comment={comment} />;
@@ -96,7 +98,7 @@ function Comments({ recipeId }: Props) {
             Submit your message
           </Button>
         </div>
-      </Container>
+      </div>
     </>
   );
 }

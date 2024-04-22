@@ -1,0 +1,70 @@
+@import "../../../style//partials//variables";
+
+.comment {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-areas: "comment-image comment-image comment-body comment-body comment-body comment-body comment-body comment-body";
+  background-color: map-get($colors, lighter-grey);
+  border-radius: 20px;
+}
+
+.comment__user-img {
+  grid-area: comment-image;
+  text-align: center;
+  align-content: center;
+
+  img {
+    padding: 0.5rem;
+    width: 70%;
+    border-radius: 50%;
+  }
+}
+
+.comment__body {
+  grid-area: comment-body;
+
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  grid-template-areas:
+    "author"
+    "message"
+    "date";
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-areas: "nd nd delete delete delete delete delete delete";
+}
+.comment__delete {
+  grid-area: delete;
+  button {
+    padding: 0.1rem 0.3rem;
+    border: none;
+    background-color: transparent;
+    color: red;
+  }
+}
+
+.comment__body__author {
+  grid-area: author;
+
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0 0.3rem;
+}
+
+.comment__body__message {
+  grid-area: message;
+
+  font-size: 1rem;
+  padding: 0 0.3rem;
+}
+
+.comment__body__date {
+  grid-area: date;
+
+  font-size: 0.8rem;
+  font-style: italic;
+  padding: 0 0.3rem;
+}
