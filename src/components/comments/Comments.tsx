@@ -50,8 +50,7 @@ function Comments({ recipeId }: Props) {
     await addDoc(collection(db, "Comments"), newChatMsg);
   };
 
-  // * Get messages with live update
-  const getCommentsLive = () => {
+  useEffect(() => {
     const q = query(
       collection(db, "Comments"),
       where("recipeID", "==", recipeId)
@@ -63,11 +62,8 @@ function Comments({ recipeId }: Props) {
       });
       setComments(comments);
     });
-  };
-
-  useEffect(() => {
-    getCommentsLive();
-  }, []);
+    // getCommentsLive();
+  }, [recipeId]);
 
   return (
     <>
