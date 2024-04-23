@@ -84,9 +84,9 @@ function Comments({ recipeId }: Props) {
 
   return (
     <>
-      <h4 className="text-center">Comments:</h4>
       {/* Display all comments */}
       <div className="comments-grid">
+        <h4>Comments:</h4>
         {comments &&
           comments.map((comment, idx) => {
             return <Comment key={idx} comment={comment} />;
@@ -94,7 +94,7 @@ function Comments({ recipeId }: Props) {
       </div>
       {/* Add new comment */}
       <form onSubmit={submitNewComment} className="comment-form">
-        <h5 className="text-center">Add new comment:</h5>
+        <h4>Add new comment:</h4>
         <textarea
           placeholder="Leave your comment here"
           rows={3}

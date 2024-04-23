@@ -5,7 +5,11 @@
   row-gap: 1rem;
   width: 95%;
   max-width: 550px;
-  margin: 0 auto;
+  margin: 2rem auto;
+
+  h4 {
+    text-align: center;
+  }
 }
 
 .comment-form {
@@ -14,6 +18,10 @@
   max-width: 550px;
   margin: 2rem auto;
   row-gap: 1rem;
+
+  h4 {
+    text-align: center;
+  }
 
   textarea {
     border-radius: 5px;
