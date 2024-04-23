@@ -10,3 +10,10 @@ $colors: (
   color: white;
   font-weight: bold;
 }
+
+@mixin button-black() {
+  color: white;
+  background-color: map-get($colors, lighter-black);
+  padding: 0.5rem;
+  border-radius: 5px;
+}

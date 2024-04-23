@@ -1,7 +1,32 @@
+@import "../../style/partials/variables";
+
 .comments-grid {
   display: grid;
   row-gap: 1rem;
   width: 95%;
   max-width: 550px;
   margin: 0 auto;
+}
+
+.comment-form {
+  display: grid;
+  width: 95%;
+  max-width: 550px;
+  margin: 2rem auto;
+  row-gap: 1rem;
+
+  textarea {
+    border-radius: 5px;
+    padding: 0.5rem;
+  }
+
+  button {
+    width: 50%;
+    margin: 0 auto;
+    @include button-black;
+
+    &:hover {
+      @include button-hover;
+    }
+  }
 }
