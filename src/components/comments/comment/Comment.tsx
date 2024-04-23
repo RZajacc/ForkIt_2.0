@@ -17,8 +17,9 @@ function Comment({ comment }: Props) {
   const handleDelete = async (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
+    // Get event target (value stores document id)
     const eventTarget = e.target as HTMLButtonElement;
-    // Delete document with document ID stored in the button value
+    // Delete document with document ID
     await deleteDoc(doc(db, "Comments", eventTarget.value));
   };
 

@@ -6,9 +6,8 @@ import {
   where,
   orderBy,
 } from "firebase/firestore";
-import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { db } from "../../config/firebaseConfig";
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Comment from "./comment/Comment";
 import { commentsType } from "../../types/types";
 import { AuthContext } from "../../context/AuthContext";
@@ -21,12 +20,17 @@ type Props = {
 
 function Comments({ recipeId }: Props) {
   const [comments, setComments] = useState<commentsType[] | null>(null);
-  const [newMessage, setNewMessage] = useState("");
   const { user } = useContext(AuthContext);
-  const handleMessageInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewMessage(e.target.value);
-  };
-  const submitMessage = async () => {
+
+  // Add new comment
+  const submitNewComment = async (e: React.FormEvent<HTMLFormElement>) => {
+    // ! This part was necessary because data varied depending if user logged in with google or account created here
+    // ! But in the end I will stick to just manually created accounts so it will be modified later
+    e.preventDefault();
+    // Get the form data
+    const formData = new FormData(e.currentTarget);
+    const commentData = formData.get("comment_text") as string;
+
     const authorData = user
       ? user.displayName
         ? user.displayName
@@ -37,28 +41,33 @@ function Comments({ recipeId }: Props) {
         ? user.photoURL
         : "https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/noUser.png?alt=media&token=37607a3a-371b-40a9-9947-a0005991680b"
       : "No user";
-    const newChatMsg: commentsType = {
+    const newComment: commentsType = {
       authorID: user!.uid,
       recipeID: recipeId,
       author: authorData!,
       picUrl: authorImage,
-      message: newMessage,
+      message: commentData,
       date: new Date(),
     };
+
     // Add a new document with a generated id.
-    await addDoc(collection(db, "Comments"), newChatMsg);
+    await addDoc(collection(db, "Comments"), newComment);
   };
 
   useEffect(() => {
+    // Get comments assigned to this recipe sorted by date
     const q = query(
       collection(db, "Comments"),
       where("recipeID", "==", recipeId),
       orderBy("date", "desc")
     );
+    // Refresh whenever new comment is added or old deleted
     onSnapshot(q, (querySnapshot) => {
       const comments: commentsType[] = [];
       querySnapshot.forEach((doc) => {
+        // Assign data to variable
         const data = doc.data() as commentsType;
+        // Assign optional document id value
         data.documentId = doc.id;
         comments.push(data);
       });
@@ -74,28 +83,16 @@ function Comments({ recipeId }: Props) {
           comments.map((comment, idx) => {
             return <Comment key={idx} comment={comment} />;
           })}
-
-        <FloatingLabel
-          controlId="comment-textarea"
-          label="Leave a comment here"
-        >
-          <Form.Control
-            as="textarea"
-            placeholder="Leave a comment here"
-            style={{ height: "100px" }}
-            onChange={handleMessageInput}
-          />
-        </FloatingLabel>
-        <div className="text-center">
-          <Button
-            onClick={submitMessage}
-            className="submit-message-button"
-            variant="success"
-          >
-            Submit your message
-          </Button>
-        </div>
       </div>
+      {/* ! lets go here now */}
+      <form onSubmit={submitNewComment}>
+        <textarea
+          placeholder="Leave your comment here"
+          rows={3}
+          name="comment_text"
+        />
+        <button type="submit">Add comment</button>
+      </form>
     </>
   );
 }
