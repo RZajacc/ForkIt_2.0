@@ -1,12 +1,5 @@
 import { db } from "../../../config/firebaseConfig";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { AuthContext } from "../../../context/AuthContext";
 import { MouseEvent, useContext } from "react";
 import { commentsType } from "../../../types/types";
@@ -19,21 +12,14 @@ type Props = {
 
 function Comment({ comment }: Props) {
   const { user } = useContext(AuthContext);
+
   // Find if comment belongs to logged in user and if yes delete on click
   const handleDelete = async (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
-    const buttonVal = e.target as HTMLButtonElement;
-    const q = query(
-      collection(db, "Comments"),
-      where("message", "==", buttonVal.value)
-    );
-    let docID = "";
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      docID = doc.id;
-    });
-    await deleteDoc(doc(db, "Comments", docID));
+    const eventTarget = e.target as HTMLButtonElement;
+    // Delete document with document ID stored in the button value
+    await deleteDoc(doc(db, "Comments", eventTarget.value));
   };
 
   return (
@@ -57,7 +43,7 @@ function Comment({ comment }: Props) {
             {comment.authorID === user?.uid ? (
               <button
                 className="delete-comment-button"
-                value={comment.message}
+                value={comment.documentId}
                 onClick={handleDelete}
               >
                 Delete

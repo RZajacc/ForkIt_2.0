@@ -23,6 +23,7 @@
 .comment__body {
   grid-area: comment-body;
 
+  // This element is a part of agrid and has a grid itself
   display: grid;
   grid-template-rows: 1fr minmax(1rem) 1fr;
   grid-template-areas:
@@ -58,6 +59,7 @@
   padding: 0.5rem 0.3rem;
 }
 
+// Actions for a owner of a post
 .actions {
   display: grid;
   grid-template-columns: repeat(8, 1fr);

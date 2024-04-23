@@ -4,6 +4,7 @@ import {
   onSnapshot,
   query,
   where,
+  orderBy,
 } from "firebase/firestore";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { db } from "../../config/firebaseConfig";
@@ -22,11 +23,9 @@ function Comments({ recipeId }: Props) {
   const [comments, setComments] = useState<commentsType[] | null>(null);
   const [newMessage, setNewMessage] = useState("");
   const { user } = useContext(AuthContext);
-
   const handleMessageInput = (e: ChangeEvent<HTMLInputElement>) => {
     setNewMessage(e.target.value);
   };
-
   const submitMessage = async () => {
     const authorData = user
       ? user.displayName
@@ -53,16 +52,18 @@ function Comments({ recipeId }: Props) {
   useEffect(() => {
     const q = query(
       collection(db, "Comments"),
-      where("recipeID", "==", recipeId)
+      where("recipeID", "==", recipeId),
+      orderBy("date", "desc")
     );
     onSnapshot(q, (querySnapshot) => {
       const comments: commentsType[] = [];
       querySnapshot.forEach((doc) => {
-        comments.push(doc.data() as commentsType);
+        const data = doc.data() as commentsType;
+        data.documentId = doc.id;
+        comments.push(data);
       });
       setComments(comments);
     });
-    // getCommentsLive();
   }, [recipeId]);
 
   return (

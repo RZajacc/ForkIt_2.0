@@ -52,6 +52,7 @@ export interface commentsType {
   date: Timestamp | Date;
   message: string;
   picUrl: string;
+  documentId?: string;
 }
 
 export interface userFavs {
