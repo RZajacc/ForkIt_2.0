@@ -1,7 +1,7 @@
 import { db } from "../../../config/firebaseConfig";
 import { deleteDoc, doc } from "firebase/firestore";
 import { AuthContext } from "../../../context/AuthContext";
-import { MouseEvent, useContext } from "react";
+import { MouseEvent, useContext, useState } from "react";
 import { commentsType } from "../../../types/types";
 import { formatDate } from "../../../utils/Utils";
 import "./comment.scss";
@@ -12,15 +12,69 @@ type Props = {
 
 function Comment({ comment }: Props) {
   const { user } = useContext(AuthContext);
+  const [modalContent, setModalContent] = useState({
+    header: "",
+    body: "",
+    confirmButton: "",
+    cancelButton: "",
+  });
+  const [modalClass, setModalClass] = useState("actions-modal");
+  const [documentId, setDocumentId] = useState("");
 
   // Find if comment belongs to logged in user and if yes delete on click
-  const handleDelete = async (
+  const handleModal = async (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
-    // Get event target (value stores document id)
+    // Define what action is requested - edit or delete
     const eventTarget = e.target as HTMLButtonElement;
-    // Delete document with document ID
-    await deleteDoc(doc(db, "Comments", eventTarget.value));
+    const requestedAction = eventTarget.innerText;
+    const documentId = eventTarget.value;
+
+    // Assign requested document value to continue further
+    setDocumentId(documentId);
+
+    if (requestedAction === "Delete") {
+      setModalContent({
+        header: "Are you sure?",
+        body: "Deleting has permanent effect, you cannot take it back!",
+        confirmButton: "Delete",
+        cancelButton: "Cancel",
+      });
+      setModalClass("actions-modal display-block");
+    } else if (requestedAction === "Edit") {
+      setModalContent({
+        header: "Test?",
+        body: "Deleting has permanent effect, you cannot take it back!",
+        confirmButton: "Edit",
+        cancelButton: "Cancel",
+      });
+      setModalClass("actions-modal display-block");
+    }
+
+    // Get event target (value stores document id)
+  };
+
+  const handleConfirmButton = async (
+    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+  ) => {
+    // Define what action is requested - edit or delete
+    const eventTarget = e.target as HTMLButtonElement;
+    const requestedAction = eventTarget.value;
+
+    if (requestedAction === "Delete") {
+      // Delete document with document ID
+      await deleteDoc(doc(db, "Comments", documentId));
+      // Reset document ID
+      setDocumentId("");
+      // Hide modal
+      setModalClass("actions-modal");
+    }
+  };
+
+  const handleCancelButton = () => {
+    // Hide modal and reset documentId
+    setModalClass("actions-modal");
+    setDocumentId("");
   };
 
   return (
@@ -45,7 +99,7 @@ function Comment({ comment }: Props) {
               <button
                 className="delete-comment-button"
                 value={comment.documentId}
-                onClick={handleDelete}
+                onClick={handleModal}
               >
                 Delete
               </button>
@@ -54,18 +108,30 @@ function Comment({ comment }: Props) {
             )}
           </div>
         </div>
-        <div className="actions-modal">
+        <div className={modalClass}>
           <div className="actions-modal__content">
             <section className="actions-modal__content__header">
-              <h4>Header</h4>
+              <h4>{modalContent.header}</h4>
             </section>
             <section className="actions-modal__content__body">
-              <p>Body</p>
+              <p>{modalContent.body}</p>
               {/* <textarea name="" id="" /> */}
             </section>
             <section className="actions-modal__content__footer">
-              <button className="modal-submit-button">Submit</button>
-              <button className="modal-cancel-button">Cancel</button>
+              <button
+                className="modal-submit-button"
+                value={modalContent.confirmButton}
+                onClick={handleConfirmButton}
+              >
+                {modalContent.confirmButton}
+              </button>
+              <button
+                className="modal-cancel-button"
+                value={modalContent.cancelButton}
+                onClick={handleCancelButton}
+              >
+                {modalContent.cancelButton}
+              </button>
             </section>
           </div>
         </div>

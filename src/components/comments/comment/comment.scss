@@ -77,12 +77,17 @@
 
 // Action modal
 .actions-modal {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgb(212, 212, 212, 0.2);
+}
+
+.display-block {
+  display: block;
 }
 
 .actions-modal__content {
@@ -97,9 +102,15 @@
 }
 
 .actions-modal__content__header {
+  h4 {
+    font-weight: bold;
+  }
 }
 
 .actions-modal__content__body {
+  p {
+    text-align: center;
+  }
 }
 
 .actions-modal__content__footer {
