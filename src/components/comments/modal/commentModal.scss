@@ -1,6 +1,5 @@
 @import "../../../style/partials/variables";
 
-// Action modal
 .actions-modal {
   display: none;
   position: fixed;
@@ -11,6 +10,7 @@
   background-color: rgb(212, 212, 212, 0.2);
 }
 
+// Modifier to show element
 .display-block {
   display: block !important;
 }
@@ -57,6 +57,7 @@
   padding: 0.5rem;
 }
 
+// Buttons in the footer
 .actions-modal__content__footer {
   text-align: end;
 
@@ -65,10 +66,12 @@
   }
 }
 
+// Buttons styling
 .modal-submit-button {
-  background-color: rgb(85, 155, 255);
+  background-color: rgb(255, 65, 65);
   border: 2px solid map-get($colors, lighter-black);
   border-radius: 5px;
+  color: white;
 
   &:hover {
     @include button-hover;
@@ -76,10 +79,9 @@
 }
 
 .modal-cancel-button {
-  background-color: rgb(255, 65, 65);
+  background-color: rgb(85, 155, 255);
   border: 2px solid map-get($colors, lighter-black);
   border-radius: 5px;
-  color: white;
 
   &:hover {
     @include button-hover;
