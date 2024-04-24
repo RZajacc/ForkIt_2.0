@@ -104,6 +104,7 @@
   border: 2px solid black;
   border-radius: 10px;
   width: 85%;
+  max-width: 550px;
   top: 30%;
   margin: 0 auto;
   padding: 0.5rem;
@@ -118,10 +119,6 @@
   100% {
     opacity: 1;
   }
-}
-
-.actions-modal__content:active {
-  width: 95%;
 }
 
 .actions-modal__content__header {
@@ -155,6 +152,10 @@
   background-color: rgb(85, 155, 255);
   border: 2px solid map-get($colors, lighter-black);
   border-radius: 5px;
+
+  &:hover {
+    @include button-hover;
+  }
 }
 
 .modal-cancel-button {
@@ -162,4 +163,8 @@
   border: 2px solid map-get($colors, lighter-black);
   border-radius: 5px;
   color: white;
+
+  &:hover {
+    @include button-hover;
+  }
 }
