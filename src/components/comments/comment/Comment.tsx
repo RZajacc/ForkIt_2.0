@@ -5,6 +5,7 @@ import { MouseEvent, useContext, useState } from "react";
 import { commentsType } from "../../../types/types";
 import { formatDate } from "../../../utils/Utils";
 import "./comment.scss";
+import CommentModal from "../modal/CommentModal";
 
 type Props = {
   comment: commentsType;
@@ -23,6 +24,7 @@ function Comment({ comment }: Props) {
   const [documentId, setDocumentId] = useState("");
   const [editedComment, setEditedComment] = useState(comment.message);
 
+  console.log("EDITED COMMENT", editedComment);
   // Find if comment belongs to logged in user and if yes delete on click
   const handleModal = async (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
@@ -34,6 +36,8 @@ function Comment({ comment }: Props) {
 
     // Assign requested document value to continue further
     setDocumentId(documentId);
+    // Everytime modal is opened edited text should be updated accordingly
+    setEditedComment(comment.message);
 
     if (requestedAction === "Delete") {
       setModalContent({
@@ -48,7 +52,7 @@ function Comment({ comment }: Props) {
       setModalContent({
         header: "Edit comment:",
         body: "",
-        confirmButton: "Edit",
+        confirmButton: "Submit",
         cancelButton: "Cancel",
       });
       setModalClass("actions-modal display-block");
@@ -62,6 +66,7 @@ function Comment({ comment }: Props) {
     // Define what action is requested - edit or delete
     const eventTarget = e.target as HTMLButtonElement;
     const requestedAction = eventTarget.value;
+    console.log(comment.message);
 
     if (requestedAction === "Delete") {
       // Delete document with document ID
@@ -70,7 +75,7 @@ function Comment({ comment }: Props) {
       setDocumentId("");
       // Hide modal
       setModalClass("actions-modal");
-    } else if (requestedAction === "Edit") {
+    } else if (requestedAction === "Submit") {
       // Get document reference
       const editDocRef = doc(db, "Comments", documentId);
       // Update message field of the object
@@ -108,7 +113,7 @@ function Comment({ comment }: Props) {
 
         {/* USER ACTIONS */}
         <div className="actions">
-          <div className="comment__delete">
+          <div className="comment__actions">
             {comment.authorID === user?.uid ? (
               <>
                 <button
@@ -133,40 +138,15 @@ function Comment({ comment }: Props) {
         </div>
 
         {/* MODAL FOR ACTIONS */}
-        <div className={modalClass}>
-          <div className="actions-modal__content">
-            <section className="actions-modal__content__header">
-              <h4>{modalContent.header}</h4>
-            </section>
-            <section className="actions-modal__content__body">
-              <p>{modalContent.body}</p>
-              <textarea
-                className={editTextClass}
-                rows={3}
-                value={editedComment}
-                onChange={(e) => {
-                  setEditedComment(e.target.value);
-                }}
-              />
-            </section>
-            <section className="actions-modal__content__footer">
-              <button
-                className="modal-submit-button"
-                value={modalContent.confirmButton}
-                onClick={handleConfirmButton}
-              >
-                {modalContent.confirmButton}
-              </button>
-              <button
-                className="modal-cancel-button"
-                value={modalContent.cancelButton}
-                onClick={handleCancelButton}
-              >
-                {modalContent.cancelButton}
-              </button>
-            </section>
-          </div>
-        </div>
+        <CommentModal
+          modalClass={modalClass}
+          modalContent={modalContent}
+          editTextClass={editTextClass}
+          editedComment={editedComment}
+          setEditedComment={setEditedComment}
+          handleConfirmButton={handleConfirmButton}
+          handleCancelButton={handleCancelButton}
+        />
       </div>
     </>
   );

@@ -63,24 +63,40 @@
 .actions {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  grid-template-areas: "nd nd delete delete delete delete delete delete";
+  grid-template-areas: "nd nd actions actions actions actions actions actions";
 }
-.comment__delete {
-  grid-area: delete;
+.comment__actions {
+  grid-area: actions;
 }
 
 .delete-comment-button {
-  padding: 0.5rem 0.3rem;
+  padding: 0.3rem;
+  margin: 0.3rem;
   border: none;
   background-color: transparent;
-  color: red;
+  color: rgb(255, 15, 15);
+  background-color: rgb(255, 15, 15, 0);
+
+  &:hover {
+    color: white;
+    background-color: rgba(255, 15, 15, 0.7);
+    transition: background-color 200ms ease-in;
+    border-radius: 5px;
+  }
 }
 
 .edit-comment-button {
-  padding: 0.5rem 0.3rem;
+  padding: 0.3rem;
   border: none;
   background-color: transparent;
   color: rgb(0, 42, 255);
+  background-color: rgb(0, 42, 255, 0);
+  &:hover {
+    color: white;
+    background-color: rgba(0, 42, 255, 0.7);
+    transition: background-color 200ms ease-in;
+    border-radius: 5px;
+  }
 }
 
 // Action modal
