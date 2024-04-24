@@ -65,7 +65,6 @@ function Comment({ comment }: Props) {
     // Define what action is requested - edit or delete
     const eventTarget = e.target as HTMLButtonElement;
     const requestedAction = eventTarget.value;
-    console.log(comment.message);
 
     if (requestedAction === "Delete") {
       // Delete document with document ID
