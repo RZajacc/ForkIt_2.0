@@ -74,3 +74,51 @@
     color: red;
   }
 }
+
+// Action modal
+.actions-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(212, 212, 212, 0.2);
+}
+
+.actions-modal__content {
+  position: relative;
+  background-color: rgb(200, 200, 225);
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 85%;
+  top: 30%;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
+
+.actions-modal__content__header {
+}
+
+.actions-modal__content__body {
+}
+
+.actions-modal__content__footer {
+  text-align: end;
+
+  button {
+    margin-left: 0.3rem;
+  }
+}
+
+.modal-submit-button {
+  background-color: rgb(85, 155, 255);
+  border: 2px solid map-get($colors, lighter-black);
+  border-radius: 5px;
+}
+
+.modal-cancel-button {
+  background-color: rgb(255, 65, 65);
+  border: 2px solid map-get($colors, lighter-black);
+  border-radius: 5px;
+  color: white;
+}

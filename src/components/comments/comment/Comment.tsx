@@ -54,6 +54,21 @@ function Comment({ comment }: Props) {
             )}
           </div>
         </div>
+        <div className="actions-modal">
+          <div className="actions-modal__content">
+            <section className="actions-modal__content__header">
+              <h4>Header</h4>
+            </section>
+            <section className="actions-modal__content__body">
+              <p>Body</p>
+              {/* <textarea name="" id="" /> */}
+            </section>
+            <section className="actions-modal__content__footer">
+              <button className="modal-submit-button">Submit</button>
+              <button className="modal-cancel-button">Cancel</button>
+            </section>
+          </div>
+        </div>
       </div>
     </>
   );
