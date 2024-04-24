@@ -24,7 +24,6 @@ function Comment({ comment }: Props) {
   const [documentId, setDocumentId] = useState("");
   const [editedComment, setEditedComment] = useState(comment.message);
 
-  console.log("EDITED COMMENT", editedComment);
   // Find if comment belongs to logged in user and if yes delete on click
   const handleModal = async (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
@@ -81,6 +80,7 @@ function Comment({ comment }: Props) {
       // Update message field of the object
       await updateDoc(editDocRef, {
         message: editedComment,
+        edited: new Date(),
       });
       // Reset document ID
       setDocumentId("");
@@ -105,7 +105,10 @@ function Comment({ comment }: Props) {
           <div className="comment__body">
             <div className="comment__body__author">{comment.author}</div>
             <div className="comment__body__date">
-              posted on: {formatDate(comment.date)}
+              {comment.edited ? "Edited" : "Posted on"}:{" "}
+              {comment.edited
+                ? formatDate(comment.edited)
+                : formatDate(comment.date)}
             </div>
             <div className="comment__body__message">{comment.message}</div>
           </div>

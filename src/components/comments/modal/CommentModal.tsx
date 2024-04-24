@@ -1,4 +1,5 @@
 import { MouseEvent } from "react";
+import "./commentModal.scss";
 
 type Props = {
   modalClass: string;
