@@ -78,3 +78,10 @@ export interface searchObject {
   cuisine: string;
   dietType: string;
 }
+
+export interface modalContent {
+  header: string;
+  body: string;
+  confirmButton: string;
+  cancelButton: string;
+}

@@ -2,7 +2,7 @@ import { db } from "../../../config/firebaseConfig";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { AuthContext } from "../../../context/AuthContext";
 import { MouseEvent, useContext, useState } from "react";
-import { commentsType } from "../../../types/types";
+import { commentsType, modalContent } from "../../../types/types";
 import { formatDate } from "../../../utils/Utils";
 import "./comment.scss";
 import CommentModal from "../modal/CommentModal";
@@ -13,11 +13,11 @@ type Props = {
 
 function Comment({ comment }: Props) {
   const { user } = useContext(AuthContext);
-  const [modalContent, setModalContent] = useState({
+  const [modalContent, setModalContent] = useState<modalContent>({
     header: "",
     body: "",
-    confirmButton: "",
     cancelButton: "",
+    confirmButton: "",
   });
   const [modalClass, setModalClass] = useState("actions-modal");
   const [editTextClass, setEditTextClass] = useState("edit-comment-text");

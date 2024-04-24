@@ -1,14 +1,10 @@
 import { MouseEvent } from "react";
 import "./commentModal.scss";
+import { modalContent } from "../../../types/types";
 
 type Props = {
   modalClass: string;
-  modalContent: {
-    header: string;
-    body: string;
-    confirmButton: string;
-    cancelButton: string;
-  };
+  modalContent: modalContent;
   editTextClass: string;
   editedComment: string;
   setEditedComment: (comment: string) => void;
