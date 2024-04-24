@@ -67,12 +67,20 @@
 }
 .comment__delete {
   grid-area: delete;
-  button {
-    padding: 0.5rem 0.3rem;
-    border: none;
-    background-color: transparent;
-    color: red;
-  }
+}
+
+.delete-comment-button {
+  padding: 0.5rem 0.3rem;
+  border: none;
+  background-color: transparent;
+  color: red;
+}
+
+.edit-comment-button {
+  padding: 0.5rem 0.3rem;
+  border: none;
+  background-color: transparent;
+  color: rgb(0, 42, 255);
 }
 
 // Action modal
@@ -87,7 +95,7 @@
 }
 
 .display-block {
-  display: block;
+  display: block !important;
 }
 
 .actions-modal__content {
@@ -99,6 +107,21 @@
   top: 30%;
   margin: 0 auto;
   padding: 0.5rem;
+  animation: fadeIn 500ms 1;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.actions-modal__content:active {
+  width: 95%;
 }
 
 .actions-modal__content__header {
@@ -111,6 +134,13 @@
   p {
     text-align: center;
   }
+}
+
+.edit-comment-text {
+  display: none;
+  width: 100%;
+  margin: 1rem auto;
+  padding: 0.5rem;
 }
 
 .actions-modal__content__footer {

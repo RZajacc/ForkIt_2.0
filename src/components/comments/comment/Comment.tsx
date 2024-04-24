@@ -1,5 +1,5 @@
 import { db } from "../../../config/firebaseConfig";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { AuthContext } from "../../../context/AuthContext";
 import { MouseEvent, useContext, useState } from "react";
 import { commentsType } from "../../../types/types";
@@ -19,7 +19,9 @@ function Comment({ comment }: Props) {
     cancelButton: "",
   });
   const [modalClass, setModalClass] = useState("actions-modal");
+  const [editTextClass, setEditTextClass] = useState("edit-comment-text");
   const [documentId, setDocumentId] = useState("");
+  const [editedComment, setEditedComment] = useState(comment.message);
 
   // Find if comment belongs to logged in user and if yes delete on click
   const handleModal = async (
@@ -41,17 +43,17 @@ function Comment({ comment }: Props) {
         cancelButton: "Cancel",
       });
       setModalClass("actions-modal display-block");
+      setEditTextClass("edit-comment-text");
     } else if (requestedAction === "Edit") {
       setModalContent({
-        header: "Test?",
-        body: "Deleting has permanent effect, you cannot take it back!",
+        header: "Edit comment:",
+        body: "",
         confirmButton: "Edit",
         cancelButton: "Cancel",
       });
       setModalClass("actions-modal display-block");
+      setEditTextClass("edit-comment-text display-block");
     }
-
-    // Get event target (value stores document id)
   };
 
   const handleConfirmButton = async (
@@ -64,6 +66,17 @@ function Comment({ comment }: Props) {
     if (requestedAction === "Delete") {
       // Delete document with document ID
       await deleteDoc(doc(db, "Comments", documentId));
+      // Reset document ID
+      setDocumentId("");
+      // Hide modal
+      setModalClass("actions-modal");
+    } else if (requestedAction === "Edit") {
+      // Get document reference
+      const editDocRef = doc(db, "Comments", documentId);
+      // Update message field of the object
+      await updateDoc(editDocRef, {
+        message: editedComment,
+      });
       // Reset document ID
       setDocumentId("");
       // Hide modal
@@ -93,21 +106,33 @@ function Comment({ comment }: Props) {
           </div>
         </div>
 
+        {/* USER ACTIONS */}
         <div className="actions">
           <div className="comment__delete">
             {comment.authorID === user?.uid ? (
-              <button
-                className="delete-comment-button"
-                value={comment.documentId}
-                onClick={handleModal}
-              >
-                Delete
-              </button>
+              <>
+                <button
+                  className="delete-comment-button"
+                  value={comment.documentId}
+                  onClick={handleModal}
+                >
+                  Delete
+                </button>
+                <button
+                  className="edit-comment-button"
+                  value={comment.documentId}
+                  onClick={handleModal}
+                >
+                  Edit
+                </button>
+              </>
             ) : (
               ""
             )}
           </div>
         </div>
+
+        {/* MODAL FOR ACTIONS */}
         <div className={modalClass}>
           <div className="actions-modal__content">
             <section className="actions-modal__content__header">
@@ -115,7 +140,14 @@ function Comment({ comment }: Props) {
             </section>
             <section className="actions-modal__content__body">
               <p>{modalContent.body}</p>
-              {/* <textarea name="" id="" /> */}
+              <textarea
+                className={editTextClass}
+                rows={3}
+                value={editedComment}
+                onChange={(e) => {
+                  setEditedComment(e.target.value);
+                }}
+              />
             </section>
             <section className="actions-modal__content__footer">
               <button
