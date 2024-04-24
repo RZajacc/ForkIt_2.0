@@ -1,5 +1,10 @@
 # Fork It
 
+----------------------------------------------------------------------------
+App is under reconstruction, and is changing on a daily basis. Previous form
+made with bootstrap is available here: https://github.com/RZajacc/Forkit
+----------------------------------------------------------------------------
+
 ### Description
 
 Project is using [Spoonacular](https://spoonacular.com/) API to browse recipies from different cuisines, and dish types.
