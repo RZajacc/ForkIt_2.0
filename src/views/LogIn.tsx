@@ -1,79 +1,38 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import "../style/login.scss";
 
 function LogIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const { loginEmail } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
     loginEmail(email, password);
     navigate("/dashboard");
   };
 
   return (
     <>
-      <Container className="account-container">
-        <Row className="justify-content-md-center">
-          <Col
-            xxl="4"
-            xl="5"
-            lg="5"
-            md="10"
-            sm="10"
-            xs="10"
-            className="colStyle"
-          >
-            <Form onSubmit={handleLogin} className="text-center">
-              <h5>
-                If you already have an account simply log in using preferred
-                option:
-              </h5>
-              <Form.Group className="mb-3" controlId="login-email">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter email"
-                  onChange={handleEmailChange}
-                />
-                <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
-                </Form.Text>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="login-password">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={handlePasswordChange}
-                />
-              </Form.Group>
-              <Button
-                variant="primary"
-                type="submit"
-                className="loginButtonStyle"
-              >
-                Login
-              </Button>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
+      <main>
+        <form onSubmit={handleLogin} className="login-form">
+          <h4>Log in:</h4>
+          <label htmlFor="email">Email adress:</label>
+          <input type="email" name="email" placeholder="enter your email" />
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" />
+          <p>
+            No account yet? Please <Link to={"../register"}>Register.</Link>
+          </p>
+          <button type="submit">Login</button>
+        </form>
+      </main>
     </>
   );
 }

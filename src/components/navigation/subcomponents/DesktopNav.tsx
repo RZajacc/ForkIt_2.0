@@ -51,7 +51,7 @@ function DesktopNav() {
         </>
       ) : (
         <li>
-          <NavLink to={"account"}>
+          <NavLink to={"login"}>
             <img
               src="/account-avatar-man-svgrepo-com_black.svg"
               alt="opened door"

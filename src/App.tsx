@@ -13,7 +13,7 @@ import Root from "./components/Root";
 
 import "./style/global.scss";
 import Register from "./views/Register";
-import LogIn from "./views/Account";
+import LogIn from "./views/LogIn";
 
 function App() {
   const router = createBrowserRouter([

@@ -17,7 +17,7 @@ function ProtectedRoute(props: ProtectedRouteProps) {
       ) : user ? (
         props.children
       ) : (
-        <Navigate to="/account" />
+        <Navigate to="/login" />
       )}
     </>
   );

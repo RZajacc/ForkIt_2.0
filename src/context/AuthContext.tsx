@@ -35,7 +35,6 @@ interface AuthContextProviderProps {
 export const AuthContext = createContext<AuthContextType>(AuthInitContext);
 
 // ? 2- Define content of our store
-
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -61,6 +60,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         password
       );
       const loggedUser = userCredential.user;
+      console.log(loggedUser);
       setUser(loggedUser);
     } catch (error) {
       console.log("Error ", error);
