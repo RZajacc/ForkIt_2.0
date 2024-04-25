@@ -8,11 +8,12 @@ import RecipeDetails from "./views/RecipeDetails";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./views/Dashboard";
-import Account from "./views/Account";
 import FavRecipeDetails from "./views/FavRecipeDetails";
 import Root from "./components/Root";
 
 import "./style/global.scss";
+import Register from "./views/Register";
+import LogIn from "./views/Account";
 
 function App() {
   const router = createBrowserRouter([
@@ -58,8 +59,12 @@ function App() {
           element: <Contact />,
         },
         {
-          path: "account",
-          element: <Account />,
+          path: "login",
+          element: <LogIn />,
+        },
+        {
+          path: "register",
+          element: <Register />,
         },
       ],
     },

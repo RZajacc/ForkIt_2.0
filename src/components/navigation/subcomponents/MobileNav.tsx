@@ -40,7 +40,7 @@ function MobileNav({ mobileNavState, toggleMobileNavState }: Props) {
             />
             Dashboard
           </Link>
-          <Link to={"account"} onClick={logout}>
+          <Link to={"login"} onClick={logout}>
             <img
               src="https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/door-open-white.svg?alt=media&token=02cc62e2-e221-46ba-acfe-9ce5e156a510"
               alt="opened door"
@@ -50,13 +50,13 @@ function MobileNav({ mobileNavState, toggleMobileNavState }: Props) {
           </Link>
         </>
       ) : (
-        <Link to={"account"} onClick={toggleMobileNavState}>
+        <Link to={"login"} onClick={toggleMobileNavState}>
           <img
             src="/account-avatar-man-svgrepo-com_white.svg"
             alt="opened door"
             className="mobile-nav-image"
           />
-          Account
+          Login
         </Link>
       )}
     </div>

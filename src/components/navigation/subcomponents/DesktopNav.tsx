@@ -39,7 +39,7 @@ function DesktopNav() {
             </NavLink>
           </li>
           <li>
-            <NavLink to={"account"} onClick={logout}>
+            <NavLink to={"login"} onClick={logout}>
               <img
                 src="/door-open-svgrepo-com_black.svg"
                 alt="opened door"
@@ -57,7 +57,7 @@ function DesktopNav() {
               alt="opened door"
               className="mobile-nav-image"
             />
-            Account
+            Login
           </NavLink>
         </li>
       )}
