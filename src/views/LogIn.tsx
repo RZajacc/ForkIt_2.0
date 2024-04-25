@@ -2,7 +2,8 @@ import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "../style/Account.css";
+
+import "../style/login.scss";
 
 function LogIn() {
   const [email, setEmail] = useState("");
