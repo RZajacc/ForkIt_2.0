@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
@@ -9,7 +9,13 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPasswrod, setConfirmPasswrod] = useState("");
-  const [passwordErr, setPasswordErr] = useState<string[] | null>(null);
+  // const [passwordErr, setPasswordErr] = useState<string[] | null>(null);
+  const [passwordValidation, setPasswordValidation] = useState({
+    length: false,
+    uppercaseChar: false,
+    number: false,
+    specialChar: false,
+  });
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -21,43 +27,75 @@ function Register() {
 
   const handleRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formValidation: string[] = [];
 
-    if (password !== confirmPasswrod) {
-      formValidation.push("Provided passwords don't match!");
-    }
+    // if (password !== confirmPasswrod) {
+    //   formValidation.push("Provided passwords don't match!");
+    // }
 
-    if (password.length < 8 || confirmPasswrod.length < 8) {
-      formValidation.push("Password is too short!");
-    }
+    // const formValidation = [];
 
-    if (!/[A-Z]/.test(password) || !/[A-Z]/.test(confirmPasswrod)) {
-      formValidation.push(
-        "Password needs to have at least one uppercase letter!"
-      );
-    }
+    // if (password !== confirmPasswrod) {
+    //   formValidation.push("Provided passwords don't match!");
+    // }
 
-    if (
-      !/[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(password) ||
-      !/[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(confirmPasswrod)
-    ) {
-      formValidation.push(
-        "Password needs to contain at least 1 special character!"
-      );
-    }
+    // if (password.length < 8 || confirmPasswrod.length < 8) {
+    //   formValidation.push("Password is too short!");
+    // }
 
-    if (!/[0-9]/.test(password) || !/[0-9]/.test(confirmPasswrod)) {
-      formValidation.push("Password needs to contain at least one number!");
-    }
+    // if (!/[A-Z]/.test(password) || !/[A-Z]/.test(confirmPasswrod)) {
+    //   formValidation.push(
+    //     "Password needs to have at least one uppercase letter!"
+    //   );
+    // }
 
-    setPasswordErr(formValidation);
+    // if (
+    //   !/[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(password) ||
+    //   !/[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(confirmPasswrod)
+    // ) {
+    //   formValidation.push(
+    //     "Password needs to contain at least 1 special character!"
+    //   );
+    // }
 
-    if (passwordErr?.length == 0) {
-      register(email, password);
-      //   Navigate("/dashboard");
-      return <Navigate to={"/"} />;
-    }
+    // if (!/[0-9]/.test(password) || !/[0-9]/.test(confirmPasswrod)) {
+    //   formValidation.push("Password needs to contain at least one number!");
+    // }
+
+    // setPasswordErr(formValidation);
+
+    // if (passwordErr?.length == 0) {
+    //   register(email, password);
+    //   //   Navigate("/dashboard");
+    //   return <Navigate to={"/"} />;
+    // }
   };
+
+  // Handle validation of the password
+  useEffect(() => {
+    const validatePass = {
+      length: false,
+      uppercaseChar: false,
+      number: false,
+      specialChar: false,
+    };
+
+    if (password.length >= 8) {
+      validatePass.length = true;
+    }
+    if (/[A-Z]/.test(password)) {
+      validatePass.uppercaseChar = true;
+    }
+
+    if (/[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(password)) {
+      validatePass.specialChar = true;
+    }
+
+    if (/[0-9]/.test(password)) {
+      validatePass.number = true;
+    }
+    setPasswordValidation(validatePass);
+  }, [password]);
+
   return (
     <main>
       <form onSubmit={handleRegister} className="register-form">
@@ -75,19 +113,45 @@ function Register() {
         <div className="password-req">
           <p className="password-req__header">Password must contain:</p>
           <p>
-            <span className="req-not-fulfilled"></span>At least 8 characters.
+            <span
+              className={
+                passwordValidation.length
+                  ? "req-fulfilled"
+                  : "req-not-fulfilled"
+              }
+            ></span>
+            At least 8 characters.
           </p>
 
           <p>
-            <span className="req-not-fulfilled"></span>At least 1 uppercase
-            character.
+            <span
+              className={
+                passwordValidation.uppercaseChar
+                  ? "req-fulfilled"
+                  : "req-not-fulfilled"
+              }
+            ></span>
+            At least 1 uppercase character.
           </p>
           <p>
-            <span className="req-not-fulfilled"></span>At least 1 number.
+            <span
+              className={
+                passwordValidation.number
+                  ? "req-fulfilled"
+                  : "req-not-fulfilled"
+              }
+            ></span>
+            At least 1 number.
           </p>
           <p>
-            <span className="req-not-fulfilled"></span>At least 1 special
-            character.
+            <span
+              className={
+                passwordValidation.specialChar
+                  ? "req-fulfilled"
+                  : "req-not-fulfilled"
+              }
+            ></span>
+            At least 1 special character.
           </p>
         </div>
         <button type="submit">Register</button>
