@@ -1,8 +1,11 @@
+@import "./partials/variables";
+
 .login-form {
   display: grid;
   row-gap: 0.5rem;
   margin: 1rem auto;
   padding: 1rem;
+  max-width: 480px;
 
   h4 {
     text-align: center;
@@ -15,10 +18,33 @@
       font-weight: bold;
     }
   }
-
   button {
+    @include button-black;
+    &:hover {
+      @include button-hover;
+    }
     width: 7rem;
-    padding: 0.2rem 0;
+    padding: 0.3rem 0;
     margin: 0 auto;
+  }
+
+  input {
+    @include input-style;
+  }
+}
+
+.login-err-paragraph--hidden {
+  display: none;
+}
+
+.login-err-paragraph--active {
+  display: block;
+  font-weight: bold;
+  color: map-get($colors, light-red);
+}
+
+@media (min-width: 480px) {
+  .login-form {
+    margin: 3rem auto;
   }
 }

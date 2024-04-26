@@ -3,6 +3,7 @@ $colors: (
   lighter-black: #2c2c2c,
   light-grey: #ccc,
   lighter-grey: #ddd,
+  light-red: #fa6464,
 );
 
 @mixin button-hover() {
@@ -16,4 +17,14 @@ $colors: (
   background-color: map-get($colors, lighter-black);
   padding: 0.5rem;
   border-radius: 5px;
+}
+
+@mixin input-style() {
+  height: 30px;
+  border-radius: 3px;
+  padding: 0.2rem;
+  border: 1px solid map-get($colors, lighter-black);
+  &:focus-visible {
+    outline-color: map-get($colors, light-green);
+  }
 }

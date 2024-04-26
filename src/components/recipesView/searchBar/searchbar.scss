@@ -9,13 +9,7 @@
 
   select,
   input {
-    height: 30px;
-    border-radius: 3px;
-    padding: 0.2rem;
-    border: 1px solid map-get($colors, lighter-black);
-    &:focus-visible {
-      outline-color: map-get($colors, light-green);
-    }
+    @include input-style;
   }
 
   button {

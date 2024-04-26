@@ -1,4 +1,4 @@
-import { FormEvent, useContext } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,6 +10,10 @@ import "../style/login.scss";
 function LogIn() {
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [loginErr, setLoginErr] = useState("");
+  const [loginErrClass, setLoginErrClass] = useState(
+    "login-err-paragraph--hidden"
+  );
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,12 +30,14 @@ function LogIn() {
         // Get user object
         const user = userCredential.user;
         setUser(user);
+        // Set display to error class
+        setLoginErrClass("login-err-paragraph--hidden");
         // Redirect to user dashboard
         navigate("/dashboard");
       })
       .catch((error: FirebaseError) => {
-        const errorCode = error.code;
-        console.log("Error code:", errorCode);
+        setLoginErr(error.code);
+        setLoginErrClass("login-err-paragraph--active");
       });
   };
 
@@ -39,11 +45,17 @@ function LogIn() {
     <>
       <main>
         <form onSubmit={handleLogin} className="login-form">
-          <h4>Log in:</h4>
+          <h4>Provide login credentials:</h4>
           <label htmlFor="email">Email adress:</label>
-          <input type="email" name="email" placeholder="enter your email" />
-          <label htmlFor="password">Password</label>
-          <input type="password" name="password" />
+          <input
+            type="email"
+            name="email"
+            placeholder="enter your email"
+            required
+          />
+          <label htmlFor="password">Password:</label>
+          <input type="password" name="password" required />
+          <p className={loginErrClass}>{loginErr}</p>
           <p>
             No account yet? Please <Link to={"../register"}>Register.</Link>
           </p>
