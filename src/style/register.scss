@@ -3,6 +3,7 @@
 .register-form {
   display: grid;
   row-gap: 0.5rem;
+  max-width: 480px;
   margin: 1rem auto;
   padding: 1rem;
 
@@ -72,4 +73,30 @@
   font-weight: bold;
   font-style: italic;
   color: map-get($colors, light-red);
+}
+
+@media (min-width: 768px) {
+  .register-form {
+    margin: 2rem auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .register-form {
+    margin: 3rem auto;
+
+    h4 {
+      font-size: 1.8rem;
+    }
+
+    label {
+      font-size: 1.2rem;
+    }
+  }
+
+  .password-req {
+    p {
+      font-size: 1rem;
+    }
+  }
 }

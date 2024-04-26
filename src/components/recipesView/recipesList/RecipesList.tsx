@@ -22,7 +22,6 @@ function RecipesList({
 }: Props) {
   // Prepare data in states
   const [recipesData, setRecipesData] = useState<RecipeGeneral[]>([]);
-  // const [totalResults, setTotalResults] = useState<number>(0);
 
   // Fetch date on page load and when other elements change
   useEffect(() => {

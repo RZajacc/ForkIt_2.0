@@ -48,3 +48,27 @@
     margin: 4rem auto;
   }
 }
+
+@media (min-width: 768) {
+  .login-form {
+    h4 {
+      font-size: 1.7rem;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .login-form {
+    h4 {
+      font-size: 1.8rem;
+    }
+
+    label {
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+    }
+  }
+}

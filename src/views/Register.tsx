@@ -2,7 +2,11 @@ import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+} from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
 import "../style/register.scss";
@@ -40,6 +44,7 @@ function Register() {
     // Collect data from from
     const formData = new FormData(e.currentTarget);
     // Collect inputs
+    const userName = formData.get("username") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const confirmPassword = formData.get("confirm-password") as string;
@@ -72,8 +77,15 @@ function Register() {
         .then((userCredential) => {
           // extract the user
           const user = userCredential.user;
-          setUser(user);
-          navigate("/dashboard");
+          // Update with username
+          updateProfile(user, { displayName: userName })
+            .then(() => {
+              setUser(user);
+              navigate("/dashboard");
+            })
+            .catch((error: FirebaseError) => {
+              console.log(error.code);
+            });
         })
         .catch((error: FirebaseError) => {
           setRegErrMsg(error.code);
@@ -115,8 +127,10 @@ function Register() {
     <main>
       <form onSubmit={handleRegister} className="register-form">
         <h4>Please provide required data:</h4>
+        <label htmlFor="username">Username:</label>
+        <input type="text" name="username" required />
         <label htmlFor="email">Email adress:</label>
-        <input type="email" name="email" placeholder="enter email" required />
+        <input type="email" name="email" required />
         <label htmlFor="password">Password:</label>
         <input
           name="password"
