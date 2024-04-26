@@ -1,12 +1,11 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
-import { User, onAuthStateChanged, signOut } from "firebase/auth";
+import { User, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/firebaseConfig";
 
 // ? TYPES
 interface AuthContextType {
   user: User | null;
-  setUser: (user: User) => void;
-  logout: () => void;
+  setUser: (user: User | null) => void;
   loading: boolean;
 }
 
@@ -30,16 +29,6 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const logout = () => {
-    signOut(auth)
-      .then(() => {
-        setUser(null);
-      })
-      .catch((error) => {
-        console.log("Error :>>", error);
-      });
-  };
-
   const checkIfUserIsActive = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -60,7 +49,6 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       value={{
         user,
         setUser,
-        logout,
         loading,
       }}
     >

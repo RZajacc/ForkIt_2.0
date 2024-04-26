@@ -1,12 +1,18 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import MobileNav from "./subcomponents/MobileNav";
 import DesktopNav from "./subcomponents/DesktopNav";
 
 import "./appnav.scss";
+import { getAuth, signOut } from "firebase/auth";
+import { AuthContext } from "../../context/AuthContext";
+import { FirebaseError } from "firebase/app";
 
 function AppNav() {
+  const { setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  // ASSIGN MOBILE NAV STATE
   const [mobileNavState, setMobileNavState] = useState(
     "mobile-nav-items--hidden"
   );
@@ -20,7 +26,21 @@ function AppNav() {
       setbackdropState("backdrop");
     }
   };
+  // BACKDROP STATE
   const [backdropState, setbackdropState] = useState("backdrop");
+
+  // LOGOUT FUNCTIONALITY
+  const logout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+        navigate("/");
+      })
+      .catch((error: FirebaseError) => {
+        console.log(error.code);
+      });
+  };
 
   return (
     <>
@@ -52,6 +72,7 @@ function AppNav() {
         <MobileNav
           mobileNavState={mobileNavState}
           toggleMobileNavState={toggleMobileNavState}
+          logout={logout}
         />
       </header>
       {/* BACKROP WHEN MOBILE OPTIONS ARE OPENED */}

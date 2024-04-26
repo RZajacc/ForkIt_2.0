@@ -5,10 +5,11 @@ import { AuthContext } from "../../../context/AuthContext";
 type Props = {
   mobileNavState: string;
   toggleMobileNavState: () => void;
+  logout: () => void;
 };
 
-function MobileNav({ mobileNavState, toggleMobileNavState }: Props) {
-  const { user, logout } = useContext(AuthContext);
+function MobileNav({ mobileNavState, toggleMobileNavState, logout }: Props) {
+  const { user } = useContext(AuthContext);
 
   return (
     <div className={mobileNavState}>
@@ -40,14 +41,15 @@ function MobileNav({ mobileNavState, toggleMobileNavState }: Props) {
             />
             Dashboard
           </Link>
-          <Link to={"login"} onClick={logout}>
+          <button onClick={logout}>Logout</button>
+          {/* <Link to={"login"} onClick={logout}>
             <img
               src="https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/door-open-white.svg?alt=media&token=02cc62e2-e221-46ba-acfe-9ce5e156a510"
               alt="opened door"
               className="mobile-nav-image"
             />
             Logout
-          </Link>
+          </Link> */}
         </>
       ) : (
         <Link to={"login"} onClick={toggleMobileNavState}>
