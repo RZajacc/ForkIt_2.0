@@ -58,6 +58,10 @@ header {
       display: none;
     }
   }
+
+  button {
+    display: none;
+  }
 }
 
 .mobile-nav-items--active {
@@ -76,6 +80,19 @@ header {
     &:hover {
       background-color: map-get($colors, lighter-black);
       color: map-get($colors, lighter-black);
+    }
+  }
+
+  button {
+    margin: 0.2rem 0 0.7rem 1rem;
+    padding: 0.2rem 0.6rem;
+    border: none;
+    background-color: rgb(250, 42, 42);
+    color: rgb(251, 211, 211);
+    border-radius: 10px;
+
+    &:hover {
+      font-weight: bold;
     }
   }
 }

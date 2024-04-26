@@ -66,7 +66,7 @@ function AppNav() {
           </button>
 
           {/* DESKTOP NAV */}
-          <DesktopNav />
+          <DesktopNav logout={logout} />
         </nav>
         {/* MOBILE NAV DIV SECTION */}
         <MobileNav
