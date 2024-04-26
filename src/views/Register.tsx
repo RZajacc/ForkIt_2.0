@@ -1,10 +1,11 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-import "../style/register.scss";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
+
+import "../style/register.scss";
 
 function Register() {
   const { setUser } = useContext(AuthContext);
@@ -15,6 +16,7 @@ function Register() {
     number: false,
     specialChar: false,
   });
+
   const navigate = useNavigate();
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
