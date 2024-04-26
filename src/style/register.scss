@@ -1,0 +1,62 @@
+@import "./partials/variables";
+
+.register-form {
+  display: grid;
+  row-gap: 0.5rem;
+  margin: 2rem auto;
+  padding: 1rem;
+
+  h4 {
+    text-align: center;
+  }
+
+  input {
+    @include input-style;
+  }
+
+  button {
+    width: 7rem;
+    margin: 0 auto;
+
+    @include button-black;
+
+    &:hover {
+      @include button-hover;
+    }
+  }
+}
+
+// PASSWORD VALIDATION
+.password-req {
+  margin: 0.3rem auto 1rem;
+  p {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: gray;
+    margin: 0;
+  }
+}
+
+.password-req__header {
+  text-align: center;
+  font-weight: bold;
+  margin: 0.3rem 0 !important;
+}
+
+.req-not-fulfilled {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 0.5rem;
+  border-radius: 50%;
+  background-color: map-get($colors, light-red);
+}
+
+.req-fulfilled {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 0.5rem;
+  border-radius: 50%;
+  background-color: map-get($colors, light-green);
+}
