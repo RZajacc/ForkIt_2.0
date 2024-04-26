@@ -1,77 +1,71 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 import "../style/register.scss";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 
 function Register() {
-  const { register } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
+  const { setUser } = useContext(AuthContext);
   const [password, setPassword] = useState("");
-  const [confirmPasswrod, setConfirmPasswrod] = useState("");
-  // const [passwordErr, setPasswordErr] = useState<string[] | null>(null);
   const [passwordValidation, setPasswordValidation] = useState({
     length: false,
     uppercaseChar: false,
     number: false,
     specialChar: false,
   });
+  const navigate = useNavigate();
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const handleConfirmPasswrodChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setConfirmPasswrod(e.target.value);
-  };
-
   const handleRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // if (password !== confirmPasswrod) {
-    //   formValidation.push("Provided passwords don't match!");
-    // }
+    const formData = new FormData(e.currentTarget);
+    // Collect inputs
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirm-password") as string;
 
-    // const formValidation = [];
+    // Final form validation
+    let passwordValid = false;
+    let passwordMatch = false;
 
-    // if (password !== confirmPasswrod) {
-    //   formValidation.push("Provided passwords don't match!");
-    // }
+    if (
+      passwordValidation.length &&
+      passwordValidation.number &&
+      passwordValidation.specialChar &&
+      passwordValidation.uppercaseChar
+    ) {
+      passwordValid = true;
+    }
 
-    // if (password.length < 8 || confirmPasswrod.length < 8) {
-    //   formValidation.push("Password is too short!");
-    // }
-
-    // if (!/[A-Z]/.test(password) || !/[A-Z]/.test(confirmPasswrod)) {
-    //   formValidation.push(
-    //     "Password needs to have at least one uppercase letter!"
-    //   );
-    // }
-
-    // if (
-    //   !/[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(password) ||
-    //   !/[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(confirmPasswrod)
-    // ) {
-    //   formValidation.push(
-    //     "Password needs to contain at least 1 special character!"
-    //   );
-    // }
-
-    // if (!/[0-9]/.test(password) || !/[0-9]/.test(confirmPasswrod)) {
-    //   formValidation.push("Password needs to contain at least one number!");
-    // }
-
-    // setPasswordErr(formValidation);
-
-    // if (passwordErr?.length == 0) {
-    //   register(email, password);
-    //   //   Navigate("/dashboard");
-    //   return <Navigate to={"/"} />;
-    // }
+    if (password === confirmPassword) {
+      passwordMatch = true;
+    }
+    console.log("PASSWORD MATCH", passwordMatch);
+    // REGISTER IF ALL CONDITIONS ARE MET
+    if (passwordValid && passwordMatch) {
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // extract the user
+          const user = userCredential.user;
+          console.log(user);
+          setUser(user);
+          navigate("/dashboard");
+        })
+        .catch((error: FirebaseError) => {
+          console.log(error.code);
+        });
+    }
   };
 
-  // Handle validation of the password
   useEffect(() => {
+    // Handle validation of the password
     const validatePass = {
       length: false,
       uppercaseChar: false,
@@ -103,13 +97,14 @@ function Register() {
         <label htmlFor="email">Email adress:</label>
         <input type="email" name="email" placeholder="enter email" required />
         <label htmlFor="password">Password:</label>
-        <input type="password" onChange={handlePasswordChange} required />
-        <label htmlFor="confirm-password">Repeat password:</label>
         <input
-          type="confirm-password"
-          onChange={handleConfirmPasswrodChange}
+          name="password"
+          type="password"
+          onChange={handlePasswordChange}
           required
         />
+        <label htmlFor="confirm-password">Repeat password:</label>
+        <input type="password" name="confirm-password" required />
         <div className="password-req">
           <p className="password-req__header">Password must contain:</p>
           <p>
