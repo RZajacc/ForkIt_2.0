@@ -60,3 +60,16 @@
   border-radius: 50%;
   background-color: map-get($colors, light-green);
 }
+
+.reg-err-msg {
+  display: none;
+}
+
+.reg-err-msg--active {
+  display: block;
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+  font-style: italic;
+  color: map-get($colors, light-red);
+}

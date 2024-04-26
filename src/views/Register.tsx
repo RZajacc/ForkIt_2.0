@@ -16,9 +16,15 @@ function Register() {
     number: false,
     specialChar: false,
   });
+  // FORM VALIDATION ERROR AND CLASSES
+  const [regErrMsg, setRegErrMsg] = useState("");
+  const [regPswValidClass, setRegPswValidClass] = useState("reg-err-msg");
+  const [regPswMatchClass, setRegPswMatchClass] = useState("reg-err-msg");
+  const [regErrClass, setRegErrClass] = useState("reg-err-msg");
 
   const navigate = useNavigate();
 
+  // PASSWORD CHANGE FOR FEEDBACK ABOUT REQUIREMENTS
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
@@ -26,6 +32,12 @@ function Register() {
   const handleRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // RESET ERROR CLASSES
+    setRegPswValidClass("reg-err-msg");
+    setRegPswMatchClass("reg-err-msg");
+    setRegErrClass("reg-err-msg");
+
+    // Collect data from from
     const formData = new FormData(e.currentTarget);
     // Collect inputs
     const email = formData.get("email") as string;
@@ -43,12 +55,16 @@ function Register() {
       passwordValidation.uppercaseChar
     ) {
       passwordValid = true;
+    } else {
+      setRegPswValidClass("reg-err-msg--active");
     }
 
     if (password === confirmPassword) {
       passwordMatch = true;
+    } else {
+      setRegPswMatchClass("reg-err-msg--active");
     }
-    console.log("PASSWORD MATCH", passwordMatch);
+
     // REGISTER IF ALL CONDITIONS ARE MET
     if (passwordValid && passwordMatch) {
       const auth = getAuth();
@@ -56,12 +72,12 @@ function Register() {
         .then((userCredential) => {
           // extract the user
           const user = userCredential.user;
-          console.log(user);
           setUser(user);
           navigate("/dashboard");
         })
         .catch((error: FirebaseError) => {
-          console.log(error.code);
+          setRegErrMsg(error.code);
+          setRegErrClass("reg-err-msg--active");
         });
     }
   };
@@ -75,20 +91,23 @@ function Register() {
       specialChar: false,
     };
 
+    // Check password length
     if (password.length >= 8) {
       validatePass.length = true;
     }
+    // Check if it contains any capital letter
     if (/[A-Z]/.test(password)) {
       validatePass.uppercaseChar = true;
     }
-
+    // Check if it contains a special character
     if (/[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(password)) {
       validatePass.specialChar = true;
     }
-
+    // Check it it contains a number
     if (/[0-9]/.test(password)) {
       validatePass.number = true;
     }
+    // Assign validation object to state variable
     setPasswordValidation(validatePass);
   }, [password]);
 
@@ -107,6 +126,13 @@ function Register() {
         />
         <label htmlFor="confirm-password">Repeat password:</label>
         <input type="password" name="confirm-password" required />
+        <div>
+          <p className={regPswMatchClass}>Passwords don't match!</p>
+          <p className={regPswValidClass}>
+            Password don't meet specified requirements!
+          </p>
+          <p className={regErrClass}>{regErrMsg}</p>
+        </div>
         <div className="password-req">
           <p className="password-req__header">Password must contain:</p>
           <p>
