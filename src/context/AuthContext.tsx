@@ -12,7 +12,6 @@ interface AuthContextType {
 const AuthInitContext = {
   user: null,
   setUser: () => console.log("user not yet defined"),
-  register: () => console.log("context not initialized"),
   logout: () => console.log("User state not yet defined"),
   loading: true,
 };

@@ -2,8 +2,12 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 
-function DesktopNav() {
-  const { user, logout } = useContext(AuthContext);
+type Props = {
+  logout: () => void;
+};
+
+function DesktopNav({ logout }: Props) {
+  const { user } = useContext(AuthContext);
   return (
     <ul className="desktop-nav">
       <li>
@@ -39,14 +43,7 @@ function DesktopNav() {
             </NavLink>
           </li>
           <li>
-            <NavLink to={"login"} onClick={logout}>
-              <img
-                src="/door-open-svgrepo-com_black.svg"
-                alt="opened door"
-                className="mobile-nav-image"
-              />
-              Logout
-            </NavLink>
+            <button onClick={logout}>Logout</button>
           </li>
         </>
       ) : (

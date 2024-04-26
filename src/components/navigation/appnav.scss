@@ -130,12 +130,19 @@ header {
     margin: 0 0.5rem;
     padding: 0.4rem 0.2rem;
     &:hover {
-      background-color: #73b1f7b3;
-      border-radius: 10px;
+      font-size: 1.1rem;
     }
     a {
       text-decoration: none;
       color: map-get($colors, lighter-black);
+    }
+    button {
+      padding: 0.4rem 0.8rem;
+      font-weight: bold;
+      border: none;
+      background-color: rgb(250, 42, 42);
+      color: rgb(251, 211, 211);
+      border-radius: 10px;
     }
   }
 }
