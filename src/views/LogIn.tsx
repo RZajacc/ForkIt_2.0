@@ -1,21 +1,38 @@
 import { FormEvent, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 
 import "../style/login.scss";
 
 function LogIn() {
-  const { loginEmail } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Create form data and collect its inputs
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    loginEmail(email, password);
-    navigate("/dashboard");
+    // Get firebase auth object
+    const auth = getAuth();
+    // Login to the application
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Get user object
+        const user = userCredential.user;
+        setUser(user);
+        // Redirect to user dashboard
+        navigate("/dashboard");
+      })
+      .catch((error: FirebaseError) => {
+        const errorCode = error.code;
+        console.log("Error code:", errorCode);
+      });
   };
 
   return (

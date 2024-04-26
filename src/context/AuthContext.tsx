@@ -2,7 +2,6 @@ import { ReactNode, createContext, useState, useEffect } from "react";
 import {
   User,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
@@ -13,7 +12,6 @@ interface AuthContextType {
   user: User | null;
   setUser: (user: User) => void;
   register: (email: string, password: string) => void;
-  loginEmail: (email: string, password: string) => void;
   logout: () => void;
   loading: boolean;
 }
@@ -22,7 +20,6 @@ const AuthInitContext = {
   user: null,
   setUser: () => console.log("user not yet defined"),
   register: () => console.log("context not initialized"),
-  loginEmail: () => console.log("User state not yet defined"),
   logout: () => console.log("User state not yet defined"),
   loading: true,
 };
@@ -49,21 +46,6 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       setUser(userCredential.user);
     } catch (error) {
       console.log("error", error);
-    }
-  };
-
-  const loginEmail = async (email: string, password: string) => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const loggedUser = userCredential.user;
-      console.log(loggedUser);
-      setUser(loggedUser);
-    } catch (error) {
-      console.log("Error ", error);
     }
   };
 
@@ -97,7 +79,6 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       value={{
         user,
         setUser,
-        loginEmail,
         logout,
         register,
         loading,
