@@ -8,8 +8,8 @@ import RecipeDetails from "./views/RecipeDetails";
 import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./views/Dashboard";
-import FavRecipeDetails from "./views/FavRecipeDetails";
 import Root from "./components/Root";
+import { loader as recipeLoader } from "./views/RecipeDetails";
 
 import "./style/global.scss";
 import Register from "./views/Register";
@@ -32,6 +32,7 @@ function App() {
         },
         {
           path: "recipes/:id",
+          loader: recipeLoader,
           element: (
             <ProtectedRoute>
               <RecipeDetails />
@@ -43,14 +44,6 @@ function App() {
           element: (
             <ProtectedRoute>
               <Dashboard />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "dashboard/:id",
-          element: (
-            <ProtectedRoute>
-              <FavRecipeDetails />
             </ProtectedRoute>
           ),
         },

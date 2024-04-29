@@ -3,9 +3,9 @@ import { db } from "../../../config/firebaseConfig";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { userFavs } from "../../../types/types";
-import RecipeCardDashboard from "../RecipeCardDashboard";
 
 import "./dashboard-favs.scss";
+import FavRecipeCard from "../favRecipeCard/FavRecipeCard";
 
 function DashboardFavs() {
   const { user } = useContext(AuthContext);
@@ -18,12 +18,15 @@ function DashboardFavs() {
       where("userID", "==", user?.uid)
     );
     onSnapshot(q, (querySnapshot) => {
-      const userFavs: userFavs[] = [];
+      const userFavsTemp: userFavs[] = [];
+
       querySnapshot.forEach((doc) => {
-        userFavs.push(doc.data() as userFavs);
+        userFavsTemp.push(doc.data() as userFavs);
       });
-      setUserFavs(userFavs);
+      setUserFavs(userFavsTemp);
     });
+
+    // * Prepare link
   }, [user?.uid]);
 
   return (
@@ -37,9 +40,7 @@ function DashboardFavs() {
 
         {userFavs &&
           userFavs.map((recipe) => {
-            return (
-              <RecipeCardDashboard recipe={recipe} key={recipe.recipeID} />
-            );
+            return <FavRecipeCard recipe={recipe} key={recipe.recipeID} />;
           })}
       </div>
     </>
