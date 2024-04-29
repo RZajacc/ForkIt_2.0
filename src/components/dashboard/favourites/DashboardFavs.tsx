@@ -5,6 +5,8 @@ import { AuthContext } from "../../../context/AuthContext";
 import { userFavs } from "../../../types/types";
 import RecipeCardDashboard from "../RecipeCardDashboard";
 
+import "./dashboard-favs.scss";
+
 function DashboardFavs() {
   const { user } = useContext(AuthContext);
   const [userFavs, setUserFavs] = useState<userFavs[] | null>(null);
