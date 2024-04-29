@@ -1,5 +1,5 @@
-import DashboardUser from "../components/dashboard/DashboardUser";
-import DashboardFavs from "../components/dashboard/DashboardFavs";
+import DashboardUser from "../components/dashboard/user/DashboardUser";
+import DashboardFavs from "../components/dashboard/favourites/DashboardFavs";
 import { useState } from "react";
 
 import "../style/dashboard.scss";
