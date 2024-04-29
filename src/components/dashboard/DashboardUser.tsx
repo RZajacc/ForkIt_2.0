@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { Row } from "react-bootstrap";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 function DashboardUser() {
   const { user } = useContext(AuthContext);
+
   return (
     <>
       <Row className="justify-content-md-center dashboard-content" xs={10}>

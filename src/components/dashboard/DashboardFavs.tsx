@@ -1,10 +1,10 @@
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { Col, Container, Row } from "react-bootstrap";
-import { db } from "../config/firebaseConfig";
+import { db } from "../../config/firebaseConfig";
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import RecipeCardDashboard from "./RecipeCardDashboard";
-import { userFavs } from "../types/types";
+import { userFavs } from "../../types/types";
 
 function DashboardFavs() {
   const { user } = useContext(AuthContext);

@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
+import noUser from "/noUser.png";
 import "../style/register.scss";
 
 function Register() {
@@ -78,7 +79,7 @@ function Register() {
           // extract the user
           const user = userCredential.user;
           // Update with username
-          updateProfile(user, { displayName: userName })
+          updateProfile(user, { displayName: userName, photoURL: noUser })
             .then(() => {
               setUser(user);
               navigate("/dashboard");

@@ -1,0 +1,18 @@
+@import "./partials/variables";
+
+.user-dashboard {
+  margin: 1rem auto;
+}
+
+.user-dashboard__nav {
+  display: flex;
+  justify-content: space-evenly;
+
+  button {
+    margin-bottom: 1rem;
+    background-color: map-get($colors, light-blue);
+    color: white;
+    padding: 0.3rem 0.5rem;
+    border-radius: 10px;
+  }
+}
