@@ -1,43 +1,110 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import { v4 } from "uuid";
 
 import "./dashboard-user.scss";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { FirebaseError } from "firebase/app";
+import { updateProfile } from "firebase/auth";
 
 function DashboardUser() {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadProgressClass, setUploadProgressClass] = useState(
+    "upload-progress--hidden"
+  );
+  const [uploadError, setUploadError] = useState("");
+  const [uploadErrorClass, setUploadErrorClass] = useState(
+    "upload-progress--hidden"
+  );
+  const [userImg, setUserImg] = useState(user?.photoURL);
 
   const handleFileSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Preparing form data
     const formData = new FormData(e.currentTarget);
     const userImg = formData.get("user-image") as File;
 
+    // Designing image resulting name
+    const imgNameSplit = userImg.name.split(".");
+    const imgName = imgNameSplit[0] + "_" + v4() + "." + imgNameSplit[1];
+    setUploadErrorClass("upload-progress--hidden");
     // Create a root reference
     const storage = getStorage();
 
     // Create a reference to 'mountains.jpg'
-    const profilePics = ref(storage, `userImages/${userImg.name}`);
+    const storageRef = ref(storage, `userImages/${imgName}`);
 
-    // // 'file' comes from the Blob or File API
-    uploadBytes(profilePics, userImg)
-      .then((snapshot) => {
-        console.log("Uploaded a blob or file!");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const uploadTask = uploadBytesResumable(storageRef, userImg);
 
-    console.log(formData.get("user-image"));
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgress(progress);
+        setUploadProgressClass("upload-progress--active");
+      },
+      (error: FirebaseError) => {
+        setUploadErrorClass("upload-error--active");
+        setUploadError(error.message);
+      },
+      () => {
+        setUploadProgressClass("upload-progress--hidden");
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL: string) => {
+          const userImageURL = user?.photoURL;
+          // If its default one only update the link but if custom, delete previous one
+          if (userImageURL === "/noUser.png") {
+            updateProfile(user!, { photoURL: downloadURL }).then(() => {
+              setUser(user);
+              setUserImg(downloadURL);
+            });
+          } else {
+            updateProfile(user!, { photoURL: downloadURL }).then(() => {
+              setUser(user);
+              setUserImg(downloadURL);
+            });
+            const img = user?.photoURL as string;
+            const deleteRef = ref(storage, img);
+            deleteObject(deleteRef)
+              .then(() => {
+                console.log("Success");
+              })
+              .catch((error: FirebaseError) => {
+                console.log("ERROR", error.message);
+              });
+          }
+        });
+      }
+    );
   };
   return (
     <>
       <div className="user-image-container">
-        <img src={user?.photoURL ? user.photoURL : ""} />
+        {/* <img src={user?.photoURL ? user.photoURL : ""} /> */}
+        <img src={userImg ? userImg : ""} />
       </div>
-      <form onSubmit={handleFileSubmit} encType="multipart/form-data">
+      <form
+        onSubmit={handleFileSubmit}
+        encType="multipart/form-data"
+        className="user-image-form"
+      >
         <input type="file" name="user-image" accept="image/png, image/jpeg" />
         <button type="submit">Upload</button>
       </form>
+      <div>
+        <p className={uploadProgressClass}>
+          Upload progress: <span>{Math.floor(uploadProgress) + "%"}</span>
+        </p>
+        <p className={uploadErrorClass}>{uploadError}</p>
+      </div>
       <div>
         <p>
           <strong>Username: </strong>{" "}

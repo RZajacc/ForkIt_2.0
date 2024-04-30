@@ -1,8 +1,44 @@
+@import "../../../style/partials/variables";
+
 .user-image-container {
   margin: 1rem auto;
   text-align: center;
   img {
-    width: 50%;
+    width: 12rem;
+    height: 12rem;
     border-radius: 50%;
   }
+}
+
+.user-image-form {
+  display: grid;
+  row-gap: 0.7rem;
+
+  button {
+    width: 5rem;
+    margin: 0 auto;
+    @include button-black;
+    font-weight: bold;
+    &:hover {
+      @include button-hover;
+    }
+  }
+}
+
+.upload-progress--hidden {
+  display: none;
+}
+
+.upload-progress--active {
+  display: block;
+  font-weight: bold;
+  span {
+    color: map-get($colors, light-blue);
+  }
+}
+
+.upload-error--active {
+  font-weight: bold;
+  text-align: center;
+  color: map-get($colors, light-red);
 }

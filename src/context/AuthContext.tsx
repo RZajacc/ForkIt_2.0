@@ -28,7 +28,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const checkIfUserIsActive = () => {
+  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
@@ -37,10 +37,6 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         setLoading(false);
       }
     });
-  };
-
-  useEffect(() => {
-    checkIfUserIsActive();
   }, [loading]);
 
   return (
