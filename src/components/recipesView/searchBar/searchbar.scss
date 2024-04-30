@@ -10,6 +10,7 @@
   select,
   input {
     @include input-style;
+    font-size: 1rem;
   }
 
   button {
