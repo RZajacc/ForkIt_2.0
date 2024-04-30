@@ -1,0 +1,24 @@
+@import "../style//partials//variables";
+
+.error-container {
+  margin-top: 30%;
+  text-align: center;
+
+  p {
+    color: map-get($colors, light-red);
+    margin: 2rem;
+  }
+
+  a {
+    text-decoration: none;
+    background-color: map-get($colors, light-blue);
+    color: white;
+    font-weight: bold;
+    border: 2px solid black;
+    padding: 0.5rem 0.7rem;
+    border-radius: 10px;
+    &:hover {
+      @include button-hover;
+    }
+  }
+}

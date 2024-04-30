@@ -48,7 +48,7 @@ function RecipesList({
 
   return (
     <>
-      <div className="text-center">
+      <div className="recipe-amount">
         <p>
           Total amount or recipes found: <strong>{totalResults}</strong>
         </p>
