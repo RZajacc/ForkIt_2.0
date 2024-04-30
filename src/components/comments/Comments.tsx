@@ -25,32 +25,18 @@ function Comments({ recipeId }: Props) {
 
   // Add new comment
   const submitNewComment = async (e: React.FormEvent<HTMLFormElement>) => {
-    // ! This part was necessary because data varied depending if user logged in with google or account created here
-    // ! But in the end I will stick to just manually created accounts so it will be modified later
     e.preventDefault();
 
     // Get the form data
     const formData = new FormData(e.currentTarget);
     const commentData = formData.get("comment_text") as string;
 
-    // Collect user data
-    const authorData = user
-      ? user.displayName
-        ? user.displayName
-        : user.email
-      : "No user";
-    const authorImage = user
-      ? user.photoURL
-        ? user.photoURL
-        : "https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/noUser.png?alt=media&token=37607a3a-371b-40a9-9947-a0005991680b"
-      : "No user";
-
     // Create new comment data
     const newComment: commentsType = {
-      authorID: user!.uid,
+      authorID: user!.uid as string,
       recipeID: recipeId,
-      author: authorData!,
-      picUrl: authorImage,
+      author: user!.displayName as string,
+      picUrl: user!.photoURL as string,
       message: commentData,
       date: new Date(),
     };
