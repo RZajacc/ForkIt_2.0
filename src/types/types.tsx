@@ -61,6 +61,8 @@ export interface userFavs {
   recipeID: number;
   recipeTitle: string;
   userID: string;
+  healthScore: number;
+  readyInMinutes: number;
 }
 
 export interface RouteErrorType {

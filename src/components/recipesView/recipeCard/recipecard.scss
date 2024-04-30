@@ -8,7 +8,11 @@
 
 .recipe-card__header-section {
   position: relative;
-  height: 2.5rem;
+  height: 2rem;
+
+  p {
+    margin: 0;
+  }
 }
 
 .recipe-card__cooking-time {

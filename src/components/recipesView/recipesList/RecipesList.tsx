@@ -57,7 +57,14 @@ function RecipesList({
         {recipesData &&
           recipesData.map((recipe) => {
             return (
-              <RecipeCard recipe={recipe} id={recipe.id} key={recipe.id} />
+              <RecipeCard
+                readyInMinutes={recipe.readyInMinutes}
+                healthScore={recipe.healthScore}
+                imageUrl={recipe.image}
+                title={recipe.title}
+                link={`${recipe.id}`}
+                key={recipe.id}
+              />
             );
           })}
       </div>

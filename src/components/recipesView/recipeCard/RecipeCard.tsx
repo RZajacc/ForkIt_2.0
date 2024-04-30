@@ -1,30 +1,38 @@
 import { Link } from "react-router-dom";
-import { RecipeGeneral } from "../../../types/types";
 import "./recipecard.scss";
 
 type Props = {
-  recipe: RecipeGeneral;
-  id: number;
+  readyInMinutes: number;
+  healthScore: number;
+  imageUrl: string;
+  title: string;
+  link: string;
 };
 
-function RecipeCard({ recipe, id }: Props) {
+function RecipeCard({
+  readyInMinutes,
+  healthScore,
+  imageUrl,
+  title,
+  link,
+}: Props) {
   return (
-    <div className="recipe-card" key={id}>
+    <div className="recipe-card">
       <section className="recipe-card__header-section">
         <p className="recipe-card__cooking-time">
-          Time:<span> {recipe.readyInMinutes}</span> min.
+          Time:<span> {readyInMinutes}</span> min.
         </p>
         <p className="recipe-card__nutritional-score">
           Score:
-          <span>{recipe.healthScore}</span>
+          <span>{healthScore}</span>
         </p>
       </section>
       <section className="recipe-card__image-section">
-        <img src={recipe.image} alt="recipe-image" />
+        <img src={imageUrl} alt="recipe-image" />
       </section>
-      <p className="recipe-card__recipe-title">{recipe.title}</p>
+      <p className="recipe-card__recipe-title">{title}</p>
       <section className="recipe-card__read-more-link">
-        <Link to={`${recipe.id}`}>Read more</Link>
+        <Link to={link}>Read more</Link>
       </section>
     </div>
   );

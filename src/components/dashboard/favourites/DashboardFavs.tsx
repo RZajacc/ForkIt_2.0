@@ -5,7 +5,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { userFavs } from "../../../types/types";
 
 import "./dashboard-favs.scss";
-import FavRecipeCard from "../favRecipeCard/FavRecipeCard";
+import RecipeCard from "../../recipesView/recipeCard/RecipeCard";
 
 function DashboardFavs() {
   const { user } = useContext(AuthContext);
@@ -40,7 +40,16 @@ function DashboardFavs() {
 
         {userFavs &&
           userFavs.map((recipe) => {
-            return <FavRecipeCard recipe={recipe} key={recipe.recipeID} />;
+            return (
+              <RecipeCard
+                readyInMinutes={recipe.readyInMinutes}
+                healthScore={recipe.healthScore}
+                imageUrl={recipe.ImageUrl}
+                title={recipe.recipeTitle}
+                link={`../recipes/${recipe.recipeID}`}
+                key={recipe.recipeID}
+              />
+            );
           })}
       </div>
     </>

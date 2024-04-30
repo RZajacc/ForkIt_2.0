@@ -34,6 +34,8 @@ function RecipeDetails() {
       recipeID: recipe.id,
       recipeTitle: recipe.title,
       ImageUrl: recipe.image,
+      healthScore: recipe.healthScore,
+      readyInMinutes: recipe.readyInMinutes,
     };
 
     if (favID) {
