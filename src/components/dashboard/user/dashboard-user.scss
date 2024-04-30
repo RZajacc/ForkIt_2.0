@@ -13,6 +13,21 @@
 .user-image-form {
   display: grid;
   row-gap: 0.7rem;
+  small {
+    text-align: center;
+    color: gray;
+  }
+
+  input {
+    padding: 0.3rem;
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+
+  input::file-selector-button {
+    @include button-black;
+    padding: 0.3rem 0.5rem;
+  }
 
   button {
     width: 5rem;
@@ -32,8 +47,9 @@
 .upload-progress--active {
   display: block;
   font-weight: bold;
+  text-align: center;
   span {
-    color: map-get($colors, light-blue);
+    color: map-get($colors, light-red);
   }
 }
 
@@ -41,4 +57,13 @@
   font-weight: bold;
   text-align: center;
   color: map-get($colors, light-red);
+}
+
+.file-size-error--active {
+  text-align: center;
+  color: map-get($colors, light-red);
+
+  span {
+    font-weight: bold;
+  }
 }
