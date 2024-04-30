@@ -1,19 +1,20 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+// Views
 import RecipesView from "./views/RecipesView";
 import Contact from "./views/Contact";
 import Home from "./views/Home";
 import ErrorPage from "./views/ErrorPage";
 import RecipeDetails from "./views/RecipeDetails";
-import { AuthContextProvider } from "./context/AuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./views/Dashboard";
-import Root from "./components/Root";
-import { loader as recipeLoader } from "./views/RecipeDetails";
-
-import "./style/global.scss";
 import Register from "./views/Register";
 import LogIn from "./views/LogIn";
+// Other
+import Root from "./components/Root";
+import { AuthContextProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import "./style/global.scss";
+// Loaders
+import { loader as recipeLoader } from "./views/RecipeDetails.Loader";
 
 function App() {
   const router = createBrowserRouter([

@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { db } from "../config/firebaseConfig";
 import {
@@ -17,34 +17,16 @@ import { RecipeGeneral, userFavs } from "../types/types";
 
 import "../style/recipeDetails.scss";
 
-// interface LocationState {
-//   recipe: RecipeGeneral;
-// }
-
-export async function loader({ params }: LoaderFunctionArgs) {
-  // * Prepare link
-  const apiKey = import.meta.env.VITE_SPOONACULARKEY;
-  const url = `https://api.spoonacular.com/recipes/${params.id}/information?apiKey=${apiKey}`;
-
-  // * ----- FETCH ----------------
-  try {
-    const response = await fetch(url);
-    const recipe: RecipeGeneral = await response.json();
-    return { recipe };
-  } catch (error) {
-    console.log(error);
-  }
-}
+type loaderType = {
+  recipe: RecipeGeneral;
+};
 
 function RecipeDetails() {
-  // const location = useLocation();
-  const { recipe } = useLoaderData() as RecipeGeneral;
-  console.log("LOADED RECIPE", recipe);
-  // const { recipe } = location.state as LocationState;
+  const { recipe } = useLoaderData() as loaderType;
   const { user } = useContext(AuthContext);
   const [favs, setFavs] = useState<userFavs[] | null>(null);
   const [favID, setFavID] = useState<string | null>(null);
-  console.log(recipe);
+
   // Adding recipe to favourites
   const handleAddFavourite = async () => {
     const fav = {
