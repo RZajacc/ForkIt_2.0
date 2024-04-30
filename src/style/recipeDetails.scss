@@ -13,6 +13,9 @@
     color: white;
     padding: 0.2rem 0.7rem;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
 
     &:hover {
       border: 3px solid map-get($colors, lighter-black);
@@ -50,6 +53,8 @@
   img {
     margin: 0.5rem;
     border-radius: 5px;
+    width: 95%;
+    margin: 0 auto;
   }
 
   p {
@@ -60,6 +65,7 @@
 .recipe-details__ingredients-section {
   h4 {
     text-align: center;
+    margin-top: 0;
   }
 }
 

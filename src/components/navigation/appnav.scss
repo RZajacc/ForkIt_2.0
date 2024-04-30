@@ -85,8 +85,10 @@ header {
 
   button {
     margin: 0.2rem 0 0.7rem 1rem;
-    padding: 0.2rem 0.6rem;
+    padding: 0.5rem 1rem;
     border: none;
+    font-weight: bold;
+    font-size: 0.9rem;
     background-color: rgb(250, 42, 42);
     color: rgb(251, 211, 211);
     border-radius: 10px;
@@ -137,9 +139,10 @@ header {
       color: map-get($colors, lighter-black);
     }
     button {
-      padding: 0.4rem 0.8rem;
+      padding: 0.5rem 1rem;
       font-weight: bold;
       border: none;
+      font-size: 0.9rem;
       background-color: rgb(250, 42, 42);
       color: rgb(251, 211, 211);
       border-radius: 10px;

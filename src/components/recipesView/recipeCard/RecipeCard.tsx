@@ -24,9 +24,7 @@ function RecipeCard({ recipe, id }: Props) {
       </section>
       <p className="recipe-card__recipe-title">{recipe.title}</p>
       <section className="recipe-card__read-more-link">
-        <Link to={`${recipe.id}`} state={{ recipe: recipe }}>
-          Read more
-        </Link>
+        <Link to={`${recipe.id}`}>Read more</Link>
       </section>
     </div>
   );
