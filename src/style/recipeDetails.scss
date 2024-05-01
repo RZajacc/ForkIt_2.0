@@ -74,3 +74,12 @@
     text-align: center;
   }
 }
+
+.fetch-error-container {
+  margin-top: 4rem;
+  text-align: center;
+  p {
+    font-weight: bold;
+    color: map-get($colors, light-red);
+  }
+}

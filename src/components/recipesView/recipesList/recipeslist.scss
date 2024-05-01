@@ -1,7 +1,18 @@
+@import "../../../style/partials/variables";
+
 .recipe-amount {
   p {
     text-align: center;
   }
+}
+
+.hide-element {
+  display: none;
+}
+
+.fetch-error {
+  color: map-get($colors, light-red);
+  text-align: center;
 }
 
 .recipes-card-grid {
