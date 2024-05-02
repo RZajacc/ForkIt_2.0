@@ -76,28 +76,23 @@
   color: map-get($colors, light-red);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 480px) {
   .register-form {
-    margin: 2rem auto;
-  }
-}
-
-@media (min-width: 1200px) {
-  .register-form {
-    margin: 3rem auto;
-
+    margin: 1rem auto;
     h4 {
-      font-size: 1.8rem;
-    }
-
-    label {
       font-size: 1.2rem;
     }
   }
+}
 
-  .password-req {
-    p {
-      font-size: 1rem;
+@media (min-width: 768px) {
+  .register-form {
+    border: 2px solid black;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px map-get($colors, lighter-black);
+    margin-top: 3rem;
+    h4 {
+      font-size: 1.3rem;
     }
   }
 }
