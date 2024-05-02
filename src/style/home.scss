@@ -25,7 +25,17 @@
 
 @media (min-width: 768px) {
   .main-content {
-    margin: 2rem auto;
+    margin: 3rem auto;
+
+    h1 {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .main-content {
+    margin: 4rem auto;
 
     h1 {
       margin-bottom: 2rem;
