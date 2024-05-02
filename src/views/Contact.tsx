@@ -1,28 +1,48 @@
+import { useRef } from "react";
+import emailjs from "@emailjs/browser";
+
 import "../style/contact.scss";
 
 function Contact() {
+  const form = useRef<HTMLFormElement>(null);
+
+  // Emailjs credentials
+  const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
+  const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
+  const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
+
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(SERVICE_ID, TEMPLATE_ID, form.current!, {
+        publicKey: PUBLIC_KEY,
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
+  };
   return (
     <>
       <main>
-        <div className="contact-container">
-          <h1>Contact us</h1>
-          <p>You can reach us by phone, mail or just come to visit!</p>
-          <p>
-            <a href="mailto:rf.zajac@gmail.com" className="contact-link">
-              &#x2709; Contact me
-            </a>
-          </p>
-          <p>&#x2706; +49 123 4567 8912</p>
-          <p>
-            <strong>Adress: </strong>Erich-Weinert-Straße 145, 10409 Berlin
-          </p>
-
-          <iframe
-            id="adress-map"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2426.3895300494523!2d13.440341686008981!3d52.54447854023895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84f446e0c53a1%3A0x27eac7eee50f967e!2sCode%20Academy%20Berlin!5e0!3m2!1spl!2sde!4v1690466346963!5m2!1spl!2sde"
-            loading="lazy"
-          ></iframe>
-        </div>
+        <section className="form-section">
+          <h4>If you have any questions send me a message:</h4>
+          <form ref={form} onSubmit={sendEmail}>
+            <label>Name</label>
+            <input type="text" name="user_name" />
+            <label>Email</label>
+            <input type="email" name="user_email" />
+            <label>Message</label>
+            <textarea name="message" rows={5} />
+            <button type="submit">Send</button>
+          </form>
+        </section>
+        <section className="feedback-section"></section>
       </main>
     </>
   );
