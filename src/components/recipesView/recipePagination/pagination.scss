@@ -7,19 +7,21 @@
   justify-content: center;
 
   button {
-    padding: 0.2rem 0.7rem;
+    padding: 0.4rem 1rem;
     border-radius: 5px;
     background-color: rgb(50, 50, 200);
     color: white;
+    cursor: pointer;
 
     &:disabled {
       background-color: gray;
     }
 
     &:hover {
-      border: 1px solid map-get($colors, lighter-grey);
-      background-color: map-get($colors, lighter-black);
-      color: white;
+      color: rgb(50, 50, 200);
+      background-color: map-get($colors, lighter-grey);
+      font-weight: bold;
+      font-size: 0.9rem;
     }
   }
 }
