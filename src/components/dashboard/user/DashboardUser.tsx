@@ -122,7 +122,7 @@ function DashboardUser() {
           Your file is too big! <span>It's {fileSizeError.toFixed(1)} Mb!</span>
         </p>
       </div>
-      <div>
+      <div className="user-data">
         <p>
           <strong>Username: </strong>{" "}
           {user?.displayName ? user.displayName : "No user name assigned"}
@@ -132,12 +132,16 @@ function DashboardUser() {
           {user?.email ? user.email : "Data not available"}
         </p>
         <p>
-          <strong>Active since: </strong>{" "}
-          {user ? user.metadata.creationTime : "No data"}
+          <small>
+            <strong>Active since: </strong>{" "}
+            {user ? user.metadata.creationTime : "No data"}
+          </small>
         </p>
         <p>
-          <strong>Last login: </strong>{" "}
-          {user ? user.metadata.lastSignInTime : "No data"}
+          <small>
+            <strong>Last login: </strong>{" "}
+            {user ? user.metadata.lastSignInTime : "No data"}
+          </small>
         </p>
       </div>
     </>

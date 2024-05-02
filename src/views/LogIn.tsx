@@ -56,10 +56,10 @@ function LogIn() {
           <label htmlFor="password">Password:</label>
           <input type="password" name="password" required />
           <p className={loginErrClass}>{loginErr}</p>
+          <button type="submit">Login</button>
           <p>
             No account yet? Please <Link to={"../register"}>Register.</Link>
           </p>
-          <button type="submit">Login</button>
         </form>
       </main>
     </>

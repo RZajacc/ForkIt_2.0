@@ -10,7 +10,8 @@
   justify-content: space-evenly;
 
   button {
-    margin-bottom: 1rem;
+    width: 50%;
+    margin: 0 0.2rem 1rem 0.2rem;
     background-color: map-get($colors, light-blue);
     color: white;
     padding: 0.5rem 1rem;
