@@ -16,6 +16,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const apiKey = import.meta.env.VITE_SPOONACULARKEY;
   const url = `https://api.spoonacular.com/recipes/${params.id}/information?apiKey=${apiKey}`;
 
+  // Blank recipe to return if nothing was fetched
   const blankRecipe: RecipeGeneral = {
     id: 0,
     title: "",
