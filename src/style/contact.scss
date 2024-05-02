@@ -21,6 +21,8 @@
     textarea {
       font-size: 1rem;
       padding: 0.5rem;
+      border: 1px solid map-get($colors, lighter-black);
+      border-radius: 3px;
 
       &:focus-visible {
         outline-color: map-get($colors, light-blue);
@@ -35,6 +37,22 @@
       }
     }
   }
+}
+
+.hidden {
+  display: none;
+}
+
+.success {
+  text-align: center;
+  color: green;
+  font-weight: bold;
+}
+
+.failure {
+  text-align: center;
+  color: map-get($colors, light-red);
+  font-weight: bold;
 }
 
 @media (min-width: 480px) {
