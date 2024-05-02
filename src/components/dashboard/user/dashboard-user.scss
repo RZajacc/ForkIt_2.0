@@ -26,7 +26,12 @@
 
   input::file-selector-button {
     @include button-black;
+    cursor: pointer;
     padding: 0.3rem 0.5rem;
+
+    &:hover {
+      @include button-hover;
+    }
   }
 
   button {
