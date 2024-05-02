@@ -16,13 +16,35 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const apiKey = import.meta.env.VITE_SPOONACULARKEY;
   const url = `https://api.spoonacular.com/recipes/${params.id}/information?apiKey=${apiKey}`;
 
+  const blankRecipe: RecipeGeneral = {
+    id: 0,
+    title: "",
+    image: "",
+    sustainable: false,
+    healthScore: 0,
+    readyInMinutes: 0,
+    servings: 0,
+    summary: "",
+    extendedIngredients: [
+      {
+        nameClean: "",
+        original: "",
+        measures: { metric: { amount: 0, unitShort: "", unitLong: "" } },
+      },
+    ],
+    analyzedInstructions: [
+      { steps: [{ number: 0, step: "", length: { number: 0, unit: "" } }] },
+    ],
+  };
+
   //  ----- FETCH ----------------
   try {
     const response = await fetch(url);
     if (response.status === 402) {
       throw new Response("Payment required", {
         status: 402,
-        statusText: "Payment required",
+        statusText:
+          "Sorry but request limit for my free tier is exceeded. Try again tomorrow!",
       });
     } else {
       const recipe: RecipeGeneral = await response.json();
@@ -33,34 +55,16 @@ export async function loader({ params }: LoaderFunctionArgs) {
       return { loaderData };
     }
   } catch (error) {
-    const loaderData: LoaderType = {
-      response: {
-        status: 402,
-        message:
-          "Sorry but request limit for my free tier is exceeded. Try again tomorrow!",
-      },
-      recipe: {
-        id: 0,
-        title: "",
-        image: "",
-        sustainable: false,
-        healthScore: 0,
-        readyInMinutes: 0,
-        servings: 0,
-        summary: "",
-        extendedIngredients: [
-          {
-            nameClean: "",
-            original: "",
-            measures: { metric: { amount: 0, unitShort: "", unitLong: "" } },
-          },
-        ],
-        analyzedInstructions: [
-          { steps: [{ number: 0, step: "", length: { number: 0, unit: "" } }] },
-        ],
-      },
-    };
-    // const error2 = { status: 402, message: "dupa" };
-    return { loaderData };
+    // Check if error is actually a response that I thrown before
+    if (error instanceof Response) {
+      const loaderData: LoaderType = {
+        response: {
+          status: error.status,
+          message: error.statusText,
+        },
+        recipe: blankRecipe,
+      };
+      return { loaderData };
+    }
   }
 }
