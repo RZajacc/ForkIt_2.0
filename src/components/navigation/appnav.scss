@@ -78,7 +78,7 @@ header {
     padding: 0.5rem 1rem;
 
     &:hover {
-      background-color: map-get($colors, lighter-black);
+      background-color: map-get($colors, lighter-grey);
       color: map-get($colors, lighter-black);
     }
   }
@@ -92,9 +92,11 @@ header {
     background-color: rgb(250, 42, 42);
     color: rgb(251, 211, 211);
     border-radius: 10px;
+    cursor: pointer;
 
     &:hover {
-      font-weight: bold;
+      color: rgb(250, 42, 42);
+      background-color: map-get($colors, lighter-grey);
     }
   }
 }
@@ -129,23 +131,36 @@ header {
   margin: 0;
 
   li {
-    margin: 0 0.5rem;
-    padding: 0.4rem 0.2rem;
+    margin: 0 0.3rem;
+
     &:hover {
       font-size: 1.1rem;
     }
     a {
       text-decoration: none;
       color: map-get($colors, lighter-black);
+      padding: 0.5rem 0.3rem;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: map-get($colors, lighter-grey);
+        color: map-get($colors, lighter-black);
+      }
     }
     button {
       padding: 0.5rem 1rem;
       font-weight: bold;
       border: none;
-      font-size: 0.9rem;
+      font-size: 1rem;
       background-color: rgb(250, 42, 42);
       color: rgb(251, 211, 211);
       border-radius: 10px;
+      cursor: pointer;
+
+      &:hover {
+        color: rgb(250, 42, 42);
+        background-color: map-get($colors, lighter-grey);
+      }
     }
   }
 }
