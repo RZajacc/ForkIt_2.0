@@ -45,7 +45,7 @@ function Contact() {
           <h4>If you have any questions send me a message:</h4>
           <form ref={form} onSubmit={sendEmail}>
             <label>Name</label>
-            <input type="text" name="user_name" ref={nameRef} required />
+            <input type="text" name="from_name" ref={nameRef} required />
             <label>Email</label>
             <input type="email" name="user_email" ref={emailRef} required />
             <label>Message</label>
