@@ -47,7 +47,7 @@ function Contact() {
             <label>Name</label>
             <input type="text" name="from_name" ref={nameRef} required />
             <label>Email</label>
-            <input type="email" name="user_email" ref={emailRef} required />
+            <input type="email" name="user_mail" ref={emailRef} required />
             <label>Message</label>
             <textarea name="message" rows={5} ref={messageRef} required />
             <button type="submit">Send</button>
