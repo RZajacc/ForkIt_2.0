@@ -14,7 +14,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./style/global.scss";
 // Loaders
-import { loader as recipeLoader } from "./views/RecipeDetails.Loader";
+import { loader as recipeLoader } from "./loaders/RecipeDetails.Loader";
 
 function App() {
   const router = createBrowserRouter([

@@ -1,31 +1,47 @@
 @import "../style//partials//variables";
 
 .error-container {
-  margin-top: 10%;
   text-align: center;
 
   h3 {
     font-size: 1.6rem;
+    margin: 0;
   }
   p {
     color: map-get($colors, light-red);
-    margin: 2rem;
+    margin: 2rem 0 0 0;
     font-size: 1rem;
     font-weight: bold;
     font-style: italic;
   }
+}
 
+#redirect-link {
+  text-decoration: none;
+  background-color: map-get($colors, light-blue);
+  color: white;
+  font-weight: bold;
+  border: 2px solid black;
+  padding: 0.5rem 0.7rem;
+  border-radius: 10px;
+  &:hover {
+    @include button-hover;
+  }
+}
+
+.error-image {
+  margin: 0 auto;
+  width: 70%;
+  margin-bottom: 3rem;
+  img {
+    width: 100%;
+  }
   a {
+    display: block;
     text-decoration: none;
-    background-color: map-get($colors, light-blue);
-    color: white;
-    font-weight: bold;
-    border: 2px solid black;
-    padding: 0.5rem 0.7rem;
-    border-radius: 10px;
-    &:hover {
-      @include button-hover;
-    }
+    cursor: pointer;
+    color: black;
+    font-style: italic;
   }
 }
 
@@ -38,5 +54,20 @@
     p {
       font-size: 1.2rem;
     }
+  }
+  .error-image {
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .error-image {
+    width: 35%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .error-image {
+    width: 25%;
   }
 }
