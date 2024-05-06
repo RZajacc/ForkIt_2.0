@@ -1,12 +1,18 @@
 @import "../style//partials//variables";
 
 .error-container {
-  margin-top: 30%;
+  margin-top: 10%;
   text-align: center;
 
+  h3 {
+    font-size: 1.6rem;
+  }
   p {
     color: map-get($colors, light-red);
     margin: 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    font-style: italic;
   }
 
   a {
@@ -19,6 +25,18 @@
     border-radius: 10px;
     &:hover {
       @include button-hover;
+    }
+  }
+}
+
+@media (min-width: 480px) {
+  .error-container {
+    h3 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1.2rem;
     }
   }
 }

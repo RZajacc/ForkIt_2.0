@@ -4,18 +4,13 @@ import "../style/errorpage.scss";
 
 function ErrorPage() {
   const error = useRouteError() as RouteErrorType;
-  console.log("ERROR", error);
 
   return (
     <>
       <main>
         <section className="error-container">
-          <h3 className="text-center">
-            The page you're trying to access doesnt exist!
-          </h3>
-          <p className="text-center">
-            {/* {error.status}+{error.error.message} */}
-          </p>
+          <h3>{error.status + " " + error.statusText}</h3>
+          <p>{error.data}</p>
           <Link to={"/"}>Take me back!</Link>
         </section>
       </main>

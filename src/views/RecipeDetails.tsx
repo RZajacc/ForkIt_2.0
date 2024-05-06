@@ -16,14 +16,10 @@ import parse from "html-react-parser";
 import { RecipeGeneral, userFavs } from "../types/types";
 
 import "../style/recipeDetails.scss";
-type responseType = {
-  status: number;
-  message: string;
-};
 
 type LoaderDataType = {
   loaderData: {
-    response: responseType;
+    response: string;
     recipe: RecipeGeneral;
   };
 };
