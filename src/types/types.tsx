@@ -87,3 +87,8 @@ export interface modalContent {
   confirmButton: string;
   cancelButton: string;
 }
+
+export type FetchErr = {
+  status: number;
+  message: string;
+};

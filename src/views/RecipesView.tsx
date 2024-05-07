@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from "../components/recipesView/searchBar/SearchBar";
 import RecipesList from "../components/recipesView/recipesList/RecipesList";
 import Pagination from "../components/recipesView/recipePagination/Pagination";
-import { searchObject } from "../types/types";
+import { FetchErr, RecipeGeneral, searchObject } from "../types/types";
+import { generateFetchUrl } from "../utils/Utils";
 
 function RecipesView() {
   const [offset, setOffset] = useState<number>(0);
@@ -12,18 +13,61 @@ function RecipesView() {
     cuisine: "",
     dietType: "",
   });
+
+  // Prepare data in states
   const [totalResults, setTotalResults] = useState<number>(0);
+  const [recipesData, setRecipesData] = useState<RecipeGeneral[]>([]);
+  const [fetchErr, setFetchErr] = useState<FetchErr>({
+    status: 0,
+    message: "",
+  });
+  const [fetchErrClass, setFetchErrClass] = useState("hide-element");
+
+  // Fetch date on page load and when other elements change
+  useEffect(() => {
+    // Prepare data to fetch
+    const apiKey = import.meta.env.VITE_SPOONACULARKEY;
+    const recipesAmount = 6;
+    const url = generateFetchUrl(searchObj, apiKey, recipesAmount, offset);
+
+    let ignore = false;
+
+    fetch(url)
+      .then((response) => {
+        if (response.ok) {
+          setFetchErr({ status: 0, message: "" });
+          setFetchErrClass("hide-element");
+          return response.json();
+        } else if (response.status === 402) {
+          setFetchErr({
+            status: response.status,
+            message:
+              "Sorry but request limit for my free tier is exceeded. Try again tomorrow!",
+          });
+          setFetchErrClass("fetch-error");
+        }
+      })
+      .then((data) => {
+        if (!ignore) {
+          setRecipesData(data.results as RecipeGeneral[]);
+          setTotalResults(data.totalResults as number);
+          setOffset(data.offset as number);
+        }
+        return () => {
+          ignore = true;
+        };
+      });
+  }, [searchObj, offset, setOffset, setTotalResults]);
 
   return (
     <>
       <main>
         <SearchBar setSearchObj={setSearchObj} />
         <RecipesList
-          searchObj={searchObj}
-          offset={offset}
-          setOffset={setOffset}
           totalResults={totalResults}
-          setTotalResults={setTotalResults}
+          fetchErrClass={fetchErrClass}
+          fetchErr={fetchErr}
+          recipesData={recipesData}
         />
         <Pagination
           setOffset={setOffset}
