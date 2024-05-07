@@ -33,3 +33,54 @@ export const generateFetchUrl = (
 
   return url;
 };
+
+export const passwordValidator = (password: string) => {
+  const validatePass = {
+    length: false,
+    uppercaseChar: false,
+    number: false,
+    specialChar: false,
+  };
+
+  let counter = 0;
+
+  type pass = {
+    [n: number]: { [val: string]: string };
+  };
+  const passwordStrength: pass = {
+    0: { percentage: "0%", status: "Very weak" },
+    1: { percentage: "25%", status: "Weak" },
+    2: { percentage: "50%", status: "Moderate" },
+    3: { percentage: "75%", status: "Strong" },
+    4: { percentage: "100%", status: "Very strong" },
+  };
+
+  // Check password length
+  if (password.length >= 8) {
+    validatePass.length = true;
+    counter += 1;
+  }
+  // Check if it contains any capital letter
+  if (/[A-Z]/.test(password) && validatePass.length) {
+    validatePass.uppercaseChar = true;
+    counter += 1;
+  }
+  // Check if it contains a special character
+  if (
+    /[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(password) &&
+    validatePass.length
+  ) {
+    validatePass.specialChar = true;
+    counter += 1;
+  }
+  // Check it it contains a number
+  if (/[0-9]/.test(password) && validatePass.length) {
+    validatePass.number = true;
+    counter += 1;
+  }
+
+  return {
+    percentage: passwordStrength[counter].percentage,
+    status: passwordStrength[counter].status,
+  };
+};

@@ -7,23 +7,18 @@ import {
   sendEmailVerification,
   signOut,
   updateProfile,
-  validatePassword,
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
 import noUser from "/noUser.png";
 import "../style/register.scss";
 import ProgressBar from "../components/progressBar/ProgressBar";
+import { passwordValidator } from "../utils/Utils";
 
 function Register() {
   const { setUser } = useContext(AuthContext);
   const [password, setPassword] = useState("");
-  const [passwordValidation, setPasswordValidation] = useState({
-    length: false,
-    uppercaseChar: false,
-    number: false,
-    specialChar: false,
-  });
+
   const [registerStatus, setRegisterStatus] = useState(false);
   const [pswStrength, setPswStrength] = useState({
     percentage: "",
@@ -60,21 +55,18 @@ function Register() {
     let passwordValid = false;
     let passwordMatch = false;
 
-    if (
-      passwordValidation.length &&
-      passwordValidation.number &&
-      passwordValidation.specialChar &&
-      passwordValidation.uppercaseChar
-    ) {
+    if (password.length >= 8) {
       passwordValid = true;
     } else {
       setRegPswValidClass("reg-err-msg--active");
+      setRegisterStatus(false);
     }
 
     if (password === confirmPassword) {
       passwordMatch = true;
     } else {
       setRegPswMatchClass("reg-err-msg--active");
+      setRegisterStatus(false);
     }
 
     // REGISTER IF ALL CONDITIONS ARE MET
@@ -111,56 +103,8 @@ function Register() {
   };
 
   useEffect(() => {
-    // Handle validation of the password
-    const validatePass = {
-      length: false,
-      uppercaseChar: false,
-      number: false,
-      specialChar: false,
-    };
-
-    let counter = 0;
-
-    type pass = {
-      [n: number]: { [val: string]: string };
-    };
-    const passwordStrength: pass = {
-      0: { percentage: "0%", status: "Very weak" },
-      1: { percentage: "25%", status: "Weak" },
-      2: { percentage: "50%", status: "Moderate" },
-      3: { percentage: "75%", status: "Strong" },
-      4: { percentage: "100%", status: "Very strong" },
-    };
-
-    // Check password length
-    if (password.length >= 8) {
-      validatePass.length = true;
-      counter += 1;
-    }
-    // Check if it contains any capital letter
-    if (/[A-Z]/.test(password) && validatePass.length) {
-      validatePass.uppercaseChar = true;
-      counter += 1;
-    }
-    // Check if it contains a special character
-    if (
-      /[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(password) &&
-      validatePass.length
-    ) {
-      validatePass.specialChar = true;
-      counter += 1;
-    }
-    // Check it it contains a number
-    if (/[0-9]/.test(password) && validatePass.length) {
-      validatePass.number = true;
-      counter += 1;
-    }
-
-    setPswStrength({
-      percentage: passwordStrength[counter].percentage,
-      status: passwordStrength[counter].status,
-    });
-    setPasswordValidation(validatePass);
+    const result = passwordValidator(password);
+    setPswStrength(result);
   }, [password]);
 
   return (
@@ -191,12 +135,9 @@ function Register() {
         <input type="password" name="confirm-password" required />
         <div>
           <p className={regPswMatchClass}>Passwords don't match!</p>
-          <p className={regPswValidClass}>
-            Password don't meet specified requirements!
-          </p>
+          <p className={regPswValidClass}>Password is too short!</p>
           <p className={regErrClass}>{regErrMsg}</p>
         </div>
-        <button type="submit">Register</button>
         {registerStatus ? (
           <p className="registration-status">
             Registration was successfull! To continue please confirm your email
@@ -205,6 +146,7 @@ function Register() {
         ) : (
           ""
         )}
+        <button type="submit">Register</button>
       </form>
     </main>
   );
