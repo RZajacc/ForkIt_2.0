@@ -3,9 +3,9 @@ import { db } from "../../../config/firebaseConfig";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { userFavs } from "../../../types/types";
+import RecipeCard from "../../recipesView/recipeCard/RecipeCard";
 
 import "./dashboard-favs.scss";
-import RecipeCard from "../../recipesView/recipeCard/RecipeCard";
 
 function DashboardFavs() {
   const { user } = useContext(AuthContext);

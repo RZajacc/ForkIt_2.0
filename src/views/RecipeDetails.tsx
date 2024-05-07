@@ -15,6 +15,9 @@ import { AuthContext } from "../context/AuthContext";
 import parse from "html-react-parser";
 import { RecipeGeneral, userFavs } from "../types/types";
 
+import fullStar from "/Full_Star.png";
+import emptyStar from "/Empty_Star.png";
+
 import "../style/recipeDetails.scss";
 
 type LoaderDataType = {
@@ -73,8 +76,8 @@ function RecipeDetails() {
             {favs?.length != 0 ? (
               <button onClick={handleAddFavourite}>
                 <img
-                  src="https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/Full_Star.png?alt=media&token=cd7054c0-b436-4a17-a80d-95b0a8b0b951"
-                  alt="empty star"
+                  src={emptyStar}
+                  alt="empty-star-icon"
                   className="add-remove-fav-star"
                 />
                 Remove from favourites
@@ -82,8 +85,8 @@ function RecipeDetails() {
             ) : (
               <button onClick={handleAddFavourite}>
                 <img
-                  src="https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/Empty_Star.png?alt=media&token=297da907-8326-4f14-95a7-ecb42c39853c"
-                  alt="empty star"
+                  src={fullStar}
+                  alt="full-star-icon"
                   className="add-remove-fav-star"
                 />
                 Add to favourites

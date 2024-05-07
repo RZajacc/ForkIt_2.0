@@ -2,6 +2,12 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 
+// Images
+import stoveBlack from "/stove-svgrepo-com_black.svg";
+import contactFormBlack from "/contact-form-email-svgrepo-com_black.svg";
+import avatarBlack from "/account-avatar-man-svgrepo-com_black.svg";
+import dashboardBlack from "/dashboard-stats-svgrepo-com_black.svg";
+
 type Props = {
   logout: () => void;
 };
@@ -12,19 +18,15 @@ function DesktopNav({ logout }: Props) {
     <ul className="desktop-nav">
       <li>
         <NavLink to={"recipes"}>
-          <img
-            src="/stove-svgrepo-com_black.svg"
-            alt="opened door"
-            className="mobile-nav-image"
-          />
+          <img src={stoveBlack} alt="stove-icon" className="mobile-nav-image" />
           Recipes
         </NavLink>
       </li>
       <li>
         <NavLink to={"contact"}>
           <img
-            src="/contact-form-email-svgrepo-com_black.svg"
-            alt="opened door"
+            src={contactFormBlack}
+            alt="contact-form-icon"
             className="mobile-nav-image"
           />
           Contact
@@ -35,8 +37,8 @@ function DesktopNav({ logout }: Props) {
           <li>
             <NavLink to={"dashboard"}>
               <img
-                src="/dashboard-stats-svgrepo-com_black.svg"
-                alt="opened door"
+                src={dashboardBlack}
+                alt="dashboard-icon"
                 className="mobile-nav-image"
               />
               Dashboard
@@ -50,8 +52,8 @@ function DesktopNav({ logout }: Props) {
         <li>
           <NavLink to={"login"}>
             <img
-              src="/account-avatar-man-svgrepo-com_black.svg"
-              alt="opened door"
+              src={avatarBlack}
+              alt="avatar-icon"
               className="mobile-nav-image"
             />
             Login

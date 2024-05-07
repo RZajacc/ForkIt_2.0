@@ -2,6 +2,12 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 
+// Images
+import stoveWhite from "/stove-svgrepo-com_white.svg";
+import contactFormWhite from "/contact-form-email-svgrepo-com_white.svg";
+import dashboardStatsWhite from "/dashboard-stats-svgrepo-com_white.svg";
+import avatarWhite from "/account-avatar-man-svgrepo-com_white.svg";
+
 type Props = {
   mobileNavState: string;
   toggleMobileNavState: () => void;
@@ -14,18 +20,14 @@ function MobileNav({ mobileNavState, toggleMobileNavState, logout }: Props) {
   return (
     <div className={mobileNavState}>
       <Link to={"recipes"} onClick={toggleMobileNavState}>
-        <img
-          src="/stove-svgrepo-com_white.svg"
-          alt="opened door"
-          className="mobile-nav-image"
-        />
+        <img src={stoveWhite} alt="stove-icon" className="mobile-nav-image" />
         Recipes
       </Link>
 
       <Link to={"contact"} onClick={toggleMobileNavState}>
         <img
-          src="/contact-form-email-svgrepo-com_white.svg"
-          alt="opened door"
+          src={contactFormWhite}
+          alt="contact-form-icon"
           className="mobile-nav-image"
         />
         Contact
@@ -35,8 +37,8 @@ function MobileNav({ mobileNavState, toggleMobileNavState, logout }: Props) {
         <>
           <Link to={"dashboard"} onClick={toggleMobileNavState}>
             <img
-              src="/dashboard-stats-svgrepo-com_white.svg"
-              alt="opened door"
+              src={dashboardStatsWhite}
+              alt="dashboard-icon"
               className="mobile-nav-image"
             />
             Dashboard
@@ -46,8 +48,8 @@ function MobileNav({ mobileNavState, toggleMobileNavState, logout }: Props) {
       ) : (
         <Link to={"login"} onClick={toggleMobileNavState}>
           <img
-            src="/account-avatar-man-svgrepo-com_white.svg"
-            alt="opened door"
+            src={avatarWhite}
+            alt="avatar-icon"
             className="mobile-nav-image"
           />
           Login

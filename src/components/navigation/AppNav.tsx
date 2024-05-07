@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FirebaseError } from "firebase/app";
+import { getAuth, signOut } from "firebase/auth";
+import { AuthContext } from "../../context/AuthContext";
 
 import MobileNav from "./subcomponents/MobileNav";
 import DesktopNav from "./subcomponents/DesktopNav";
 
+import hungry from "/hungry.svg";
 import "./appnav.scss";
-import { getAuth, signOut } from "firebase/auth";
-import { AuthContext } from "../../context/AuthContext";
-import { FirebaseError } from "firebase/app";
 
 function AppNav() {
   const { setUser } = useContext(AuthContext);
@@ -53,10 +54,7 @@ function AppNav() {
               setMobileNavState("mobile-nav-items--hidden");
             }}
           >
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/forkit-d574f.appspot.com/o/hungry.svg?alt=media&token=a0bc267d-5ae9-42ba-b93e-9fc4d216eb51"
-              alt="forkit-logo"
-            />
+            <img src={hungry} alt="forkit-logo" />
           </Link>
           {/* MOBILE NAV BUTTON*/}
           <button className="mobile-nav-button" onClick={toggleMobileNavState}>
