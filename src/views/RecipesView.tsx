@@ -34,17 +34,25 @@ function RecipesView() {
 
     fetch(url)
       .then((response) => {
-        if (response.ok) {
-          setFetchErr({ status: 0, message: "" });
+        if (!response.ok) {
+          if (response.status === 402) {
+            setFetchErr({
+              status: response.status,
+              message:
+                "Sorry but request limit for my free tier is exceeded. Try again tomorrow!",
+            });
+            setFetchErrClass("fetch-error");
+          } else if (response.status === 404) {
+            setFetchErr({
+              status: response.status,
+              message: "Resource not found!",
+            });
+            setFetchErrClass("fetch-error");
+          }
+        } else {
+          setFetchErr({ status: 200, message: "Fetch was successfull" });
           setFetchErrClass("hide-element");
           return response.json();
-        } else if (response.status === 402) {
-          setFetchErr({
-            status: response.status,
-            message:
-              "Sorry but request limit for my free tier is exceeded. Try again tomorrow!",
-          });
-          setFetchErrClass("fetch-error");
         }
       })
       .then((data) => {
@@ -69,11 +77,15 @@ function RecipesView() {
           fetchErr={fetchErr}
           recipesData={recipesData}
         />
-        <Pagination
-          setOffset={setOffset}
-          offset={offset}
-          totalResults={totalResults}
-        />
+        {fetchErr.status === 200 ? (
+          <Pagination
+            setOffset={setOffset}
+            offset={offset}
+            totalResults={totalResults}
+          />
+        ) : (
+          ""
+        )}
       </main>
     </>
   );
