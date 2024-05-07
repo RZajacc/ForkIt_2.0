@@ -26,6 +26,12 @@
       @include button-hover;
     }
   }
+
+  small {
+    color: gray;
+    font-style: italic;
+    text-align: center;
+  }
 }
 
 // PASSWORD VALIDATION
@@ -76,6 +82,15 @@
   color: map-get($colors, light-red);
 }
 
+.password-strength {
+  margin: 0;
+}
+
+.registration-status {
+  text-align: center;
+  font-weight: bold;
+  color: green;
+}
 @media (min-width: 480px) {
   .register-form {
     margin: 1rem auto;

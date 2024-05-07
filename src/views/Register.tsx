@@ -1,16 +1,19 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  sendEmailVerification,
+  signOut,
   updateProfile,
+  validatePassword,
 } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
 import noUser from "/noUser.png";
 import "../style/register.scss";
+import ProgressBar from "../components/progressBar/ProgressBar";
 
 function Register() {
   const { setUser } = useContext(AuthContext);
@@ -21,13 +24,16 @@ function Register() {
     number: false,
     specialChar: false,
   });
+  const [registerStatus, setRegisterStatus] = useState(false);
+  const [pswStrength, setPswStrength] = useState({
+    percentage: "",
+    status: "",
+  });
   // FORM VALIDATION ERROR AND CLASSES
   const [regErrMsg, setRegErrMsg] = useState("");
   const [regPswValidClass, setRegPswValidClass] = useState("reg-err-msg");
   const [regPswMatchClass, setRegPswMatchClass] = useState("reg-err-msg");
   const [regErrClass, setRegErrClass] = useState("reg-err-msg");
-
-  const navigate = useNavigate();
 
   // PASSWORD CHANGE FOR FEEDBACK ABOUT REQUIREMENTS
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,6 +80,7 @@ function Register() {
     // REGISTER IF ALL CONDITIONS ARE MET
     if (passwordValid && passwordMatch) {
       const auth = getAuth();
+      // Create the user with email and password
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // extract the user
@@ -81,8 +88,16 @@ function Register() {
           // Update with username
           updateProfile(user, { displayName: userName, photoURL: noUser })
             .then(() => {
-              setUser(user);
-              navigate("/dashboard");
+              sendEmailVerification(user).then(() => {
+                setRegisterStatus(true);
+                signOut(auth)
+                  .then(() => {
+                    setUser(null);
+                  })
+                  .catch((error: FirebaseError) => {
+                    console.log(error.code);
+                  });
+              });
             })
             .catch((error: FirebaseError) => {
               console.log(error.code);
@@ -104,23 +119,47 @@ function Register() {
       specialChar: false,
     };
 
+    let counter = 0;
+
+    type pass = {
+      [n: number]: { [val: string]: string };
+    };
+    const passwordStrength: pass = {
+      0: { percentage: "0%", status: "Very weak" },
+      1: { percentage: "25%", status: "Weak" },
+      2: { percentage: "50%", status: "Moderate" },
+      3: { percentage: "75%", status: "Strong" },
+      4: { percentage: "100%", status: "Very strong" },
+    };
+
     // Check password length
     if (password.length >= 8) {
       validatePass.length = true;
+      counter += 1;
     }
     // Check if it contains any capital letter
-    if (/[A-Z]/.test(password)) {
+    if (/[A-Z]/.test(password) && validatePass.length) {
       validatePass.uppercaseChar = true;
+      counter += 1;
     }
     // Check if it contains a special character
-    if (/[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(password)) {
+    if (
+      /[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g.test(password) &&
+      validatePass.length
+    ) {
       validatePass.specialChar = true;
+      counter += 1;
     }
     // Check it it contains a number
-    if (/[0-9]/.test(password)) {
+    if (/[0-9]/.test(password) && validatePass.length) {
       validatePass.number = true;
+      counter += 1;
     }
-    // Assign validation object to state variable
+
+    setPswStrength({
+      percentage: passwordStrength[counter].percentage,
+      status: passwordStrength[counter].status,
+    });
     setPasswordValidation(validatePass);
   }, [password]);
 
@@ -139,6 +178,15 @@ function Register() {
           onChange={handlePasswordChange}
           required
         />
+        <small>*At least 8 characters long</small>
+        {password.length !== 0 ? (
+          <ProgressBar
+            pswStrength={pswStrength.percentage}
+            pswStatus={pswStrength.status}
+          />
+        ) : (
+          ""
+        )}
         <label htmlFor="confirm-password">Repeat password:</label>
         <input type="password" name="confirm-password" required />
         <div>
@@ -148,51 +196,15 @@ function Register() {
           </p>
           <p className={regErrClass}>{regErrMsg}</p>
         </div>
-        <div className="password-req">
-          <p className="password-req__header">Password must contain:</p>
-          <p>
-            <span
-              className={
-                passwordValidation.length
-                  ? "req-fulfilled"
-                  : "req-not-fulfilled"
-              }
-            ></span>
-            At least 8 characters.
-          </p>
-
-          <p>
-            <span
-              className={
-                passwordValidation.uppercaseChar
-                  ? "req-fulfilled"
-                  : "req-not-fulfilled"
-              }
-            ></span>
-            At least 1 uppercase character.
-          </p>
-          <p>
-            <span
-              className={
-                passwordValidation.number
-                  ? "req-fulfilled"
-                  : "req-not-fulfilled"
-              }
-            ></span>
-            At least 1 number.
-          </p>
-          <p>
-            <span
-              className={
-                passwordValidation.specialChar
-                  ? "req-fulfilled"
-                  : "req-not-fulfilled"
-              }
-            ></span>
-            At least 1 special character.
-          </p>
-        </div>
         <button type="submit">Register</button>
+        {registerStatus ? (
+          <p className="registration-status">
+            Registration was successfull! To continue please confirm your email
+            with the link that was sent to you.
+          </p>
+        ) : (
+          ""
+        )}
       </form>
     </main>
   );

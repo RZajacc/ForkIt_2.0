@@ -2,7 +2,7 @@ import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 
 import "../style/login.scss";
@@ -14,6 +14,7 @@ function LogIn() {
   const [loginErrClass, setLoginErrClass] = useState(
     "login-err-paragraph--hidden"
   );
+  const [emailVer, setEmailVer] = useState(true);
 
   const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,11 +30,27 @@ function LogIn() {
       .then((userCredential) => {
         // Get user object
         const user = userCredential.user;
-        setUser(user);
-        // Set display to error class
-        setLoginErrClass("login-err-paragraph--hidden");
-        // Redirect to user dashboard
-        navigate("/dashboard");
+        // Check if user verified his email
+        if (user.emailVerified) {
+          setUser(user);
+          setEmailVer(true);
+          // Set display to error class
+          setLoginErrClass("login-err-paragraph--hidden");
+          // Redirect to user dashboard
+          navigate("/dashboard");
+          // If he didn't show error and signout
+        } else {
+          setEmailVer(false);
+          // Set display to error class
+          setLoginErrClass("login-err-paragraph--hidden");
+          signOut(auth)
+            .then(() => {
+              setUser(null);
+            })
+            .catch((error: FirebaseError) => {
+              console.log(error.code);
+            });
+        }
       })
       .catch((error: FirebaseError) => {
         setLoginErr(error.code);
@@ -57,6 +74,14 @@ function LogIn() {
           <input type="password" name="password" required />
           <p className={loginErrClass}>{loginErr}</p>
           <button type="submit">Login</button>
+          {!emailVer ? (
+            <p className="login-status">
+              Please verify your email first with the link you received!
+            </p>
+          ) : (
+            ""
+          )}
+
           <p>
             No account yet? Please <Link to={"../register"}>Register.</Link>
           </p>
