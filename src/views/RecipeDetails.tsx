@@ -27,7 +27,6 @@ function RecipeDetails() {
   const [favs, setFavs] = useState<userFavs[] | null>(null);
   const [favID, setFavID] = useState<string | null>(null);
 
-  console.log("Response", recipe);
   // Adding recipe to favourites
   const handleAddFavourite = async () => {
     const fav = {
