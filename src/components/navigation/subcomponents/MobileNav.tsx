@@ -7,6 +7,7 @@ import stoveWhite from "/stove-svgrepo-com_white.svg";
 import contactFormWhite from "/contact-form-email-svgrepo-com_white.svg";
 import dashboardStatsWhite from "/dashboard-stats-svgrepo-com_white.svg";
 import avatarWhite from "/account-avatar-man-svgrepo-com_white.svg";
+import registerWhite from "/register-svgrepo-com_white.svg";
 
 type Props = {
   mobileNavState: string;
@@ -46,14 +47,24 @@ function MobileNav({ mobileNavState, toggleMobileNavState, logout }: Props) {
           <button onClick={logout}>Logout</button>
         </>
       ) : (
-        <Link to={"login"} onClick={toggleMobileNavState}>
-          <img
-            src={avatarWhite}
-            alt="avatar-icon"
-            className="mobile-nav-image"
-          />
-          Login
-        </Link>
+        <>
+          <Link to={"register"} onClick={toggleMobileNavState}>
+            <img
+              src={registerWhite}
+              alt="avatar-icon"
+              className="mobile-nav-image"
+            />
+            Register
+          </Link>
+          <Link to={"login"} onClick={toggleMobileNavState}>
+            <img
+              src={avatarWhite}
+              alt="avatar-icon"
+              className="mobile-nav-image"
+            />
+            Login
+          </Link>
+        </>
       )}
     </div>
   );

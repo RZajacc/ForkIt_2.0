@@ -73,12 +73,8 @@ function LogIn() {
           <label htmlFor="password">Password:</label>
           <input type="password" name="password" required />
           <p className={loginErrClass}>{loginErr}</p>
-          {/* PASSWORD RESET */}
-          <p>
-            Forgot your password? Reset <Link to={"../reset"}>here!</Link>
-          </p>
-          {/* SUBMIT LOGIN */}
           <button type="submit">Login</button>
+          {/* ERROR if something goes wrong */}
           {!emailVer ? (
             <p className="login-status">
               Please verify your email first with the link you received!
@@ -86,8 +82,9 @@ function LogIn() {
           ) : (
             ""
           )}
+          {/* PASSWORD RESET */}
           <p>
-            No account yet? Please <Link to={"../register"}>Register.</Link>
+            Forgot your password? Reset <Link to={"../reset"}>here!</Link>
           </p>
         </form>
         <form></form>

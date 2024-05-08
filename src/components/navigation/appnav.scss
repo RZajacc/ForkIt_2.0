@@ -126,12 +126,12 @@ header {
 // DESKTOP NAV
 .desktop-nav {
   display: none;
-  align-items: center;
   list-style: none;
   margin: 0;
 
   li {
     margin: 0 0.3rem;
+    padding: 0.5rem;
 
     &:hover {
       font-size: 1.1rem;
@@ -146,7 +146,12 @@ header {
         background-color: map-get($colors, lighter-grey);
         color: map-get($colors, lighter-black);
       }
+
+      img {
+        vertical-align: text-bottom;
+      }
     }
+
     button {
       padding: 0.5rem 1rem;
       font-weight: bold;
