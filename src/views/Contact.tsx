@@ -44,12 +44,32 @@ function Contact() {
         <section className="form-section">
           <h4>If you have any questions send me a message:</h4>
           <form ref={form} onSubmit={sendEmail}>
-            <label>Name</label>
-            <input type="text" name="from_name" ref={nameRef} required />
-            <label>Email</label>
-            <input type="email" name="user_mail" ref={emailRef} required />
-            <label>Message</label>
-            <textarea name="message" rows={5} ref={messageRef} required />
+            <label htmlFor="from_name">Name</label>
+            <input
+              type="text"
+              id="from_name"
+              name="from_name"
+              autoComplete="first-name"
+              ref={nameRef}
+              required
+            />
+            <label htmlFor="user_mail">Email</label>
+            <input
+              type="email"
+              id="user_mail"
+              name="user_mail"
+              autoComplete="email"
+              ref={emailRef}
+              required
+            />
+            <label htmlFor="message">Message</label>
+            <textarea
+              name="message"
+              id="message"
+              rows={5}
+              ref={messageRef}
+              required
+            />
             <button type="submit">Send</button>
             <p className={resultClass}>{result}</p>
           </form>

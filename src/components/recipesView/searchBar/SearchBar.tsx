@@ -32,9 +32,9 @@ function SearchBar({ setSearchObj }: Props) {
     <section>
       <form id="recipe-search-form" onSubmit={handleSubmit}>
         <label htmlFor="recipe-name">Recipe by name:</label>
-        <input type="text" name="recipe-name" />
+        <input type="text" name="recipe-name" id="recipe-name" />
         <label htmlFor="meal-type">Select a meal type:</label>
-        <select name="meal-type">
+        <select name="meal-type" id="meal-type">
           {availableDishTypes.map((type, idx) => {
             return (
               <option value={type} key={idx}>
@@ -44,7 +44,7 @@ function SearchBar({ setSearchObj }: Props) {
           })}
         </select>
         <label htmlFor="cousine">Choose couisine:</label>
-        <select name="cousine">
+        <select name="cousine" id="cousine">
           {availableCuisines.map((type, idx) => {
             return (
               <option value={type} key={idx}>
@@ -54,7 +54,7 @@ function SearchBar({ setSearchObj }: Props) {
           })}
         </select>
         <label htmlFor="diet-type">Choose diet type:</label>
-        <select name="diet-type">
+        <select name="diet-type" id="diet-type">
           {availableDietTypes.map((type, idx) => {
             return (
               <option value={type} key={idx}>

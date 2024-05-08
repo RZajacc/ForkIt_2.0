@@ -67,11 +67,13 @@ function LogIn() {
           <input
             type="email"
             name="email"
+            id="email"
             placeholder="enter your email"
+            autoComplete="email"
             required
           />
           <label htmlFor="password">Password:</label>
-          <input type="password" name="password" required />
+          <input type="password" name="password" id="password" required />
           <p className={loginErrClass}>{loginErr}</p>
           <button type="submit">Login</button>
           {/* ERROR if something goes wrong */}

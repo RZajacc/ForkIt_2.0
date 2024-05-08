@@ -31,6 +31,8 @@ function ResetPassword() {
           <input
             type="email"
             name="email"
+            id="email"
+            autoComplete="email"
             placeholder="enter your email"
             required
           />

@@ -292,6 +292,7 @@ function DashboardUser() {
         <input
           type="file"
           name="user-image"
+          id="user-image"
           accept="image/png, image/jpeg"
           ref={fileInputRef}
         />
@@ -355,7 +356,12 @@ function DashboardUser() {
         {nameEdit ? (
           <form className="update-form" onSubmit={handleUserNameSubmit}>
             <label htmlFor="new-user-name">New user name:</label>
-            <input type="text" name="new-user-name" required />
+            <input
+              type="text"
+              id="new-user-name"
+              name="new-user-name"
+              required
+            />
             <button>Update</button>
           </form>
         ) : (
@@ -367,6 +373,7 @@ function DashboardUser() {
             <input
               type="password"
               name="new-password"
+              id="new-password"
               minLength={8}
               required
               onChange={(e) => {
@@ -386,6 +393,7 @@ function DashboardUser() {
             <input
               type="password"
               name="new-password-confirm"
+              id="new-password-confirm"
               minLength={8}
               required
             />

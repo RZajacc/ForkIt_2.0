@@ -112,12 +112,25 @@ function Register() {
       <form onSubmit={handleRegister} className="register-form">
         <h4>Please provide required data:</h4>
         <label htmlFor="username">Username:</label>
-        <input type="text" name="username" required />
+        <input
+          type="text"
+          name="username"
+          id="username"
+          required
+          autoComplete="first-name"
+        />
         <label htmlFor="email">Email adress:</label>
-        <input type="email" name="email" required />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          required
+          autoComplete="email"
+        />
         <label htmlFor="password">Password:</label>
         <input
           name="password"
+          id="password"
           type="password"
           onChange={handlePasswordChange}
           required
@@ -132,7 +145,12 @@ function Register() {
           ""
         )}
         <label htmlFor="confirm-password">Repeat password:</label>
-        <input type="password" name="confirm-password" required />
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm-password"
+          required
+        />
         <div>
           <p className={regPswMatchClass}>Passwords don't match!</p>
           <p className={regPswValidClass}>Password is too short!</p>
