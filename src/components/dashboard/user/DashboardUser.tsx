@@ -10,7 +10,13 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { FirebaseError } from "firebase/app";
-import { deleteUser, updatePassword, updateProfile } from "firebase/auth";
+import {
+  deleteUser,
+  getAuth,
+  signOut,
+  updatePassword,
+  updateProfile,
+} from "firebase/auth";
 import { passwordValidator } from "../../../utils/Utils";
 import ProgressBar from "../../progressBar/ProgressBar";
 import {
@@ -248,9 +254,18 @@ function DashboardUser() {
           });
       }
       // Delete user account
+      const auth = getAuth();
       deleteUser(user!)
         .then(() => {
-          navigate("/");
+          // Signout the user
+          signOut(auth)
+            .then(() => {
+              setUser(null);
+              navigate("/");
+            })
+            .catch((error: FirebaseError) => {
+              console.log(error.code);
+            });
         })
         .catch((error) => {
           setPswChangeErr(true);
