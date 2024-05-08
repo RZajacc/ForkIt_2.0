@@ -10,12 +10,23 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { FirebaseError } from "firebase/app";
-import { updatePassword, updateProfile } from "firebase/auth";
+import { deleteUser, updatePassword, updateProfile } from "firebase/auth";
 import { passwordValidator } from "../../../utils/Utils";
 import ProgressBar from "../../progressBar/ProgressBar";
+import {
+  collection,
+  deleteDoc,
+  getDocs,
+  query,
+  where,
+  doc,
+} from "firebase/firestore";
+import { db } from "../../../config/firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 function DashboardUser() {
   const { user, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [nameEdit, setNameEdit] = useState(false);
   const [passwordEdit, setPasswordEdit] = useState(false);
@@ -62,7 +73,7 @@ function DashboardUser() {
     // Create a root reference
     const storage = getStorage();
 
-    // Create a reference to 'mountains.jpg'
+    // Create a reference to image library with image name
     const storageRef = ref(storage, `userImages/${imgName}`);
 
     if (userImg.size > 3000000) {
@@ -122,6 +133,7 @@ function DashboardUser() {
     } else {
       setNameEdit(true);
       setPasswordEdit(false);
+      setDeleteProfile(false);
     }
   };
 
@@ -150,6 +162,7 @@ function DashboardUser() {
     } else {
       setPasswordEdit(true);
       setNameEdit(false);
+      setDeleteProfile(false);
     }
   };
 
@@ -176,6 +189,70 @@ function DashboardUser() {
         })
         .catch((error) => {
           // SET ERROR
+          setPswChangeErr(true);
+          console.log(error);
+        });
+    }
+  };
+
+  // ------------DELETE PROFILE--------------
+  const handleDeleteProfileDisplay = () => {
+    if (deleteProfile) {
+      setDeleteProfile(false);
+    } else {
+      setDeleteProfile(true);
+      setNameEdit(false);
+      setPasswordEdit(false);
+    }
+  };
+
+  const handleDeleteProfile = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Collect data from from
+    const formData = new FormData(e.currentTarget);
+    // Collect inputs
+    const confirmation = formData.get("confirm-delete") as string;
+
+    if (confirmation === user!.displayName) {
+      // Delete all user favs
+      const favQuery = query(
+        collection(db, "favourites"),
+        where("userID", "==", user?.uid)
+      );
+      const favQuerySnapshot = await getDocs(favQuery);
+      favQuerySnapshot.forEach(async (document) => {
+        await deleteDoc(doc(db, "favourites", document.id));
+      });
+      // Delete all user comments
+      const commentsQuery = query(
+        collection(db, "Comments"),
+        where("authorID", "==", user?.uid)
+      );
+      const commentsQuerySnapshot = await getDocs(commentsQuery);
+      commentsQuerySnapshot.forEach(async (document) => {
+        await deleteDoc(doc(db, "Comments", document.id));
+        console.log("DOCID", document.id);
+      });
+      // Delete user image
+      const storage = getStorage();
+      const img = user?.photoURL as string;
+      const deleteRef = ref(storage, img);
+      if (img !== "/noUser.png") {
+        deleteObject(deleteRef)
+          .then(() => {
+            console.log("Success");
+          })
+          .catch((error: FirebaseError) => {
+            console.log("ERROR", error.message);
+          });
+      }
+      // Delete user account
+      deleteUser(user!)
+        .then(() => {
+          navigate("/");
+        })
+        .catch((error) => {
           setPswChangeErr(true);
           console.log(error);
         });
@@ -253,7 +330,12 @@ function DashboardUser() {
         <div className="user-actions">
           <button onClick={handleUserNameEditDisplay}>Edit name</button>
           <button onClick={handleChangePasswordDisplay}>Change password</button>
-          <button className="delete-profile">Delete profile</button>
+          <button
+            className="delete-profile"
+            onClick={handleDeleteProfileDisplay}
+          >
+            Delete profile
+          </button>
         </div>
         {nameEdit ? (
           <form className="update-form" onSubmit={handleUserNameSubmit}>
@@ -306,6 +388,28 @@ function DashboardUser() {
               ""
             )}
             <button>Update</button>
+          </form>
+        ) : (
+          ""
+        )}
+        {deleteProfile ? (
+          <form className="user-delete-form" onSubmit={handleDeleteProfile}>
+            <h4>Are you sure you want to delete your profile?</h4>
+            <p>
+              If yes type you're username below and confirm with the button:
+            </p>
+            <div>
+              <input type="text" name="confirm-delete" required />
+              <button type="submit">Delete</button>
+            </div>
+            {pswChangeErr ? (
+              <p className="psw-change-err">
+                You've been logged in for a very long time. To continue you need
+                to re-login to your account. Sorry!
+              </p>
+            ) : (
+              ""
+            )}
           </form>
         ) : (
           ""

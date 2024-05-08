@@ -148,8 +148,35 @@
     font-style: italic;
     text-align: center;
   }
-  .psw-change-err {
+}
+.psw-change-err {
+  text-align: center;
+  color: red;
+}
+
+.user-delete-form {
+  margin: 1.5rem auto;
+  h4,
+  p {
+    margin: 1rem 0;
     text-align: center;
-    color: red;
+  }
+  div {
+    text-align: center;
+  }
+  input {
+    @include input-style;
+    font-size: 1rem;
+    border-radius: 0;
+    width: 60%;
+  }
+  button {
+    cursor: pointer;
+    height: 30px;
+    width: 20%;
+    background-color: rgb(255, 42, 42);
+    color: white;
+    font-weight: bold;
+    border: 1px solid black;
   }
 }

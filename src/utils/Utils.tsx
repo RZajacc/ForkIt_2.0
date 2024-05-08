@@ -83,7 +83,6 @@ export const passwordValidator = (password: string) => {
     }
   }
 
-  console.log("COUNTER ===", counter);
   return {
     percentage: passwordStrength[counter].percentage,
     status: passwordStrength[counter].status,

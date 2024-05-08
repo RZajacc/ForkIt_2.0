@@ -76,7 +76,7 @@ function RecipeDetails() {
             {favs?.length != 0 ? (
               <button onClick={handleAddFavourite}>
                 <img
-                  src={emptyStar}
+                  src={fullStar}
                   alt="empty-star-icon"
                   className="add-remove-fav-star"
                 />
@@ -85,7 +85,7 @@ function RecipeDetails() {
             ) : (
               <button onClick={handleAddFavourite}>
                 <img
-                  src={fullStar}
+                  src={emptyStar}
                   alt="full-star-icon"
                   className="add-remove-fav-star"
                 />
