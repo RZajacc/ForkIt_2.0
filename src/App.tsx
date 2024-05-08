@@ -15,6 +15,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import "./style/global.scss";
 // Loaders
 import { loader as recipeLoader } from "./loaders/RecipeDetails.Loader";
+import ResetPassword from "./views/ResetPassword";
 
 function App() {
   const router = createBrowserRouter([
@@ -59,6 +60,10 @@ function App() {
         {
           path: "register",
           element: <Register />,
+        },
+        {
+          path: "reset",
+          element: <ResetPassword />,
         },
       ],
     },
