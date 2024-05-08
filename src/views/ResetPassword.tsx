@@ -34,7 +34,7 @@ function ResetPassword() {
             placeholder="enter your email"
             required
           />
-          <button type="submit">Login</button>
+          <button type="submit">Submit</button>
           {resetSuccess ? (
             <p>
               Email was sent successfully. Check your mail box and follow

@@ -97,7 +97,33 @@
   }
 }
 
-.user-name-update-form {
+.psw-change-success {
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+  border: 1px solid black;
+  margin: 1rem auto;
+  padding: 0.3rem 0.5rem;
+  background-color: rgb(87, 195, 87);
+  border-radius: 10px;
+  align-items: center;
+
+  p {
+    color: white;
+    text-align: center;
+    margin: 0;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}
+
+.update-form {
   display: grid;
   row-gap: 0.5rem;
   margin-top: 1rem;
@@ -115,5 +141,15 @@
   input {
     @include input-style;
     font-size: 1rem;
+  }
+
+  small {
+    color: gray;
+    font-style: italic;
+    text-align: center;
+  }
+  .psw-change-err {
+    text-align: center;
+    color: red;
   }
 }

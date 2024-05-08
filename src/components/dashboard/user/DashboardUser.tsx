@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useRef, useState } from "react";
+import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { v4 } from "uuid";
 import "./dashboard-user.scss";
@@ -10,12 +10,26 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { FirebaseError } from "firebase/app";
-import { updateProfile } from "firebase/auth";
+import { updatePassword, updateProfile } from "firebase/auth";
+import { passwordValidator } from "../../../utils/Utils";
+import ProgressBar from "../../progressBar/ProgressBar";
 
 function DashboardUser() {
   const { user, setUser } = useContext(AuthContext);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [nameEdit, setNameEdit] = useState(false);
+  const [passwordEdit, setPasswordEdit] = useState(false);
+  // ------UPDATE PASSWORD STATE VARS------------
+  const [password, setPassword] = useState("");
+  const [pswMatch, setPswMatch] = useState(true);
+  const [pswStrength, setPswStrength] = useState({
+    percentage: "",
+    status: "",
+  });
+  const [pswChangeSuccess, setPswChangeSuccess] = useState(false);
+  const [pswChangeErr, setPswChangeErr] = useState(false);
+  // ------------------------------------------------
+  const [deleteProfile, setDeleteProfile] = useState(false);
   const [fileSizeError, setFileSizeError] = useState(0);
   const [fileSizeErrorClass, setFileSizeErrorClass] = useState(
     "upload-progress--hidden"
@@ -103,11 +117,11 @@ function DashboardUser() {
   };
   // ---------------USER UPDATE ACTIONS--------------------
   const handleUserNameEditDisplay = () => {
-    // Element display toggle
     if (nameEdit) {
       setNameEdit(false);
     } else {
       setNameEdit(true);
+      setPasswordEdit(false);
     }
   };
 
@@ -128,6 +142,50 @@ function DashboardUser() {
         console.log(error);
       });
   };
+
+  // ---------------CHANGE PASSWORD--------------------
+  const handleChangePasswordDisplay = () => {
+    if (passwordEdit) {
+      setPasswordEdit(false);
+    } else {
+      setPasswordEdit(true);
+      setNameEdit(false);
+    }
+  };
+
+  const handlePasswordSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Collect data from from
+    const formData = new FormData(e.currentTarget);
+    // Collect inputs
+    const password = formData.get("new-password") as string;
+    const confirmPassword = formData.get("new-password-confirm") as string;
+
+    if (password !== confirmPassword) {
+      setPswMatch(false);
+    } else {
+      setPswMatch(true);
+
+      updatePassword(user!, password)
+        .then(() => {
+          setUser(user);
+          setPasswordEdit(false);
+          setPswChangeSuccess(true);
+          setPassword("");
+        })
+        .catch((error) => {
+          // SET ERROR
+          setPswChangeErr(true);
+          console.log(error);
+        });
+    }
+  };
+
+  useEffect(() => {
+    const result = passwordValidator(password);
+    setPswStrength(result);
+  }, [password]);
 
   return (
     <>
@@ -178,18 +236,75 @@ function DashboardUser() {
             {user ? user.metadata.lastSignInTime : "No data"}
           </small>
         </p>
+        {pswChangeSuccess ? (
+          <div className="psw-change-success">
+            <p>Password changed successfully!</p>
+            <button
+              onClick={() => {
+                setPswChangeSuccess(false);
+              }}
+            >
+              x
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
         <div className="user-actions">
           <button onClick={handleUserNameEditDisplay}>Edit name</button>
-          <button>Change password</button>
+          <button onClick={handleChangePasswordDisplay}>Change password</button>
           <button className="delete-profile">Delete profile</button>
         </div>
         {nameEdit ? (
-          <form
-            className="user-name-update-form"
-            onSubmit={handleUserNameSubmit}
-          >
+          <form className="update-form" onSubmit={handleUserNameSubmit}>
             <label htmlFor="new-user-name">New user name:</label>
-            <input type="text" name="new-user-name" />
+            <input type="text" name="new-user-name" required />
+            <button>Update</button>
+          </form>
+        ) : (
+          ""
+        )}
+        {passwordEdit ? (
+          <form className="update-form" onSubmit={handlePasswordSubmit}>
+            <label htmlFor="new-password">New password:</label>
+            <input
+              type="password"
+              name="new-password"
+              minLength={8}
+              required
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <small>*Password has to be min 8 characters long</small>
+            {password.length > 0 ? (
+              <ProgressBar
+                pswStrength={pswStrength.percentage}
+                pswStatus={pswStrength.status}
+              />
+            ) : (
+              ""
+            )}
+            <label htmlFor="new-password-confirm">Confirm password:</label>
+            <input
+              type="password"
+              name="new-password-confirm"
+              minLength={8}
+              required
+            />
+            {pswMatch ? (
+              ""
+            ) : (
+              <p className="psw-change-err">Passwords don't match!</p>
+            )}
+            {pswChangeErr ? (
+              <p className="psw-change-err">
+                You've been logged in for a very long time. To continue you need
+                to re-login to your account. Sorry!
+              </p>
+            ) : (
+              ""
+            )}
             <button>Update</button>
           </form>
         ) : (
