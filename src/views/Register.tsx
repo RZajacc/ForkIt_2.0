@@ -123,7 +123,7 @@ function Register() {
           required
         />
         <small>*At least 8 characters long</small>
-        {password.length !== 0 ? (
+        {password.length > 0 ? (
           <ProgressBar
             pswStrength={pswStrength.percentage}
             pswStatus={pswStrength.status}

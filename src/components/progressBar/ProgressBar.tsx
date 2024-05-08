@@ -13,8 +13,8 @@ function ProgressBar({ pswStrength, pswStatus }: Props) {
       color: "black",
       fontWeight: "bold",
       padding: "0.2rem",
-      borderRadius: "5px",
-      backgroundColor: "lightgray",
+      borderRadius: "3px",
+      backgroundColor: "#ff2a2a",
     },
     weak: {
       width: `${pswStrength}`,
@@ -55,7 +55,7 @@ function ProgressBar({ pswStrength, pswStatus }: Props) {
   };
   let barStyle = {};
   switch (pswStatus) {
-    case "Very weak":
+    case "Too short":
       barStyle = barStyleOptions.veryWeak;
       break;
     case "Weak":
