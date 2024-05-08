@@ -110,11 +110,13 @@ function DashboardUser() {
                 updateProfile(user!, { photoURL: downloadURL }).then(() => {
                   setUser(user);
                   setUserImg(downloadURL);
+                  fileInputRef.current!.value = "";
                 });
               } else {
                 updateProfile(user!, { photoURL: downloadURL }).then(() => {
                   setUser(user);
                   setUserImg(downloadURL);
+                  fileInputRef.current!.value = "";
                 });
                 const img = user?.photoURL as string;
                 const deleteRef = ref(storage, img);

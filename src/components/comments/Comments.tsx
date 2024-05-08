@@ -87,6 +87,7 @@ function Comments({ recipeId }: Props) {
         <h4>Add new comment:</h4>
         <textarea
           placeholder="Leave your comment here"
+          id="comment"
           rows={3}
           name="comment_text"
           ref={commentInput}
