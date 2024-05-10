@@ -8,16 +8,16 @@ interface Props {
   fetchErrClass: string;
   fetchErr: FetchErr;
   recipesData: RecipeGeneral[];
-  // userFavs: string[] | null;
+  userFavs: number[] | null;
 }
 
 function RecipesList({
   totalResults,
   fetchErrClass,
   fetchErr,
-  recipesData, // userFavs,
+  recipesData,
+  userFavs,
 }: Props) {
-  // console.log("MY USER FAVS", userFavs);
   return (
     <>
       <div className="recipe-amount">
@@ -39,7 +39,7 @@ function RecipesList({
                 title={recipe.title}
                 link={`${recipe.id}`}
                 key={recipe.id}
-                recipeID={recipe.id}
+                isFav={userFavs!.includes(recipe.id) ? true : false}
               />
             );
           })}

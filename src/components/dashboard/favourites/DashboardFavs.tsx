@@ -48,6 +48,7 @@ function DashboardFavs() {
                 title={recipe.recipeTitle}
                 link={`../recipes/${recipe.recipeID}`}
                 key={recipe.recipeID}
+                isFav={false}
               />
             );
           })}

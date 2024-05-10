@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import "./recipecard.scss";
-// import emptyHeart from "/heart_empty.svg";
-// import fullHeart from "/heart_full.svg";
-// import { useContext } from "react";
-// import { AuthContext } from "../../../context/AuthContext";
+import emptyHeart from "/heart_empty.svg";
+import fullHeart from "/heart_full.svg";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 
 type Props = {
   readyInMinutes: number;
@@ -11,7 +11,7 @@ type Props = {
   imageUrl: string;
   title: string;
   link: string;
-  recipeID: number;
+  isFav: boolean;
 };
 
 function RecipeCard({
@@ -20,9 +20,9 @@ function RecipeCard({
   imageUrl,
   title,
   link,
+  isFav,
 }: Props) {
-  // const { user } = useContext(AuthContext);
-
+  const { user } = useContext(AuthContext);
   return (
     <div className="recipe-card">
       <section className="recipe-card__header-section">
@@ -36,7 +36,15 @@ function RecipeCard({
       </section>
       <section className="recipe-card__image-section">
         <img src={imageUrl} alt="recipe-image" />
-        {/* {user ? <img src={emptyHeart} alt="" className="heart" /> : ""} */}
+        {user ? (
+          isFav ? (
+            <img src={fullHeart} alt="" className="heart" />
+          ) : (
+            <img src={emptyHeart} alt="" className="heart" />
+          )
+        ) : (
+          ""
+        )}
       </section>
       <p className="recipe-card__recipe-title">{title}</p>
       <section className="recipe-card__read-more-link">

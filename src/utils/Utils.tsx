@@ -1,6 +1,7 @@
 import {
   Timestamp,
   collection,
+  getDocs,
   onSnapshot,
   query,
   updateDoc,
@@ -117,18 +118,24 @@ export const updateCommentImg = (user: User, newImageURL: string) => {
   });
 };
 
-export const getAllUserFavs = (user: User | null) => {
+export const getAllUserFavs = async (user: User | null) => {
   if (user !== null) {
-    const favs: string[] = [];
+    const favs: number[] = [];
     const q = query(
       collection(db, "favourites"),
       where("userID", "==", user?.uid)
     );
-    onSnapshot(q, (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        favs.push(doc.data().recipeID.toString());
-      });
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log("TEST");
+      favs.push(doc.data().recipeID);
     });
+    // onSnapshot(q, (querySnapshot) => {
+    //   querySnapshot.forEach((doc) => {
+    //     console.log("TEST");
+    //     favs.push(doc.data().recipeID);
+    //   });
+    // });
     return favs;
   } else {
     return null;
