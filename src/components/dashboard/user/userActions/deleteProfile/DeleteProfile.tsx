@@ -21,6 +21,7 @@ type Props = {
 function DeleteProfile({ user, setUser }: Props) {
   const navigate = useNavigate();
   const [authErr, setAuthErr] = useState(false);
+  const [userNameErr, setUserNameErr] = useState(false);
   const handleDeleteProfile = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -82,6 +83,8 @@ function DeleteProfile({ user, setUser }: Props) {
           setAuthErr(true);
           console.log(error);
         });
+    } else {
+      setUserNameErr(true);
     }
   };
   return (
@@ -89,7 +92,14 @@ function DeleteProfile({ user, setUser }: Props) {
       <h4>Are you sure you want to delete your profile?</h4>
       <p>If yes type you're username below and confirm with the button:</p>
       <div>
-        <input type="text" name="confirm-delete" required />
+        <input
+          type="text"
+          name="confirm-delete"
+          required
+          onChange={() => {
+            setUserNameErr(false);
+          }}
+        />
         <button type="submit">Delete</button>
       </div>
       {authErr ? (
@@ -97,6 +107,11 @@ function DeleteProfile({ user, setUser }: Props) {
           You've been logged in for a very long time. To continue you need to
           re-login to your account. Sorry!
         </p>
+      ) : (
+        ""
+      )}
+      {userNameErr ? (
+        <p className="psw-change-err">It's not your user name!Try again 😊 </p>
       ) : (
         ""
       )}
