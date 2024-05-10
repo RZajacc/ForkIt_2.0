@@ -25,45 +25,50 @@ function App() {
       errorElement: <ErrorPage />,
       children: [
         {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: "recipes",
-          element: <RecipesView />,
-        },
-        {
-          path: "recipes/:id",
-          loader: recipeLoader,
-          element: (
-            <ProtectedRoute>
-              <RecipeDetails />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "dashboard",
-          element: (
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "contact",
-          element: <Contact />,
-        },
-        {
-          path: "login",
-          element: <LogIn />,
-        },
-        {
-          path: "register",
-          element: <Register />,
-        },
-        {
-          path: "reset",
-          element: <ResetPassword />,
+          errorElement: <ErrorPage />,
+          children: [
+            {
+              index: true,
+              element: <Home />,
+            },
+            {
+              path: "recipes",
+              element: <RecipesView />,
+            },
+            {
+              path: "recipes/:id",
+              loader: recipeLoader,
+              element: (
+                <ProtectedRoute>
+                  <RecipeDetails />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "dashboard",
+              element: (
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              ),
+            },
+            {
+              path: "contact",
+              element: <Contact />,
+            },
+            {
+              path: "login",
+              element: <LogIn />,
+            },
+            {
+              path: "register",
+              element: <Register />,
+            },
+            {
+              path: "reset",
+              element: <ResetPassword />,
+            },
+          ],
         },
       ],
     },
