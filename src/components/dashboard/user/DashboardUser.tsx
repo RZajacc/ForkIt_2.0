@@ -14,6 +14,7 @@ import { updateProfile } from "firebase/auth";
 import UserNameUpdate from "./userActions/userNameUpdate/UserNameUpdate";
 import PasswordUpdate from "./userActions/passwordUpdate/PasswordUpdate";
 import DeleteProfile from "./userActions/deleteProfile/DeleteProfile";
+import UserActions from "./userActions/UserActions";
 
 function DashboardUser() {
   const { user, setUser } = useContext(AuthContext);
@@ -113,38 +114,6 @@ function DashboardUser() {
       );
     }
   };
-  // ---------------USER UPDATE ACTIONS--------------------
-  const handleUserNameEditDisplay = () => {
-    if (nameEdit) {
-      setNameEdit(false);
-    } else {
-      setNameEdit(true);
-      setPasswordEdit(false);
-      setDeleteProfile(false);
-    }
-  };
-
-  // ---------------CHANGE PASSWORD--------------------
-  const handleChangePasswordDisplay = () => {
-    if (passwordEdit) {
-      setPasswordEdit(false);
-    } else {
-      setPasswordEdit(true);
-      setNameEdit(false);
-      setDeleteProfile(false);
-    }
-  };
-
-  // ------------DELETE PROFILE--------------
-  const handleDeleteProfileDisplay = () => {
-    if (deleteProfile) {
-      setDeleteProfile(false);
-    } else {
-      setDeleteProfile(true);
-      setNameEdit(false);
-      setPasswordEdit(false);
-    }
-  };
 
   return (
     <>
@@ -210,16 +179,16 @@ function DashboardUser() {
         ) : (
           ""
         )}
-        <div className="user-actions">
-          <button onClick={handleUserNameEditDisplay}>Edit name</button>
-          <button onClick={handleChangePasswordDisplay}>Change password</button>
-          <button
-            className="delete-profile"
-            onClick={handleDeleteProfileDisplay}
-          >
-            Delete profile
-          </button>
-        </div>
+        {/* USER ACTIONS BUTTONS */}
+        <UserActions
+          nameEdit={nameEdit}
+          setNameEdit={setNameEdit}
+          passwordEdit={passwordEdit}
+          setPasswordEdit={setPasswordEdit}
+          deleteProfile={deleteProfile}
+          setDeleteProfile={setDeleteProfile}
+        />
+        {/* USER ACTIONS CONTENT */}
         {nameEdit ? (
           <UserNameUpdate
             user={user!}

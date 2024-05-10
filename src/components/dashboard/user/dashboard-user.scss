@@ -88,6 +88,10 @@
     padding: 0.3rem 0.4rem;
     border-radius: 5px;
     box-shadow: 2px 2px 2px black;
+    cursor: pointer;
+    &:hover {
+      font-weight: bold;
+    }
   }
 
   .delete-profile {
