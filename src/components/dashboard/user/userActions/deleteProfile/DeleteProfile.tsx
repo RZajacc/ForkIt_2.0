@@ -30,42 +30,44 @@ function DeleteProfile({ user, setUser }: Props) {
     const confirmation = formData.get("confirm-delete") as string;
 
     if (confirmation === user!.displayName) {
-      // Delete all user favs
-      const favQuery = query(
-        collection(db, "favourites"),
-        where("userID", "==", user?.uid)
-      );
-      const favQuerySnapshot = await getDocs(favQuery);
-      favQuerySnapshot.forEach(async (document) => {
-        await deleteDoc(doc(db, "favourites", document.id));
-      });
-      // Delete all user comments
-      const commentsQuery = query(
-        collection(db, "Comments"),
-        where("authorID", "==", user?.uid)
-      );
-      const commentsQuerySnapshot = await getDocs(commentsQuery);
-      commentsQuerySnapshot.forEach(async (document) => {
-        await deleteDoc(doc(db, "Comments", document.id));
-        console.log("DOCID", document.id);
-      });
-      // Delete user image
-      const storage = getStorage();
-      const img = user?.photoURL as string;
-      const deleteRef = ref(storage, img);
-      if (img !== "/noUser.png") {
-        deleteObject(deleteRef)
-          .then(() => {
-            console.log("Success");
-          })
-          .catch((error: FirebaseError) => {
-            console.log("ERROR", error.message);
-          });
-      }
-      // Delete user account
       const auth = getAuth();
+      // Delete user account
       deleteUser(user!)
-        .then(() => {
+        .then(async () => {
+          // DELETE ALL USERS DATA
+
+          // Delete all user favs
+          const favQuery = query(
+            collection(db, "favourites"),
+            where("userID", "==", user?.uid)
+          );
+          const favQuerySnapshot = await getDocs(favQuery);
+          favQuerySnapshot.forEach(async (document) => {
+            await deleteDoc(doc(db, "favourites", document.id));
+          });
+          // Delete all user comments
+          const commentsQuery = query(
+            collection(db, "Comments"),
+            where("authorID", "==", user?.uid)
+          );
+          const commentsQuerySnapshot = await getDocs(commentsQuery);
+          commentsQuerySnapshot.forEach(async (document) => {
+            await deleteDoc(doc(db, "Comments", document.id));
+            console.log("DOCID", document.id);
+          });
+          // Delete user image
+          const storage = getStorage();
+          const img = user?.photoURL as string;
+          const deleteRef = ref(storage, img);
+          if (img !== "/noUser.png") {
+            deleteObject(deleteRef)
+              .then(() => {
+                console.log("Success");
+              })
+              .catch((error: FirebaseError) => {
+                console.log("ERROR", error.message);
+              });
+          }
           // Signout the user
           signOut(auth)
             .then(() => {

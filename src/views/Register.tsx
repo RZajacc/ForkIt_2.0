@@ -75,6 +75,14 @@ function Register() {
       // Create the user with email and password
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
+          // Signout since user is not verified
+          signOut(auth)
+            .then(() => {
+              setUser(null);
+            })
+            .catch((error: FirebaseError) => {
+              console.log(error.code);
+            });
           // extract the user
           const user = userCredential.user;
           // Update with username
@@ -82,13 +90,6 @@ function Register() {
             .then(() => {
               sendEmailVerification(user).then(() => {
                 setRegisterStatus(true);
-                signOut(auth)
-                  .then(() => {
-                    setUser(null);
-                  })
-                  .catch((error: FirebaseError) => {
-                    console.log(error.code);
-                  });
               });
             })
             .catch((error: FirebaseError) => {
