@@ -36,7 +36,7 @@ function RecipeCard({
       </section>
       <section className="recipe-card__image-section">
         <img src={imageUrl} alt="recipe-image" />
-        {user ? <img src={emptyHeart} alt="" className="heart" /> : ""}
+        {/* {user ? <img src={emptyHeart} alt="" className="heart" /> : ""} */}
       </section>
       <p className="recipe-card__recipe-title">{title}</p>
       <section className="recipe-card__read-more-link">
