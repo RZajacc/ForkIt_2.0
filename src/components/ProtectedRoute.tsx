@@ -1,6 +1,6 @@
 import { useContext, ReactNode } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Navigate, useNavigation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import LoadingPage from "./LoadingPage";
 
 type ProtectedRouteProps = {
@@ -9,8 +9,6 @@ type ProtectedRouteProps = {
 
 function ProtectedRoute(props: ProtectedRouteProps) {
   const { user, loading } = useContext(AuthContext);
-  const navigate = useNavigation();
-  console.log("NAVIGATE--->", navigate.state);
 
   return (
     <>

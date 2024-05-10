@@ -126,7 +126,8 @@
 .update-form {
   display: grid;
   row-gap: 0.5rem;
-  margin-top: 1rem;
+  margin: 1rem auto;
+  max-width: 375px;
 
   button {
     @include button-black;
@@ -156,6 +157,7 @@
 
 .user-delete-form {
   margin: 1.5rem auto;
+  max-width: 375px;
   h4,
   p {
     margin: 1rem 0;
@@ -178,5 +180,16 @@
     color: white;
     font-weight: bold;
     border: 1px solid black;
+  }
+}
+
+@media (min-width: 480px) {
+  .user-actions {
+    button {
+      margin: 0.5rem 0.6rem;
+      padding: 0.5rem 0.6rem;
+      border-radius: 5px;
+      box-shadow: 2px 2px 2px black;
+    }
   }
 }
