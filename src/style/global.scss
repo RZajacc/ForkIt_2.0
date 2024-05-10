@@ -44,3 +44,9 @@ body {
 main {
   grid-area: main;
 }
+
+.spinnerClass {
+  svg {
+    margin: 5rem auto;
+  }
+}

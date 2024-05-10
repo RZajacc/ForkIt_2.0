@@ -4,8 +4,10 @@ import RecipesList from "../components/recipesView/recipesList/RecipesList";
 import Pagination from "../components/recipesView/recipePagination/Pagination";
 import { FetchErr, RecipeGeneral, searchObject } from "../types/types";
 import { generateFetchUrl } from "../utils/Utils";
+import { ThreeCircles } from "react-loader-spinner";
 
 function RecipesView() {
+  const [isLoading, setIsLoading] = useState(false);
   const [offset, setOffset] = useState<number>(0);
   const [searchObj, setSearchObj] = useState<searchObject>({
     searchVal: "",
@@ -22,7 +24,6 @@ function RecipesView() {
     message: "",
   });
   const [fetchErrClass, setFetchErrClass] = useState("hide-element");
-
   // Fetch date on page load and when other elements change
   useEffect(() => {
     // Prepare data to fetch
@@ -31,10 +32,11 @@ function RecipesView() {
     const url = generateFetchUrl(searchObj, apiKey, recipesAmount, offset);
 
     let ignore = false;
-
+    setIsLoading(true);
     fetch(url)
       .then((response) => {
         if (!response.ok) {
+          setIsLoading(false);
           if (response.status === 402) {
             setFetchErr({
               status: response.status,
@@ -52,11 +54,13 @@ function RecipesView() {
         } else {
           setFetchErr({ status: 200, message: "Fetch was successfull" });
           setFetchErrClass("hide-element");
+          setIsLoading(false);
           return response.json();
         }
       })
       .then((data) => {
         if (!ignore) {
+          setIsLoading(false);
           setRecipesData(data.results as RecipeGeneral[]);
           setTotalResults(data.totalResults as number);
           setOffset(data.offset as number);
@@ -71,12 +75,16 @@ function RecipesView() {
     <>
       <main>
         <SearchBar setSearchObj={setSearchObj} />
-        <RecipesList
-          totalResults={totalResults}
-          fetchErrClass={fetchErrClass}
-          fetchErr={fetchErr}
-          recipesData={recipesData}
-        />
+        {isLoading ? (
+          <ThreeCircles height="120" width="120" wrapperClass="spinnerClass" />
+        ) : (
+          <RecipesList
+            totalResults={totalResults}
+            fetchErrClass={fetchErrClass}
+            fetchErr={fetchErr}
+            recipesData={recipesData}
+          />
+        )}
         {fetchErr.status === 200 ? (
           <Pagination
             setOffset={setOffset}
