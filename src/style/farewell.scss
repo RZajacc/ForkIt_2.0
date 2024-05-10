@@ -1,0 +1,24 @@
+@import "./partials/variables";
+
+.content-container {
+  width: 70%;
+  max-width: 400px;
+  text-align: center;
+  margin: 3rem auto;
+
+  .img-section {
+    img {
+      width: 50%;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    background-color: rgb(253, 47, 47);
+    padding: 0.5rem 0.8rem;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}

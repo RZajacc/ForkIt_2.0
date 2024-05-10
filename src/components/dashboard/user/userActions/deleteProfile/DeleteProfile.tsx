@@ -73,7 +73,7 @@ function DeleteProfile({ user, setUser }: Props) {
           signOut(auth)
             .then(() => {
               setUser(null);
-              navigate("/");
+              navigate("/farewell");
             })
             .catch((error: FirebaseError) => {
               console.log(error.code);

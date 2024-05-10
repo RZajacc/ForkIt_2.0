@@ -16,6 +16,7 @@ import "./style/global.scss";
 // Loaders
 import { loader as recipeLoader } from "./loaders/RecipeDetails.Loader";
 import ResetPassword from "./views/ResetPassword";
+import Farewell from "./views/Farewell";
 
 function App() {
   const router = createBrowserRouter([
@@ -67,6 +68,10 @@ function App() {
             {
               path: "reset",
               element: <ResetPassword />,
+            },
+            {
+              path: "farewell",
+              element: <Farewell />,
             },
           ],
         },
