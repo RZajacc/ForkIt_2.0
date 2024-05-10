@@ -29,6 +29,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../config/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import UserNameUpdate from "./userActions/userNameUpdate/UserNameUpdate";
 
 function DashboardUser() {
   const { user, setUser } = useContext(AuthContext);
@@ -143,24 +144,6 @@ function DashboardUser() {
       setPasswordEdit(false);
       setDeleteProfile(false);
     }
-  };
-
-  const handleUserNameSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Create form data and collect its inputs
-    const formData = new FormData(e.currentTarget);
-    const userName = formData.get("new-user-name") as string;
-
-    updateProfile(user!, {
-      displayName: userName,
-    })
-      .then(() => {
-        setUser(user);
-        setNameEdit(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   // ---------------CHANGE PASSWORD--------------------
@@ -356,16 +339,11 @@ function DashboardUser() {
           </button>
         </div>
         {nameEdit ? (
-          <form className="update-form" onSubmit={handleUserNameSubmit}>
-            <label htmlFor="new-user-name">New user name:</label>
-            <input
-              type="text"
-              id="new-user-name"
-              name="new-user-name"
-              required
-            />
-            <button>Update</button>
-          </form>
+          <UserNameUpdate
+            user={user!}
+            setUser={setUser}
+            setNameEdit={setNameEdit}
+          />
         ) : (
           ""
         )}
