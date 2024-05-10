@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useRef, useState } from "react";
+import { FormEvent, useContext, useRef, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { v4 } from "uuid";
 import "./dashboard-user.scss";
@@ -10,15 +10,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { FirebaseError } from "firebase/app";
-import {
-  deleteUser,
-  getAuth,
-  signOut,
-  updatePassword,
-  updateProfile,
-} from "firebase/auth";
-import { passwordValidator } from "../../../utils/Utils";
-import ProgressBar from "../../progressBar/ProgressBar";
+import { deleteUser, getAuth, signOut, updateProfile } from "firebase/auth";
 import {
   collection,
   deleteDoc,
@@ -30,6 +22,7 @@ import {
 import { db } from "../../../config/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import UserNameUpdate from "./userActions/userNameUpdate/UserNameUpdate";
+import PasswordUpdate from "./userActions/passwordUpdate/PasswordUpdate";
 
 function DashboardUser() {
   const { user, setUser } = useContext(AuthContext);
@@ -37,14 +30,9 @@ function DashboardUser() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [nameEdit, setNameEdit] = useState(false);
   const [passwordEdit, setPasswordEdit] = useState(false);
-  // ------UPDATE PASSWORD STATE VARS------------
-  const [password, setPassword] = useState("");
-  const [pswMatch, setPswMatch] = useState(true);
-  const [pswStrength, setPswStrength] = useState({
-    percentage: "",
-    status: "",
-  });
   const [pswChangeSuccess, setPswChangeSuccess] = useState(false);
+
+  // !DELETE PROFILE ERROR
   const [pswChangeErr, setPswChangeErr] = useState(false);
   // ------------------------------------------------
   const [deleteProfile, setDeleteProfile] = useState(false);
@@ -157,35 +145,6 @@ function DashboardUser() {
     }
   };
 
-  const handlePasswordSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // Collect data from from
-    const formData = new FormData(e.currentTarget);
-    // Collect inputs
-    const password = formData.get("new-password") as string;
-    const confirmPassword = formData.get("new-password-confirm") as string;
-
-    if (password !== confirmPassword) {
-      setPswMatch(false);
-    } else {
-      setPswMatch(true);
-
-      updatePassword(user!, password)
-        .then(() => {
-          setUser(user);
-          setPasswordEdit(false);
-          setPswChangeSuccess(true);
-          setPassword("");
-        })
-        .catch((error) => {
-          // SET ERROR
-          setPswChangeErr(true);
-          console.log(error);
-        });
-    }
-  };
-
   // ------------DELETE PROFILE--------------
   const handleDeleteProfileDisplay = () => {
     if (deleteProfile) {
@@ -258,11 +217,6 @@ function DashboardUser() {
         });
     }
   };
-
-  useEffect(() => {
-    const result = passwordValidator(password);
-    setPswStrength(result);
-  }, [password]);
 
   return (
     <>
@@ -348,50 +302,12 @@ function DashboardUser() {
           ""
         )}
         {passwordEdit ? (
-          <form className="update-form" onSubmit={handlePasswordSubmit}>
-            <label htmlFor="new-password">New password:</label>
-            <input
-              type="password"
-              name="new-password"
-              id="new-password"
-              minLength={8}
-              required
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-            <small>*Password has to be min 8 characters long</small>
-            {password.length > 0 ? (
-              <ProgressBar
-                pswStrength={pswStrength.percentage}
-                pswStatus={pswStrength.status}
-              />
-            ) : (
-              ""
-            )}
-            <label htmlFor="new-password-confirm">Confirm password:</label>
-            <input
-              type="password"
-              name="new-password-confirm"
-              id="new-password-confirm"
-              minLength={8}
-              required
-            />
-            {pswMatch ? (
-              ""
-            ) : (
-              <p className="psw-change-err">Passwords don't match!</p>
-            )}
-            {pswChangeErr ? (
-              <p className="psw-change-err">
-                You've been logged in for a very long time. To continue you need
-                to re-login to your account. Sorry!
-              </p>
-            ) : (
-              ""
-            )}
-            <button>Update</button>
-          </form>
+          <PasswordUpdate
+            user={user!}
+            setUser={setUser}
+            setPasswordEdit={setPasswordEdit}
+            setPswChangeSuccess={setPswChangeSuccess}
+          />
         ) : (
           ""
         )}
