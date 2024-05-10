@@ -17,22 +17,6 @@ function DesktopNav({ logout }: Props) {
   const { user } = useContext(AuthContext);
   return (
     <ul className="desktop-nav">
-      <li>
-        <NavLink to={"recipes"}>
-          <img src={stoveBlack} alt="stove-icon" className="mobile-nav-image" />
-          Recipes
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={"contact"}>
-          <img
-            src={contactFormBlack}
-            alt="contact-form-icon"
-            className="mobile-nav-image"
-          />
-          Contact
-        </NavLink>
-      </li>
       {user ? (
         <>
           <li>
@@ -46,11 +30,42 @@ function DesktopNav({ logout }: Props) {
             </NavLink>
           </li>
           <li>
+            <NavLink to={"recipes"}>
+              <img
+                src={stoveBlack}
+                alt="stove-icon"
+                className="mobile-nav-image"
+              />
+              Recipes
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"contact"}>
+              <img
+                src={contactFormBlack}
+                alt="contact-form-icon"
+                className="mobile-nav-image"
+              />
+              Contact
+            </NavLink>
+          </li>
+
+          <li>
             <button onClick={logout}>Logout</button>
           </li>
         </>
       ) : (
         <>
+          <li>
+            <NavLink to={"login"}>
+              <img
+                src={avatarBlack}
+                alt="avatar-icon"
+                className="mobile-nav-image"
+              />
+              Login
+            </NavLink>
+          </li>
           <li>
             <NavLink to={"register"}>
               <img
@@ -61,14 +76,25 @@ function DesktopNav({ logout }: Props) {
               Register
             </NavLink>
           </li>
+
           <li>
-            <NavLink to={"login"}>
+            <NavLink to={"recipes"}>
               <img
-                src={avatarBlack}
-                alt="avatar-icon"
+                src={stoveBlack}
+                alt="stove-icon"
                 className="mobile-nav-image"
               />
-              Login
+              Recipes
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"contact"}>
+              <img
+                src={contactFormBlack}
+                alt="contact-form-icon"
+                className="mobile-nav-image"
+              />
+              Contact
             </NavLink>
           </li>
         </>

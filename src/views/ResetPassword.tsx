@@ -39,6 +39,9 @@ function ResetPassword() {
             autoComplete="email"
             placeholder="enter your email"
             required
+            onChange={() => {
+              setResetSuccess(false);
+            }}
           />
           <button type="submit">Submit</button>
           {resetSuccess ? (

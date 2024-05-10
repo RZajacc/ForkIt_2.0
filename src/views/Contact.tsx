@@ -42,7 +42,11 @@ function Contact() {
     <>
       <main>
         <section className="form-section">
-          <h4>If you have any questions send me a message:</h4>
+          <h5>
+            Hello! 🙋🏻‍♂ My name is Rafał and i'm the creator of this page. I hope
+            you find some new food inspiration here (i know the struggle). If
+            you have any comments, do not hesitate to send me a message!
+          </h5>
           <form ref={form} onSubmit={sendEmail}>
             <label htmlFor="from_name">Name</label>
             <input

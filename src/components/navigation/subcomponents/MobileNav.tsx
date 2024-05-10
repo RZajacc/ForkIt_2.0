@@ -20,20 +20,6 @@ function MobileNav({ mobileNavState, toggleMobileNavState, logout }: Props) {
 
   return (
     <div className={mobileNavState}>
-      <Link to={"recipes"} onClick={toggleMobileNavState}>
-        <img src={stoveWhite} alt="stove-icon" className="mobile-nav-image" />
-        Recipes
-      </Link>
-
-      <Link to={"contact"} onClick={toggleMobileNavState}>
-        <img
-          src={contactFormWhite}
-          alt="contact-form-icon"
-          className="mobile-nav-image"
-        />
-        Contact
-      </Link>
-
       {user ? (
         <>
           <Link to={"dashboard"} onClick={toggleMobileNavState}>
@@ -44,10 +30,36 @@ function MobileNav({ mobileNavState, toggleMobileNavState, logout }: Props) {
             />
             Account
           </Link>
+
+          <Link to={"recipes"} onClick={toggleMobileNavState}>
+            <img
+              src={stoveWhite}
+              alt="stove-icon"
+              className="mobile-nav-image"
+            />
+            Recipes
+          </Link>
+
+          <Link to={"contact"} onClick={toggleMobileNavState}>
+            <img
+              src={contactFormWhite}
+              alt="contact-form-icon"
+              className="mobile-nav-image"
+            />
+            Contact
+          </Link>
           <button onClick={logout}>Logout</button>
         </>
       ) : (
         <>
+          <Link to={"login"} onClick={toggleMobileNavState}>
+            <img
+              src={avatarWhite}
+              alt="avatar-icon"
+              className="mobile-nav-image"
+            />
+            Login
+          </Link>
           <Link to={"register"} onClick={toggleMobileNavState}>
             <img
               src={registerWhite}
@@ -56,13 +68,23 @@ function MobileNav({ mobileNavState, toggleMobileNavState, logout }: Props) {
             />
             Register
           </Link>
-          <Link to={"login"} onClick={toggleMobileNavState}>
+
+          <Link to={"recipes"} onClick={toggleMobileNavState}>
             <img
-              src={avatarWhite}
-              alt="avatar-icon"
+              src={stoveWhite}
+              alt="stove-icon"
               className="mobile-nav-image"
             />
-            Login
+            Recipes
+          </Link>
+
+          <Link to={"contact"} onClick={toggleMobileNavState}>
+            <img
+              src={contactFormWhite}
+              alt="contact-form-icon"
+              className="mobile-nav-image"
+            />
+            Contact
           </Link>
         </>
       )}

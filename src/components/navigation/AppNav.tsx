@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { getAuth, signOut } from "firebase/auth";
@@ -43,6 +43,20 @@ function AppNav() {
       });
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setMobileNavState("mobile-nav-items--hidden");
+      setbackdropState("backdrop");
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
+
   return (
     <>
       <header>
@@ -74,7 +88,11 @@ function AppNav() {
         />
       </header>
       {/* BACKROP WHEN MOBILE OPTIONS ARE OPENED */}
-      <div className={backdropState} onClick={toggleMobileNavState}></div>
+      <div
+        className={backdropState}
+        onClick={toggleMobileNavState}
+        onScroll={toggleMobileNavState}
+      ></div>
     </>
   );
 }

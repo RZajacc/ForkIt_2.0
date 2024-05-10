@@ -14,9 +14,9 @@ function Home() {
           </p>
           <p>
             Most of the page content you are allowed to browse without setting a
-            user account, although if you want to see recipe details you need
-            your account. You can either create a new one, or you can use one of
-            supported logging options like Google, Facebook or Github.
+            user account, although if you want to see recipe details (and
+            probably you do..) I will kindly ask you too go through the process
+            or creating new account. Sorry for inconvenience!😊
           </p>
           <p>
             With your account set up you can also comment recipes and add them
