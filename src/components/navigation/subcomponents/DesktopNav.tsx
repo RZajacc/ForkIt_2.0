@@ -42,7 +42,7 @@ function DesktopNav({ logout }: Props) {
                 alt="dashboard-icon"
                 className="mobile-nav-image"
               />
-              Dashboard
+              Account
             </NavLink>
           </li>
           <li>

@@ -42,7 +42,7 @@ function MobileNav({ mobileNavState, toggleMobileNavState, logout }: Props) {
               alt="dashboard-icon"
               className="mobile-nav-image"
             />
-            Dashboard
+            Account
           </Link>
           <button onClick={logout}>Logout</button>
         </>

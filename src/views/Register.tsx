@@ -38,6 +38,10 @@ function Register() {
   const handleRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const actionCodeSettings = {
+      url: "https://forkitorleaveit.netlify.app/login",
+    };
+
     // RESET ERROR CLASSES
     setRegPswValidClass("reg-err-msg");
     setRegPswMatchClass("reg-err-msg");
@@ -88,7 +92,7 @@ function Register() {
           // Update with username
           updateProfile(user, { displayName: userName, photoURL: noUser })
             .then(() => {
-              sendEmailVerification(user).then(() => {
+              sendEmailVerification(user, actionCodeSettings).then(() => {
                 setRegisterStatus(true);
               });
             })

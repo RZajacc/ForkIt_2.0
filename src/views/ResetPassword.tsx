@@ -5,6 +5,10 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 function ResetPassword() {
   const [resetSuccess, setResetSuccess] = useState(false);
 
+  const actionCodeSettings = {
+    url: "https://forkitorleaveit.netlify.app/login",
+  };
+
   const handleReset = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Create form data and collect its inputs
@@ -12,7 +16,7 @@ function ResetPassword() {
     const email = formData.get("email") as string;
     //  Get auth object and send reset password email
     const auth = getAuth();
-    sendPasswordResetEmail(auth, email)
+    sendPasswordResetEmail(auth, email, actionCodeSettings)
       .then(() => {
         setResetSuccess(true);
       })
