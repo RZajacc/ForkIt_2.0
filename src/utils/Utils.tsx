@@ -1,5 +1,14 @@
-import { Timestamp } from "firebase/firestore";
+import {
+  Timestamp,
+  collection,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { searchObject } from "../types/types";
+import { db } from "../config/firebaseConfig";
+import { User } from "firebase/auth";
 
 // * Helper function to format date
 export const formatDate = (date: Timestamp | Date): string => {
@@ -87,4 +96,23 @@ export const passwordValidator = (password: string) => {
     percentage: passwordStrength[counter].percentage,
     status: passwordStrength[counter].status,
   };
+};
+
+export const updateCommentImg = (user: User, newImageURL: string) => {
+  // Get comments assigned to this recipe sorted by date
+  const q = query(
+    collection(db, "Comments"),
+    where("authorID", "==", user?.uid)
+  );
+  // Update all documents
+  onSnapshot(q, (querySnapshot) => {
+    // const comments: commentsType[] = [];
+    querySnapshot.forEach(async (doc) => {
+      console.log(doc.id);
+
+      await updateDoc(doc.ref, {
+        picUrl: newImageURL,
+      });
+    });
+  });
 };
