@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import "./recipecard.scss";
-import emptyHeart from "/heart_empty.svg";
+// import emptyHeart from "/heart_empty.svg";
 // import fullHeart from "/heart_full.svg";
-import { useContext } from "react";
-import { AuthContext } from "../../../context/AuthContext";
+// import { useContext } from "react";
+// import { AuthContext } from "../../../context/AuthContext";
 
 type Props = {
   readyInMinutes: number;
@@ -21,7 +21,7 @@ function RecipeCard({
   title,
   link,
 }: Props) {
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
 
   return (
     <div className="recipe-card">
