@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchBar from "../components/recipesView/searchBar/SearchBar";
 import RecipesList from "../components/recipesView/recipesList/RecipesList";
 import Pagination from "../components/recipesView/recipePagination/Pagination";
 import { FetchErr, RecipeGeneral, searchObject } from "../types/types";
 import { generateFetchUrl } from "../utils/Utils";
 import { ThreeCircles } from "react-loader-spinner";
+import { AuthContext } from "../context/AuthContext";
 
 function RecipesView() {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +16,8 @@ function RecipesView() {
     cuisine: "",
     dietType: "",
   });
+  // const [userFavs, setUserFavs] = useState<string[] | null>([]);
+  const { user } = useContext(AuthContext);
 
   // Prepare data in states
   const [totalResults, setTotalResults] = useState<number>(0);
@@ -64,12 +67,14 @@ function RecipesView() {
           setRecipesData(data.results as RecipeGeneral[]);
           setTotalResults(data.totalResults as number);
           setOffset(data.offset as number);
+          // const favs = getAllUserFavs(user);
+          // setUserFavs(favs);
         }
         return () => {
           ignore = true;
         };
       });
-  }, [searchObj, offset, setOffset, setTotalResults]);
+  }, [searchObj, offset, setOffset, setTotalResults, user]);
 
   return (
     <>
@@ -83,6 +88,7 @@ function RecipesView() {
             fetchErrClass={fetchErrClass}
             fetchErr={fetchErr}
             recipesData={recipesData}
+            // userFavs={userFavs}
           />
         )}
         {fetchErr.status === 200 ? (

@@ -42,10 +42,19 @@
 }
 
 .recipe-card__image-section {
+  position: relative;
   text-align: center;
   img {
     width: 95%;
     border-radius: 5px;
+  }
+
+  .heart {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0.6rem;
+    width: 2rem;
   }
 }
 

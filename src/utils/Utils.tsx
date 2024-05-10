@@ -116,3 +116,21 @@ export const updateCommentImg = (user: User, newImageURL: string) => {
     });
   });
 };
+
+export const getAllUserFavs = (user: User | null) => {
+  if (user !== null) {
+    const favs: string[] = [];
+    const q = query(
+      collection(db, "favourites"),
+      where("userID", "==", user?.uid)
+    );
+    onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        favs.push(doc.data().recipeID.toString());
+      });
+    });
+    return favs;
+  } else {
+    return null;
+  }
+};
