@@ -13,6 +13,9 @@ function Farewell() {
         <h3>Hope to see you again!</h3>
         <Link to={"/"}>Take me back!</Link>
       </div>
+      <a id="attrib-link" href="http://www.freepik.com">
+        Designed by stories / Freepik
+      </a>
     </main>
   );
 }
