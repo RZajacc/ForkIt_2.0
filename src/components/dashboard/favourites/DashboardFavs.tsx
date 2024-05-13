@@ -6,10 +6,12 @@ import { userFavs } from "../../../types/types";
 import RecipeCard from "../../recipesView/recipeCard/RecipeCard";
 
 import "./dashboard-favs.scss";
+import { getAllUserFavs, userFavsType } from "../../../utils/Utils";
 
 function DashboardFavs() {
   const { user } = useContext(AuthContext);
-  const [userFavs, setUserFavs] = useState<userFavs[] | null>(null);
+  const [userFavRecipes, setUserFavRecipes] = useState<userFavs[] | null>(null);
+  const [userFavs, setUserFavs] = useState<userFavsType[] | null>([]);
 
   useEffect(() => {
     // * Get favourites with live update
@@ -23,23 +25,27 @@ function DashboardFavs() {
       querySnapshot.forEach((doc) => {
         userFavsTemp.push(doc.data() as userFavs);
       });
-      setUserFavs(userFavsTemp);
+      setUserFavRecipes(userFavsTemp);
     });
+    (async () => {
+      const favs = await getAllUserFavs(user);
+      setUserFavs(favs);
+    })();
 
     // * Prepare link
-  }, [user?.uid]);
+  }, [user, userFavRecipes]);
 
   return (
     <>
       <div className="fav-recipes-grid">
-        {userFavs?.length == 0 ? (
+        {userFavRecipes?.length == 0 ? (
           <h4 className="noFavsText">...No favourites yet...</h4>
         ) : (
           ""
         )}
 
-        {userFavs &&
-          userFavs.map((recipe) => {
+        {userFavRecipes &&
+          userFavRecipes.map((recipe) => {
             return (
               <RecipeCard
                 readyInMinutes={recipe.readyInMinutes}
@@ -48,7 +54,9 @@ function DashboardFavs() {
                 title={recipe.recipeTitle}
                 link={`../recipes/${recipe.recipeID}`}
                 key={recipe.recipeID}
-                isFav={false}
+                recipeID={recipe.recipeID}
+                userFavs={userFavs}
+                setUserFavs={setUserFavs}
               />
             );
           })}
