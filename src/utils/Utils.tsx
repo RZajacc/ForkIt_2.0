@@ -67,7 +67,8 @@ export const passwordValidator = (password: string) => {
   };
 
   // Check password length
-  if (password.length <= 8) {
+  console.log("PSW LEN", password.length);
+  if (password.length < 8) {
     validatePass.length = true;
     counter = 0;
   } else {
