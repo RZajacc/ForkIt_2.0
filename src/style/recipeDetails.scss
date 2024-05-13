@@ -10,10 +10,13 @@
   text-align: center;
 
   button {
-    background-color: rgb(251, 44, 120);
-    color: white;
+    background-color: white;
+    color: black;
+    font-weight: bold;
     padding: 0.2rem 0.7rem;
+    border: 2px solid map-get($colors, lighter-black);
     border-radius: 5px;
+    box-shadow: 3px 3px 3px map-get($colors, lighter-black);
     display: flex;
     align-items: center;
     margin: 0 auto;
@@ -28,7 +31,7 @@
 .add-remove-fav-star {
   width: 23px;
   margin-bottom: 0.3rem;
-  margin-right: 0.3rem;
+  margin-left: 0.3rem;
 }
 
 .recipe-details__info-section {

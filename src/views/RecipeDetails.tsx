@@ -7,8 +7,8 @@ import { AuthContext } from "../context/AuthContext";
 import parse from "html-react-parser";
 import { RecipeGeneral, userFavsType } from "../types/types";
 
-import fullStar from "/Full_Star.png";
-import emptyStar from "/Empty_Star.png";
+import fullHeart from "/heart_full.svg";
+import emptyHeart from "/heart_empty.svg";
 
 import "../style/recipeDetails.scss";
 import { getAllUserFavs } from "../utils/Utils";
@@ -64,21 +64,21 @@ function RecipeDetails() {
             {/* FAVS BUTTON DEPENDING ON STATE */}
             {isFav?.length !== 0 ? (
               <button onClick={handleAddFavourite}>
+                Remove from favourites
                 <img
-                  src={fullStar}
+                  src={fullHeart}
                   alt="empty-star-icon"
                   className="add-remove-fav-star"
                 />
-                Remove from favourites
               </button>
             ) : (
               <button onClick={handleAddFavourite}>
+                Add to favourites
                 <img
-                  src={emptyStar}
+                  src={emptyHeart}
                   alt="full-star-icon"
                   className="add-remove-fav-star"
                 />
-                Add to favourites
               </button>
             )}
           </section>
