@@ -16,6 +16,14 @@ User can register or login with email and password. There is also an option to r
 
 ### Project requirements
 
+First of all install all dependencies:
+
+`npm i`
+
+The app is using Vite as a bundler. To run it use:
+
+`npm run dev`
+
 Back-end part of the project is created with the use of [Firebase](https://firebase.google.com/). Therefore to make the project running its necessary to create account there and set up a new project with email and password authentication and also set up firestore and storage. Together with firebase, you'll need to create an account on [Spoonacular](https://spoonacular.com/) to get your API key. Lastly contact form works with EmailJS, so also there you wound need an account, and a email template set. In the end your .env file should look more or less like this:
 ```
  # FIREBASE
