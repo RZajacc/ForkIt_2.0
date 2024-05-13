@@ -1,24 +1,17 @@
 import { useLoaderData } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { db } from "../config/firebaseConfig";
-import {
-  collection,
-  addDoc,
-  query,
-  where,
-  onSnapshot,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 import Comments from "../components/comments/Comments";
 import { AuthContext } from "../context/AuthContext";
 import parse from "html-react-parser";
-import { RecipeGeneral, userFav } from "../types/types";
+import { RecipeGeneral, userFavsType } from "../types/types";
 
 import fullStar from "/Full_Star.png";
 import emptyStar from "/Empty_Star.png";
 
 import "../style/recipeDetails.scss";
+import { getAllUserFavs } from "../utils/Utils";
 
 type LoaderDataType = {
   recipe: RecipeGeneral;
@@ -27,8 +20,10 @@ type LoaderDataType = {
 function RecipeDetails() {
   const { recipe } = useLoaderData() as LoaderDataType;
   const { user } = useContext(AuthContext);
-  const [favs, setFavs] = useState<userFav[] | null>(null);
-  const [favID, setFavID] = useState<string | null>(null);
+  const [userFavs, setUserFavs] = useState<userFavsType[] | null>([]);
+  const isFav: userFavsType[] | undefined = userFavs?.filter((favItem) => {
+    return favItem.favData.recipeID === recipe.id;
+  });
 
   // Adding recipe to favourites
   const handleAddFavourite = async () => {
@@ -41,30 +36,24 @@ function RecipeDetails() {
       readyInMinutes: recipe.readyInMinutes,
     };
 
-    if (favID) {
-      await deleteDoc(doc(db, "favourites", favID));
-      setFavID(null);
+    if (isFav?.length !== 0) {
+      await deleteDoc(doc(db, "favourites", isFav ? isFav[0].favDocID : ""));
+      const favs = await getAllUserFavs(user);
+      setUserFavs(favs);
     } else {
       // Add a new document with a generated id.
       await addDoc(collection(db, "favourites"), fav);
+      const favs = await getAllUserFavs(user);
+      setUserFavs(favs);
     }
   };
 
   useEffect(() => {
-    const q = query(
-      collection(db, "favourites"),
-      where("userID", "==", user?.uid),
-      where("recipeID", "==", recipe.id)
-    );
-    onSnapshot(q, (querySnapshot) => {
-      const favs: userFav[] = [];
-      querySnapshot.forEach((doc) => {
-        favs.push(doc.data() as userFav);
-        setFavID(doc.id);
-      });
-      setFavs(favs);
-    });
-  }, [recipe.id, user?.uid]);
+    (async () => {
+      const favs = await getAllUserFavs(user);
+      setUserFavs(favs);
+    })();
+  }, [user, setUserFavs]);
 
   return (
     <>
@@ -73,7 +62,7 @@ function RecipeDetails() {
           <section className="recipe-details__header-section">
             <h3>{recipe.title}</h3>
             {/* FAVS BUTTON DEPENDING ON STATE */}
-            {favs?.length != 0 ? (
+            {isFav?.length !== 0 ? (
               <button onClick={handleAddFavourite}>
                 <img
                   src={fullStar}
