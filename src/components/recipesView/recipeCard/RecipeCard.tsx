@@ -4,9 +4,10 @@ import emptyHeart from "/heart_empty.svg";
 import fullHeart from "/heart_full.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import { getAllUserFavs, userFavsType } from "../../../utils/Utils";
+import { getAllUserFavs } from "../../../utils/Utils";
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../config/firebaseConfig";
+import { userFavsType } from "../../../types/types";
 
 type Props = {
   readyInMinutes: number;
@@ -31,7 +32,7 @@ function RecipeCard({
 }: Props) {
   const { user } = useContext(AuthContext);
   const isFav: userFavsType[] | undefined = userFavs?.filter((favItem) => {
-    return favItem.favRecipeID === recipeID;
+    return favItem.favData.recipeID === recipeID;
   });
 
   const handleAddFavourite = async () => {

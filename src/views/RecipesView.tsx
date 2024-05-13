@@ -2,8 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import SearchBar from "../components/recipesView/searchBar/SearchBar";
 import RecipesList from "../components/recipesView/recipesList/RecipesList";
 import Pagination from "../components/recipesView/recipePagination/Pagination";
-import { FetchErr, RecipeGeneral, searchObject } from "../types/types";
-import { generateFetchUrl, getAllUserFavs, userFavsType } from "../utils/Utils";
+import {
+  FetchErr,
+  RecipeGeneral,
+  searchObject,
+  userFavsType,
+} from "../types/types";
+import { generateFetchUrl, getAllUserFavs } from "../utils/Utils";
 import { ThreeCircles } from "react-loader-spinner";
 import { AuthContext } from "../context/AuthContext";
 

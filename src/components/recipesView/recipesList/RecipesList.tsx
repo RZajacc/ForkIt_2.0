@@ -1,8 +1,7 @@
 import RecipeCard from "../recipeCard/RecipeCard";
-import { FetchErr, RecipeGeneral } from "../../../types/types";
+import { FetchErr, RecipeGeneral, userFavsType } from "../../../types/types";
 
 import "./recipeslist.scss";
-import { userFavsType } from "../../../utils/Utils";
 
 interface Props {
   totalResults: number;

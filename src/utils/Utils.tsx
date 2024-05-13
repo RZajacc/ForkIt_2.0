@@ -7,7 +7,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { searchObject } from "../types/types";
+import { searchObject, userFav, userFavsType } from "../types/types";
 import { db } from "../config/firebaseConfig";
 import { User } from "firebase/auth";
 
@@ -118,10 +118,6 @@ export const updateCommentImg = (user: User, newImageURL: string) => {
   });
 };
 
-export type userFavsType = {
-  favDocID: string;
-  favRecipeID: number;
-};
 export const getAllUserFavs = async (user: User | null) => {
   if (user !== null) {
     const favs: userFavsType[] = [];
@@ -131,7 +127,10 @@ export const getAllUserFavs = async (user: User | null) => {
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      favs.push({ favDocID: doc.id, favRecipeID: doc.data().recipeID });
+      favs.push({
+        favDocID: doc.id,
+        favData: doc.data() as userFav,
+      });
     });
     return favs;
   } else {

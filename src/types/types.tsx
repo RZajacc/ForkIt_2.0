@@ -56,7 +56,7 @@ export interface commentsType {
   edited?: Timestamp | Date;
 }
 
-export interface userFavs {
+export interface userFav {
   ImageUrl: string;
   recipeID: number;
   recipeTitle: string;
@@ -64,6 +64,11 @@ export interface userFavs {
   healthScore: number;
   readyInMinutes: number;
 }
+
+export type userFavsType = {
+  favDocID: string;
+  favData: userFav;
+};
 
 export interface RouteErrorType {
   data: string;

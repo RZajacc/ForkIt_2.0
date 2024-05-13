@@ -13,7 +13,7 @@ import {
 import Comments from "../components/comments/Comments";
 import { AuthContext } from "../context/AuthContext";
 import parse from "html-react-parser";
-import { RecipeGeneral, userFavs } from "../types/types";
+import { RecipeGeneral, userFav } from "../types/types";
 
 import fullStar from "/Full_Star.png";
 import emptyStar from "/Empty_Star.png";
@@ -27,7 +27,7 @@ type LoaderDataType = {
 function RecipeDetails() {
   const { recipe } = useLoaderData() as LoaderDataType;
   const { user } = useContext(AuthContext);
-  const [favs, setFavs] = useState<userFavs[] | null>(null);
+  const [favs, setFavs] = useState<userFav[] | null>(null);
   const [favID, setFavID] = useState<string | null>(null);
 
   // Adding recipe to favourites
@@ -57,9 +57,9 @@ function RecipeDetails() {
       where("recipeID", "==", recipe.id)
     );
     onSnapshot(q, (querySnapshot) => {
-      const favs: userFavs[] = [];
+      const favs: userFav[] = [];
       querySnapshot.forEach((doc) => {
-        favs.push(doc.data() as userFavs);
+        favs.push(doc.data() as userFav);
         setFavID(doc.id);
       });
       setFavs(favs);

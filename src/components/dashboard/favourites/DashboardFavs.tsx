@@ -1,60 +1,44 @@
-import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { db } from "../../../config/firebaseConfig";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import { userFavs } from "../../../types/types";
 import RecipeCard from "../../recipesView/recipeCard/RecipeCard";
 
 import "./dashboard-favs.scss";
-import { getAllUserFavs, userFavsType } from "../../../utils/Utils";
+import { getAllUserFavs } from "../../../utils/Utils";
+import { userFavsType } from "../../../types/types";
 
 function DashboardFavs() {
   const { user } = useContext(AuthContext);
-  const [userFavRecipes, setUserFavRecipes] = useState<userFavs[] | null>(null);
   const [userFavs, setUserFavs] = useState<userFavsType[] | null>([]);
 
   useEffect(() => {
-    // * Get favourites with live update
-    const q = query(
-      collection(db, "favourites"),
-      where("userID", "==", user?.uid)
-    );
-    onSnapshot(q, (querySnapshot) => {
-      const userFavsTemp: userFavs[] = [];
-
-      querySnapshot.forEach((doc) => {
-        userFavsTemp.push(doc.data() as userFavs);
-      });
-      setUserFavRecipes(userFavsTemp);
-    });
     (async () => {
       const favs = await getAllUserFavs(user);
       setUserFavs(favs);
     })();
 
     // * Prepare link
-  }, [user, userFavRecipes]);
+  }, [user]);
 
   return (
     <>
       <div className="fav-recipes-grid">
-        {userFavRecipes?.length == 0 ? (
+        {userFavs?.length == 0 ? (
           <h4 className="noFavsText">...No favourites yet...</h4>
         ) : (
           ""
         )}
 
-        {userFavRecipes &&
-          userFavRecipes.map((recipe) => {
+        {userFavs &&
+          userFavs.map((fav) => {
             return (
               <RecipeCard
-                readyInMinutes={recipe.readyInMinutes}
-                healthScore={recipe.healthScore}
-                imageUrl={recipe.ImageUrl}
-                title={recipe.recipeTitle}
-                link={`../recipes/${recipe.recipeID}`}
-                key={recipe.recipeID}
-                recipeID={recipe.recipeID}
+                readyInMinutes={fav.favData.readyInMinutes}
+                healthScore={fav.favData.healthScore}
+                imageUrl={fav.favData.ImageUrl}
+                title={fav.favData.recipeTitle}
+                link={`../recipes/${fav.favData.recipeID}`}
+                key={fav.favData.recipeID}
+                recipeID={fav.favData.recipeID}
                 userFavs={userFavs}
                 setUserFavs={setUserFavs}
               />
