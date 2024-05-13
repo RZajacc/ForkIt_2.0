@@ -4,6 +4,9 @@ import emptyHeart from "/heart_empty.svg";
 import fullHeart from "/heart_full.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import { getAllUserFavs, userFavsType } from "../../../utils/Utils";
+import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../../config/firebaseConfig";
 
 type Props = {
   readyInMinutes: number;
@@ -11,7 +14,9 @@ type Props = {
   imageUrl: string;
   title: string;
   link: string;
-  isFav: boolean;
+  recipeID: number;
+  userFavs: userFavsType[] | null;
+  setUserFavs: (favs: userFavsType[] | null) => void;
 };
 
 function RecipeCard({
@@ -20,9 +25,37 @@ function RecipeCard({
   imageUrl,
   title,
   link,
-  isFav,
+  recipeID,
+  userFavs,
+  setUserFavs,
 }: Props) {
   const { user } = useContext(AuthContext);
+  const isFav: userFavsType[] | undefined = userFavs?.filter((favItem) => {
+    return favItem.favRecipeID === recipeID;
+  });
+
+  const handleAddFavourite = async () => {
+    const fav = {
+      userID: user?.uid,
+      recipeID: recipeID,
+      recipeTitle: title,
+      ImageUrl: imageUrl,
+      healthScore: healthScore,
+      readyInMinutes: readyInMinutes,
+    };
+
+    if (isFav?.length !== 0) {
+      await deleteDoc(doc(db, "favourites", isFav ? isFav[0].favDocID : ""));
+      const favs = await getAllUserFavs(user);
+      setUserFavs(favs);
+    } else {
+      // Add a new document with a generated id.
+      await addDoc(collection(db, "favourites"), fav);
+      const favs = await getAllUserFavs(user);
+      setUserFavs(favs);
+    }
+  };
+
   return (
     <div className="recipe-card">
       <section className="recipe-card__header-section">
@@ -37,10 +70,20 @@ function RecipeCard({
       <section className="recipe-card__image-section">
         <img src={imageUrl} alt="recipe-image" />
         {user ? (
-          isFav ? (
-            <img src={fullHeart} alt="" className="heart" />
+          isFav?.length !== 0 ? (
+            <img
+              src={fullHeart}
+              alt=""
+              className="heart"
+              onClick={handleAddFavourite}
+            />
           ) : (
-            <img src={emptyHeart} alt="" className="heart" />
+            <img
+              src={emptyHeart}
+              alt=""
+              className="heart"
+              onClick={handleAddFavourite}
+            />
           )
         ) : (
           ""

@@ -2,13 +2,15 @@ import RecipeCard from "../recipeCard/RecipeCard";
 import { FetchErr, RecipeGeneral } from "../../../types/types";
 
 import "./recipeslist.scss";
+import { userFavsType } from "../../../utils/Utils";
 
 interface Props {
   totalResults: number;
   fetchErrClass: string;
   fetchErr: FetchErr;
   recipesData: RecipeGeneral[];
-  userFavs: number[] | null;
+  userFavs: userFavsType[] | null;
+  setUserFavs: (favs: userFavsType[] | null) => void;
 }
 
 function RecipesList({
@@ -17,6 +19,7 @@ function RecipesList({
   fetchErr,
   recipesData,
   userFavs,
+  setUserFavs,
 }: Props) {
   return (
     <>
@@ -39,7 +42,9 @@ function RecipesList({
                 title={recipe.title}
                 link={`${recipe.id}`}
                 key={recipe.id}
-                isFav={userFavs!.includes(recipe.id) ? true : false}
+                recipeID={recipe.id}
+                userFavs={userFavs}
+                setUserFavs={setUserFavs}
               />
             );
           })}

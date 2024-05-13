@@ -118,24 +118,21 @@ export const updateCommentImg = (user: User, newImageURL: string) => {
   });
 };
 
+export type userFavsType = {
+  favDocID: string;
+  favRecipeID: number;
+};
 export const getAllUserFavs = async (user: User | null) => {
   if (user !== null) {
-    const favs: number[] = [];
+    const favs: userFavsType[] = [];
     const q = query(
       collection(db, "favourites"),
       where("userID", "==", user?.uid)
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      console.log("TEST");
-      favs.push(doc.data().recipeID);
+      favs.push({ favDocID: doc.id, favRecipeID: doc.data().recipeID });
     });
-    // onSnapshot(q, (querySnapshot) => {
-    //   querySnapshot.forEach((doc) => {
-    //     console.log("TEST");
-    //     favs.push(doc.data().recipeID);
-    //   });
-    // });
     return favs;
   } else {
     return null;

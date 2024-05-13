@@ -3,7 +3,7 @@ import SearchBar from "../components/recipesView/searchBar/SearchBar";
 import RecipesList from "../components/recipesView/recipesList/RecipesList";
 import Pagination from "../components/recipesView/recipePagination/Pagination";
 import { FetchErr, RecipeGeneral, searchObject } from "../types/types";
-import { generateFetchUrl, getAllUserFavs } from "../utils/Utils";
+import { generateFetchUrl, getAllUserFavs, userFavsType } from "../utils/Utils";
 import { ThreeCircles } from "react-loader-spinner";
 import { AuthContext } from "../context/AuthContext";
 
@@ -16,7 +16,7 @@ function RecipesView() {
     cuisine: "",
     dietType: "",
   });
-  const [userFavs, setUserFavs] = useState<number[] | null>([]);
+  const [userFavs, setUserFavs] = useState<userFavsType[] | null>([]);
   const { user } = useContext(AuthContext);
 
   // Prepare data in states
@@ -74,7 +74,7 @@ function RecipesView() {
           ignore = true;
         };
       });
-  }, [searchObj, offset, setOffset, setTotalResults, user]);
+  }, [searchObj, offset, setOffset, setTotalResults, user, setUserFavs]);
 
   return (
     <>
@@ -89,6 +89,7 @@ function RecipesView() {
             fetchErr={fetchErr}
             recipesData={recipesData}
             userFavs={userFavs}
+            setUserFavs={setUserFavs}
           />
         )}
         {fetchErr.status === 200 ? (
