@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from "react";
+import { useState } from "react";
 import "./pagination.scss";
 
 type Props = {
@@ -11,9 +11,7 @@ function Pagination({ setOffset, offset, totalResults }: Props) {
   const [counter, setCounter] = useState<number>(1);
   const pagesAmount = Math.ceil(totalResults / 6);
 
-  const moveToPage = (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
+  const moveToPage = (e: React.MouseEvent<HTMLButtonElement>) => {
     const buttonElement = e.target as HTMLButtonElement;
     const buttonValue = buttonElement.innerHTML;
 
