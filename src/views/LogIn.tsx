@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -16,7 +16,7 @@ function LogIn() {
   );
   const [emailVer, setEmailVer] = useState(true);
 
-  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Create form data and collect its inputs
     const formData = new FormData(e.currentTarget);
