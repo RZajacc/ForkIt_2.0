@@ -1,7 +1,7 @@
 import { db } from "../../../config/firebaseConfig";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { AuthContext } from "../../../context/AuthContext";
-import { MouseEvent, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { commentsType, modalContent } from "../../../types/types";
 import { formatDate } from "../../../utils/Utils";
 import "./comment.scss";
@@ -25,9 +25,7 @@ function Comment({ comment }: Props) {
   const [editedComment, setEditedComment] = useState(comment.message);
 
   // Find if comment belongs to logged in user and if yes delete on click
-  const handleModal = async (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
+  const handleModal = async (e: React.MouseEvent<HTMLButtonElement>) => {
     // Define what action is requested - edit or delete
     const eventTarget = e.target as HTMLButtonElement;
     const requestedAction = eventTarget.innerText;
@@ -60,7 +58,7 @@ function Comment({ comment }: Props) {
   };
 
   const handleConfirmButton = async (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement>
   ) => {
     // Define what action is requested - edit or delete
     const eventTarget = e.target as HTMLButtonElement;
