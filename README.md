@@ -1,8 +1,8 @@
 # Fork It_2.0
 
 ### Version information:
-Previous version of the project that you might find in my repository differs significantly from this one. Starting with styling being made with Bootstrap, and several functionailities (where some of them were not fully implemented). 
-I kept it just as reminder of the work I did before, to appreciate the the progress, but nevertheles this version of is considered as only fully funtional one
+*Previous version of the project that you might find in my repository differs significantly from this one. Starting with styling being made with Bootstrap, and several functionailities (where some of them were not fully implemented). 
+I kept it just as reminder of the work I did before, to appreciate the the progress, but nevertheles this version of is considered as only fully funtional one. If you would still like to take a look at previous version you'll find it [here](https://github.com/RZajacc/Forkit)*
 
 ### Description
 
