@@ -1,4 +1,3 @@
-import { MouseEvent } from "react";
 import "./commentModal.scss";
 import { modalContent } from "../../../types/types";
 
@@ -8,9 +7,7 @@ type Props = {
   editTextClass: string;
   editedComment: string;
   setEditedComment: (comment: string) => void;
-  handleConfirmButton: (
-    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => void;
+  handleConfirmButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
   handleCancelButton: () => void;
 };
 
