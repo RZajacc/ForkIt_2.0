@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 import {
@@ -31,11 +31,11 @@ function Register() {
   const [regErrClass, setRegErrClass] = useState("reg-err-msg");
 
   // PASSWORD CHANGE FOR FEEDBACK ABOUT REQUIREMENTS
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const handleRegister = (e: FormEvent<HTMLFormElement>) => {
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const actionCodeSettings = {
