@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import "../style/resetPassword.scss";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
@@ -9,7 +9,7 @@ function ResetPassword() {
     url: "https://forkitorleaveit.netlify.app/login",
   };
 
-  const handleReset = (e: FormEvent<HTMLFormElement>) => {
+  const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Create form data and collect its inputs
     const formData = new FormData(e.currentTarget);
